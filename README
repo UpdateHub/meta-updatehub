@@ -1,0 +1,28 @@
+OpenEmbedded/Yocto Project support layer for UpdateHub
+=======================================================
+
+UpdateHub provides a generic and safe Firmware Over-The-Air agent for
+Embedded and Industrial Linux-based devices.
+
+Dependencies
+------------
+
+This layer depends on:
+
+  URI: git://git.openembedded.org/bitbake
+  branch: 1.30
+
+  URI: git://git.openembedded.org/openembedded-core
+  layers: meta
+  branch: krogoth
+
+  URI: git://github.com/madisongh/meta-golang
+  branch: krogoth
+
+  URI: git://github.com/openembedded/meta-openembedded.git
+  subdirectory: meta-oe
+  branch: krogoth
+
+  URI: git://github.com/openembedded/meta-openembedded.git
+  subdirectory: meta-python
+  branch: krogoth
