@@ -1,0 +1,2 @@
+mount_path="/boot"
+grubenv="${mount_path}/grub/grubenv"
