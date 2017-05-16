@@ -12,7 +12,7 @@ SRC_URI = " \
     file://updatehub.service \
 "
 
-SRCREV = "d017bd0d140e6752c7228c3b0e6ecaa654b16dff"
+SRCREV = "ba71f676d3c2979aebe9d8f679eefd3559346aa2"
 
 PV = "0.0+${SRCPV}"
 
@@ -32,7 +32,8 @@ do_configure_prepend() {
 }
 
 do_compile() {
-    (cd ${B}/src/${GO_SRCROOT}; ${GO} install ${GO_LINKSHARED} ${GOBUILDFLAGS} ./)
+    (cd ${B}/src/${GO_SRCROOT}/cmd/updatehub; ${GO} install ${GO_LINKSHARED} ${GOBUILDFLAGS} ./)
+    (cd ${B}/src/${GO_SRCROOT}/cmd/updatehub-server; ${GO} install ${GO_LINKSHARED} ${GOBUILDFLAGS} ./)
 }
 
 do_install_append() {
@@ -42,6 +43,9 @@ do_install_append() {
         install -Dm 0755 ${S}/updatehub.initd ${D}/${sysconfdir}/init.d/updatehub
     fi
 }
+
+PACKAGES =+ "${PN}-server"
+FILES_${PN}-server += "${bindir}/${PN}-server"
 
 RDEPENDS_${PN} += "updatehub-system-inquiry"
 
