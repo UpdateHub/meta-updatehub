@@ -19,3 +19,8 @@ do_install() {
 }
 
 FILES_${PN} += "${datadir}/updatehub"
+
+RDEPENDS_${PN} += " \
+    os-release \
+    updatehub-machine-info \
+"
