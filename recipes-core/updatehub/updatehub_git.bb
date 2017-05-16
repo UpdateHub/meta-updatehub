@@ -43,6 +43,8 @@ do_install_append() {
     fi
 }
 
+RDEPENDS_${PN} += "updatehub-system-inquiry"
+
 RDEPENDS_${PN}-dev += "bash"
 
 BBCLASSEXTEND = "native nativesdk"
