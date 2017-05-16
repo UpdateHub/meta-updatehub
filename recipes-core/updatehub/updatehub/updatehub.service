@@ -1,0 +1,9 @@
+[Unit]
+Description=UpdateHub
+After=network.target time-sync.target
+
+[Service]
+ExecStart=/usr/bin/updatehub
+
+[Install]
+WantedBy=multi-user.target
