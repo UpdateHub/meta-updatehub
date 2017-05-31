@@ -18,7 +18,8 @@ do_install() {
 
 python split_plugins_packages () {
     device_identity_dir = d.expand('${datadir}/updatehub/device-identity.d/')
-    do_split_packages(d, device_identity_dir, '^(.*)', 'updatehub-device-identity-%s', 'UpdateHub %s device identity script')
+    do_split_packages(d, device_identity_dir, '^(.*)', 'updatehub-device-identity-%s',
+                      'UpdateHub %s device identity script', extra_depends='')
 }
 
 PACKAGES_DYNAMIC = "updatehub-device-identity-*"
