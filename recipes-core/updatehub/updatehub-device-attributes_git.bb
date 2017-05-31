@@ -20,7 +20,8 @@ do_install() {
 
 python split_plugins_packages () {
     device_attribute_dir = d.expand('${datadir}/updatehub/device-attributes.d/')
-    do_split_packages(d, device_attribute_dir, '^(.*)', 'updatehub-device-attribute-%s', 'UpdateHub %s device attribute script')
+    do_split_packages(d, device_attribute_dir, '^(.*)', 'updatehub-device-attribute-%s',
+                      'UpdateHub %s device attribute script', extra_depends='')
 }
 
 PACKAGES_DYNAMIC = "updatehub-device-attribute-*"
