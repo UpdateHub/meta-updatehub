@@ -12,7 +12,7 @@ SRC_URI = " \
     file://updatehub.service \
 "
 
-SRCREV = "ba71f676d3c2979aebe9d8f679eefd3559346aa2"
+SRCREV = "f40dc9d9053bf9e42d21aff34ee082afd97aaf41"
 
 PV = "0.0+${SRCPV}"
 
@@ -32,11 +32,15 @@ do_configure_prepend() {
 }
 
 do_compile() {
-    (cd ${B}/src/${GO_SRCROOT}/cmd/updatehub; ${GO} install ${GO_LINKSHARED} ${GOBUILDFLAGS} ./)
-    (cd ${B}/src/${GO_SRCROOT}/cmd/updatehub-server; ${GO} install ${GO_LINKSHARED} ${GOBUILDFLAGS} ./)
+    (cd ${B}/src/${GO_SRCROOT}; oe_runmake build)
 }
 
-do_install_append() {
+do_install() {
+    # Copies the binaries to the target directory
+    install -d ${D}${bindir}
+    install -m 755 ${B}/src/${GO_SRCROOT}/bin/* ${D}${bindir}/
+
+    # Handle init system integration
     if ${@bb.utils.contains('DISTRO_FEATURES','systemd','true','false',d)}; then
         install -Dm 0644 ${S}/updatehub.service ${D}${systemd_unitdir}/system/updatehub.service
     else
