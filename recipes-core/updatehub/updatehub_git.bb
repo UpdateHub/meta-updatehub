@@ -47,8 +47,6 @@ do_install_append() {
 PACKAGES =+ "${PN}-server"
 FILES_${PN}-server += "${bindir}/${PN}-server"
 
-RDEPENDS_${PN} += "updatehub-system-inquiry"
-
 RDEPENDS_${PN}-dev += "bash"
 
 BBCLASSEXTEND = "native nativesdk"
