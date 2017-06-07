@@ -3,7 +3,7 @@ LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://COPYING;md5=3da9cfbcb788c80a0384361b4de20420"
 
 SRC_URI = "git://github.com/UpdateHub/active-inactive-backend-grub.git;protocol=https"
-SRCREV = "6bf20937d1a5d96176addaf11a64aefc37ebc392"
+SRCREV = "3c8ac39dcb5db02500db1eccf64c99745df5df6e"
 
 S = "${WORKDIR}/git"
 
