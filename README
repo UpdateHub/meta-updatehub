@@ -16,8 +16,8 @@ This layer depends on:
   layers: meta
   branch: krogoth
 
-  URI: git://github.com/madisongh/meta-golang
-  branch: krogoth
+  URI: git://github.com/mem/oe-meta-go
+  branch: master
 
   URI: git://github.com/openembedded/meta-openembedded.git
   subdirectory: meta-oe
