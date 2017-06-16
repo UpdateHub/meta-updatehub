@@ -19,3 +19,4 @@ do_install () {
 }
 
 RDEPENDS_${PN} += "u-boot-fw-utils"
+INSANE_SKIP_${PN} += "build-deps"
