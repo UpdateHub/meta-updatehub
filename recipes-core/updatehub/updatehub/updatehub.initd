@@ -6,7 +6,7 @@ NAME=updatehub
 DAEMON=/usr/bin/$NAME
 DAEMON_ARGS=""
 PIDFILE=/var/run/$NAME.pid
-LOGFILE=/var/log/$NAME
+LOGFILE=/var/log/$NAME.log
 SCRIPTNAME=/etc/init.d/$NAME
 
 # Exit if the package is not installed
@@ -27,56 +27,21 @@ log_end_msg() {
     echo
 }
 
-#
-# Function that starts the daemon/service
-#
 do_start()
 {
-        # Return
-        #   0 if daemon has been started
-        #   1 if daemon was already running
-        #   2 if daemon could not be started
         start-stop-daemon --start --background --quiet --pidfile $PIDFILE --make-pidfile \
         --startas /bin/sh -- -c "$DAEMON $DAEMON_ARGS >> $LOGFILE 2>&1" || return 2
 }
 
-#
-# Function that stops the daemon/service
-#
 do_stop()
 {
-        # Return
-        #   0 if daemon has been stopped
-        #   1 if daemon was already stopped
-        #   2 if daemon could not be stopped
-        #   other if a failure occurred
         start-stop-daemon --stop --quiet --retry=TERM/30/KILL/5 --pidfile $PIDFILE --name $NAME
         RETVAL="$?"
         [ "$RETVAL" = 2 ] && return 2
-        # Wait for children to finish too if this is a daemon that forks
-        # and if the daemon is only ever run from this initscript.
-        # If the above conditions are not satisfied then add some other code
-        # that waits for the process to drop all resources that could be
-        # needed by services started subsequently.  A last resort is to
-        # sleep for some time.
         start-stop-daemon --stop --quiet --oknodo --retry=0/30/KILL/5 --exec $DAEMON
         [ "$?" = 2 ] && return 2
-        # Many daemons don't delete their pidfiles when they exit.
         rm -f $PIDFILE
         return "$RETVAL"
-}
-
-#
-# Function that sends a SIGHUP to the daemon/service
-#
-do_reload() {
-        #
-        # If the daemon can reload its configuration without
-        # restarting (for example, when it is sent a SIGHUP),
-        # then implement that here.
-        #
-        start-stop-daemon --stop --signal 1 --quiet --pidfile $PIDFILE --name $NAME
-        return 0
 }
 
 case "$1" in
@@ -99,20 +64,7 @@ case "$1" in
   status)
         status "$DAEMON" "$NAME" && exit 0 || exit $?
         ;;
-  #reload|force-reload)
-        #
-        # If do_reload() is not implemented then leave this commented out
-        # and leave 'force-reload' as an alias for 'restart'.
-        #
-        #log_daemon_msg "Reloading $DESC" "$NAME"
-        #do_reload
-        #log_end_msg $?
-        #;;
   restart|force-reload)
-        #
-        # If the "reload" option is implemented then remove the
-        # 'force-reload' alias
-        #
         log_daemon_msg "Restarting $DESC" "$NAME"
         do_stop
         case "$?" in
@@ -137,4 +89,3 @@ case "$1" in
 esac
 
 :
-

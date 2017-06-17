@@ -1,5 +1,5 @@
 [Unit]
-Description=UpdateHub
+Description=UpdateHub agent
 After=network.target time-sync.target
 
 [Service]
