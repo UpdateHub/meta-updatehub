@@ -3,7 +3,7 @@ HOMEPAGE = "https://updatehub.io"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://COPYING;md5=ba69bae29a956ebfb5d983fef66a2ea9"
 
-DEPENDS_append = " glide-native libarchive"
+DEPENDS_append = " glide-native libarchive upx-native"
 
 GO_IMPORT = "github.com/UpdateHub/updatehub"
 SRC_URI = " \
@@ -25,6 +25,9 @@ SYSTEMD_SERVICE_${PN} = "${PN}.service"
 
 INITSCRIPT_NAME = "${PN}"
 INITSCRIPT_PARAMS = "defaults 99"
+
+UPX ?= "${STAGING_BINDIR_NATIVE}/upx"
+UPX_ARGS ?= "--best -q"
 
 do_configure() {
     mkdir -p ${S}/src
@@ -52,7 +55,15 @@ do_install() {
     fi
 }
 
+apply_upx() {
+    ${UPX} ${UPX_ARGS} ${PKGDEST}/${PN}/${bindir}/updatehub
+    ${UPX} ${UPX_ARGS} ${PKGDEST}/${PN}-server/${bindir}/updatehub-server
+}
+
+PACKAGEFUNCS += "apply_upx"
+
 PACKAGES =+ "${PN}-server"
+
 FILES_${PN}-server += "${bindir}/${PN}-server"
 
 RDEPENDS_${PN}-dev += "bash"
