@@ -4,7 +4,7 @@ LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://COPYING;md5=838c366f69b72c5df05c96dff79b35f2"
 
 SRC_URI = "git://github.com/UpdateHub/package-schema.git;protocol=https"
-SRCREV = "11a93613878d08ac6ec82ec9c35d80cad0633084"
+SRCREV = "3d3c1dbc6336124f971d02c79b0636fdf127df64"
 
 PV = "1.0.0+${SRCPV}"
 
