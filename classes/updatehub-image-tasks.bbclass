@@ -107,6 +107,28 @@ addtask uhushell after do_image_complete do_unpack
 do_uhushell[dirs] ?= "${DEPLOY_DIR_IMAGE}"
 do_uhushell[nostamp] = "1"
 
+uhuarchive_run() {
+    if [ -e ${UHUPKG} ]; then
+        mv ${UHUPKG} .uhu
+    else
+        uhu product use ${UPDATEHUB_PRODUCT_UID}
+    fi
+    uhu package version "${UPDATEHUB_PACKAGE_VERSION}"
+    uhu package archive --output ${IMAGE_NAME}.uhupkg
+    uhu cleanup
+    ln -sf ${IMAGE_NAME}.uhupkg ${IMAGE_LINK_NAME}.uhupkg
+}
+uhuarchive_run[dirs] ?= "${DEPLOY_DIR_IMAGE}"
+uhuarchive_run[nostamp] = "1"
+
+python do_uhuarchive () {
+    uhupkg_unpack(True, d)
+    bb.build.exec_func('uhuarchive_run', d)
+}
+
+addtask uhuarchive after do_image_complete do_unpack
+do_uhuarchive[nostamp] = "1"
+
 uhupush_run() {
     if [ -n "${UPDATEHUB_SERVER_URL}" ]; then
         export UHU_SERVER_URL=${UPDATEHUB_SERVER_URL}
