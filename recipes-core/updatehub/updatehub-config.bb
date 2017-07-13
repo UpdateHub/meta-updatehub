@@ -13,7 +13,6 @@ do_configure[noexec] = "1"
 do_compile () {
     cat > updatehub.conf <<EOF
 [Network]
-DisableHttps=true
 ServerAddress=${UPDATEHUB_SERVER_URL}
 
 [Update]
