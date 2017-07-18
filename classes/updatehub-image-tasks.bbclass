@@ -67,7 +67,7 @@ do_generate_updatehub_dependencies() {
 UHUPKG = "${DEPLOY_DIR_IMAGE}/uhupkg.config"
 UPDATEHUB_SERVER_URL ?= "api.updatehub.io"
 
-uhushell_prepare() {
+uhu_setup() {
     # Remove any leftover from previous run
     if [ -e .uhu ]; then
         rm -v .uhu
@@ -83,7 +83,7 @@ uhushell_prepare() {
     uhu product use "${UPDATEHUB_PRODUCT_UID}"
     uhu package version "${UPDATEHUB_PACKAGE_VERSION}"
 }
-uhushell_prepare[dirs] ?= "${DEPLOY_DIR_IMAGE}"
+uhu_setup[dirs] ?= "${DEPLOY_DIR_IMAGE}"
 
 uhushell_finish() {
     uhu package export ${UHUPKG}
@@ -95,7 +95,7 @@ python do_uhushell () {
     if not uhupkg_unpack(False, d):
         bb.warn("No existing uhupkg.config file has been found. A new one will be created for you.")
 
-    bb.build.exec_func('uhushell_prepare', d)
+    bb.build.exec_func('uhu_setup', d)
     oe_terminal("${SHELL} -c 'uhu'", "UpdateHub Shell", d)
     bb.build.exec_func('uhushell_finish', d)
 
@@ -108,12 +108,8 @@ do_uhushell[dirs] ?= "${DEPLOY_DIR_IMAGE}"
 do_uhushell[nostamp] = "1"
 
 uhuarchive_run() {
-    if [ -e ${UHUPKG} ]; then
-        mv ${UHUPKG} .uhu
-    else
-        uhu product use ${UPDATEHUB_PRODUCT_UID}
-    fi
-    uhu package version "${UPDATEHUB_PACKAGE_VERSION}"
+    uhu_setup
+
     uhu package archive --output ${IMAGE_NAME}.uhupkg
     uhu cleanup
     ln -sf ${IMAGE_NAME}.uhupkg ${IMAGE_LINK_NAME}.uhupkg
@@ -130,15 +126,8 @@ addtask uhuarchive after do_image_complete do_unpack
 do_uhuarchive[nostamp] = "1"
 
 uhupush_run() {
-    if [ -n "${UPDATEHUB_SERVER_URL}" ]; then
-        export UHU_SERVER_URL=${UPDATEHUB_SERVER_URL}
-    fi
-    if [ -e ${UHUPKG} ]; then
-        mv ${UHUPKG} .uhu
-    else
-        uhu product use ${UPDATEHUB_PRODUCT_UID}
-    fi
-    uhu package version "${UPDATEHUB_PACKAGE_VERSION}"
+    uhu_setup
+
     uhu package push
     uhu cleanup
 }
