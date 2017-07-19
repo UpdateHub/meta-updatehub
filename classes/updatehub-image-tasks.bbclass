@@ -10,43 +10,19 @@
 
 inherit terminal python3native
 
-def uhupkg_unpack(required, d):
-    def uhupkg_exists():
-        for u in fetcher.urls:
-            ud = fetcher.ud[u]
+UHUPKG_FILES ?= "${IMAGE_BASENAME}.${MACHINE}.uhupkg.config ${IMAGE_BASENAME}.uhupkg.config ${MACHINE}.uhupkg.config"
+UHUPKG_SEARCH_PATH ?= "${THISDIR}:${@':'.join('%s/uhu' % p for p in '${BBPATH}'.split(':'))}"
+UHUPKG_FULL_PATH = "${@uhupkg_search(d.getVar('UHUPKG_FILES', True).split(), d.getVar('UHUPKG_SEARCH_PATH', True)) or ''}"
 
-            if ud and isinstance(ud.method, bb.fetch2.local.Local):
-                paths = ud.method.localpaths(ud, d)
-                for f in paths:
-                    pth = ud.decodedurl
-                    if '*' in pth:
-                        f = os.path.join(os.path.abspath(f), pth)
-                    if os.path.exists(f):
-                        return True
-        return False
-
-    # Remove any leftover from previous run
-    uhupkg = d.getVar('UHUPKG', True)
-    if os.path.exists(uhupkg):
-        os.unlink(uhupkg)
-        bb.debug(1, "Removed a leftover uhupkg.config from previous run")
-
-    uhupkg_uri = [ "file://uhupkg.config" ]
-
-    fetcher = bb.fetch2.Fetch(uhupkg_uri, d, cache = False, localonly = True)
-
-    # Make existing uhupkg.config available for use
-    if uhupkg_exists() or required:
-        try:
-            fetcher = bb.fetch2.Fetch(uhupkg_uri, d)
-            fetcher.unpack(d.getVar('DEPLOY_DIR_IMAGE', True))
-        except bb.fetch2.BBFetchException as e:
-            bb.fatal(str(e))
-    else:
-        return False
-
-    return True
-
+def uhupkg_search(files, search_path):
+    for f in files:
+        if os.path.isabs(f):
+            if os.path.exists(f):
+                return f
+        else:
+            searched = bb.utils.which(search_path, f)
+            if searched:
+                return searched
 
 DEPENDS += "uhu-native"
 
@@ -64,43 +40,57 @@ do_generate_updatehub_dependencies() {
     :
 }
 
-UHUPKG = "${DEPLOY_DIR_IMAGE}/uhupkg.config"
+UHUPKG = "${DEPLOY_DIR_IMAGE}/${IMAGE_BASENAME}.${MACHINE}.uhupkg.config"
 UPDATEHUB_SERVER_URL ?= "api.updatehub.io"
 
 uhu_setup() {
     # Remove any leftover from previous run
-    if [ -e .uhu ]; then
-        rm -v .uhu
+    if [ -e "${UHUPKG}" ]; then
+        rm "${UHUPKG}"
+        bbdebug 1 "Removed a leftover uhupkg.config from previous run"
+    fi
+
+    if [ -z "${UHUPKG_FULL_PATH}" ]; then
+        bbfatal "No uhupkg.config files from UHUPKG_FILES were found: ${UHUPKG_FILES}. Please set UHUPKG_FILE or UHUPKG_FILES appropriately."
     fi
 
     if [ -n "${UPDATEHUB_SERVER_URL}" ]; then
         export UHU_SERVER_URL=${UPDATEHUB_SERVER_URL}
     fi
-    if [ -e ${UHUPKG} ]; then
-        mv ${UHUPKG} .uhu
-    fi
+
+    cp ${UHUPKG_FULL_PATH} .uhu
+    bbdebug 1 "Copied ${UHUPKG_FULL_PATH} as .uhu"
+
+    uhu hardware reset
     uhu hardware add "${MACHINE}"
     uhu product use "${UPDATEHUB_PRODUCT_UID}"
     uhu package version "${UPDATEHUB_PACKAGE_VERSION}"
+
+    # Replace few commonly used variables
+    sed -e "s,\$IMAGE_BASENAME,${IMAGE_BASENAME},g" \
+        -e "s,\$MACHINE,${MACHINE},g" \
+        -i .uhu
 }
 uhu_setup[dirs] ?= "${DEPLOY_DIR_IMAGE}"
 
 uhushell_finish() {
     uhu package export ${UHUPKG}
     uhu cleanup
+
+    # Replace few commonly used variables
+    sed -e "s,${IMAGE_BASENAME},\$IMAGE_BASENAME,g" \
+        -e "s,${MACHINE},\$MACHINE,g" \
+        -i ${UHUPKG}
 }
 uhushell_finish[dirs] ?= "${DEPLOY_DIR_IMAGE}"
 
 python do_uhushell () {
-    if not uhupkg_unpack(False, d):
-        bb.warn("No existing uhupkg.config file has been found. A new one will be created for you.")
-
     bb.build.exec_func('uhu_setup', d)
     oe_terminal("${SHELL} -c 'uhu'", "UpdateHub Shell", d)
     bb.build.exec_func('uhushell_finish', d)
 
     uhupkg = d.getVar('UHUPKG', True)
-    bb.plain("UpdateHub package exported in '%s'. Please add it to your image directory in 'files/uhupkg.config'." % uhupkg)
+    bb.plain("UpdateHub package exported in '%s'. Please add it to your image directory." % uhupkg)
 }
 
 addtask uhushell after do_image_complete do_unpack
@@ -118,7 +108,6 @@ uhuarchive_run[dirs] ?= "${DEPLOY_DIR_IMAGE}"
 uhuarchive_run[nostamp] = "1"
 
 python do_uhuarchive () {
-    uhupkg_unpack(True, d)
     bb.build.exec_func('uhuarchive_run', d)
 }
 
@@ -135,7 +124,6 @@ uhupush_run[dirs] ?= "${DEPLOY_DIR_IMAGE}"
 uhupush_run[nostamp] = "1"
 
 python do_uhupush () {
-    uhupkg_unpack(True, d)
     bb.build.exec_func('uhupush_run', d)
 }
 
