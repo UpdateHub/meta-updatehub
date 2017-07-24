@@ -86,7 +86,29 @@ uhushell_finish[dirs] ?= "${DEPLOY_DIR_IMAGE}"
 
 python do_uhushell () {
     bb.build.exec_func('uhu_setup', d)
-    oe_terminal("${SHELL} -c 'uhu'", "UpdateHub Shell", d)
+
+    # We need to know when the command completes we therefore write
+    # the pid to a file using a wrapper script, then monitor the pid
+    # until it exits.
+    import tempfile
+    pidfile = tempfile.NamedTemporaryFile(delete = False).name
+    try:
+        oe_terminal("${SHELL} -c 'echo $$ > %s ; uhu'" % pidfile, "UpdateHub Shell", d)
+        while os.stat(pidfile).st_size <= 0:
+            continue
+        with open(pidfile, "r") as f:
+            pid = int(f.readline())
+    finally:
+        os.unlink(pidfile)
+
+    import time
+    while True:
+        try:
+            os.kill(pid, 0)
+        except OSError:
+            break
+        time.sleep(0.1)
+
     bb.build.exec_func('uhushell_finish', d)
 
     uhupkg = d.getVar('UHUPKG', True)
