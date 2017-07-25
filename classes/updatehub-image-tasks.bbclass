@@ -45,21 +45,21 @@ UPDATEHUB_SERVER_URL ?= "api.updatehub.io"
 
 uhu_setup() {
     # Remove any leftover from previous run
-    if [ -e "${UHUPKG}" ]; then
-        rm "${UHUPKG}"
-        bbdebug 1 "Removed a leftover uhupkg.config from previous run"
+    if [ -e ".uhu" ] || [ -e "${UHUPKG}" ]; then
+        rm -f ".uhu" "${UHUPKG}"
+        bbdebug 1 "Removed a leftover uhu configuration files from previous run"
     fi
 
-    if [ -z "${UHUPKG_FULL_PATH}" ]; then
-        bbfatal "No uhupkg.config files from UHUPKG_FILES were found: ${UHUPKG_FILES}. Please set UHUPKG_FILE or UHUPKG_FILES appropriately."
+    if [ -n "${UHUPKG_FULL_PATH}" ]; then
+        cp ${UHUPKG_FULL_PATH} .uhu
+        bbdebug 1 "Copied ${UHUPKG_FULL_PATH} as .uhu"
+    else
+        bbwarn "No uhupkg.config files from UHUPKG_FILES were found: ${UHUPKG_FILES}. Please set UHUPKG_FILE or UHUPKG_FILES appropriately."
     fi
 
     if [ -n "${UPDATEHUB_SERVER_URL}" ]; then
         export UHU_SERVER_URL=${UPDATEHUB_SERVER_URL}
     fi
-
-    cp ${UHUPKG_FULL_PATH} .uhu
-    bbdebug 1 "Copied ${UHUPKG_FULL_PATH} as .uhu"
 
     uhu hardware reset
     uhu hardware add "${MACHINE}"
