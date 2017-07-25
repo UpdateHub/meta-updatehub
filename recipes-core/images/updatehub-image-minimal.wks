@@ -2,4 +2,6 @@ part /boot --source bootimg-partition --ondisk mmcblk --fstype=vfat --label boot
 part / --source rootfs --ondisk mmcblk --fstype=ext4 --label system --size 40M --align 8192 --extra-space 0
 part / --source rootfs --ondisk mmcblk --fstype=ext4 --label system --size 40M --align 8192 --extra-space 0
 
+part /data --source rootfs --ondisk mmcblk --fstype=ext4 --label system --size 16M --align 8192 --extra-space 0
+
 bootloader --ptable gpt
