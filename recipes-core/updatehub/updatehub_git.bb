@@ -12,7 +12,7 @@ SRC_URI = " \
     file://updatehub.service \
 "
 
-SRCREV = "7a170c86315cde933a1aa5991f4a0b20b6fab5e1"
+SRCREV = "c2a92088dfe1344e7449c7950a02bef3d0c67dfb"
 
 PV = "0.0+${SRCPV}"
 
