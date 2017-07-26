@@ -35,7 +35,8 @@ do_configure() {
 }
 
 do_compile() {
-    GOPATH=${S}:${STAGING_LIBDIR}/${TARGET_SYS}/go CGO_ENABLED=1 oe_runmake build V=1
+    export CGO_ENABLED=1
+    GOPATH=${S}:${STAGING_LIBDIR}/${TARGET_SYS}/go oe_runmake build V=1
 }
 
 do_install() {
