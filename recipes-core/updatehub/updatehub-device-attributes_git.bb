@@ -3,7 +3,7 @@ LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://COPYING;md5=838c366f69b72c5df05c96dff79b35f2"
 
 SRC_URI = "git://github.com/UpdateHub/device-attributes;protocol=https"
-SRCREV = "0421800aa4975a6160297b3dac77698730a663f1"
+SRCREV = "b9fd983a9445f285355c82988835d2327887fbae"
 
 S = "${WORKDIR}/git"
 
