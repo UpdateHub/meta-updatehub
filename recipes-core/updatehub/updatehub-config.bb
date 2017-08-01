@@ -10,6 +10,8 @@ do_unpack[noexec] = "1"
 do_patch[noexec] = "1"
 do_configure[noexec] = "1"
 
+UPDATEHUB_POLLING_INTERVAL ??= "1d"
+
 UPDATEHUB_RUNTIME          ??= "${localstatedir}/lib/updatehub"
 UPDATEHUB_RUNTIME_SETTINGS ??= "${UPDATEHUB_RUNTIME}/state.data"
 UPDATEHUB_DOWNLOAD_DIR     ??= "${UPDATEHUB_RUNTIME}/download"
@@ -21,6 +23,9 @@ ServerAddress=${UPDATEHUB_SERVER_URL}
 
 [Storage]
 RuntimeSettingsPath=${UPDATEHUB_RUNTIME_SETTINGS}
+
+[Polling]
+Interval=${UPDATEHUB_POLLING_INTERVAL}
 
 [Update]
 DownloadDir=${UPDATEHUB_DOWNLOAD_DIR}
