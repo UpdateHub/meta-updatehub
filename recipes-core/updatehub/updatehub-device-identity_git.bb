@@ -3,7 +3,7 @@ LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://COPYING;md5=838c366f69b72c5df05c96dff79b35f2"
 
 SRC_URI = "git://github.com/UpdateHub/device-identity;protocol=https"
-SRCREV = "81e58f80554d64b28f733f37f6b2b568c6bca007"
+SRCREV = "d32cb72abdd789ce28c66d87f4582ae07d465ee4"
 
 S = "${WORKDIR}/git"
 
@@ -14,6 +14,7 @@ do_compile[noexec] = "1"
 
 do_install() {
     install -Dm 0755 primary_iface ${D}/${datadir}/updatehub/device-identity.d/primary_iface
+    install -Dm 0755 cpuinfo_serial ${D}/${datadir}/updatehub/device-identity.d/cpuinfo_serial
 }
 
 python split_plugins_packages () {
