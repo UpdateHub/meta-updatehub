@@ -25,7 +25,7 @@ UPDATEHUB_ACTIVE_INACTIVE_BACKEND ?= ""
 UPDATEHUB_ACTIVE_INACTIVE_BACKEND[type] = "list"
 UPDATEHUB_ACTIVE_INACTIVE_BACKEND[validitems] += "u-boot grub grub-efi"
 
-UPDATEHUB_DEVICE_IDENTITY ?= "primary-iface"
+UPDATEHUB_DEVICE_IDENTITY ?= ""
 UPDATEHUB_DEVICE_IDENTITY[type] = "list"
 UPDATEHUB_DEVICE_IDENTITY[validitems] += "primary-iface cpuinfo-serial"
 
@@ -68,6 +68,8 @@ python () {
     ### Handle device identity selection
     device_identities = (d.getVar('UPDATEHUB_DEVICE_IDENTITY', True) or "").split()
     valid_device_identities = d.getVarFlag('UPDATEHUB_DEVICE_IDENTITY', 'validitems', False).split()
+    if not device_identities:
+        raise bb.parse.SkipRecipe("To enable UpdateHub the 'UPDATEHUB_DEVICE_IDENTITY' variable must be set. Valid device identities are: %s" % ' '.join(valid_device_identities))
     for device_identity in device_identities:
         d.appendVar('UPDATEHUB_RUNTIME_PACKAGES', ' updatehub-device-identity-%s' % device_identity)
         if not device_identity in valid_device_identities:
