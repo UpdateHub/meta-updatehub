@@ -27,7 +27,7 @@ UPDATEHUB_ACTIVE_INACTIVE_BACKEND[validitems] += "u-boot grub grub-efi"
 
 UPDATEHUB_DEVICE_IDENTITY ?= "primary-iface"
 UPDATEHUB_DEVICE_IDENTITY[type] = "list"
-UPDATEHUB_DEVICE_IDENTITY[validitems] += "primary-iface"
+UPDATEHUB_DEVICE_IDENTITY[validitems] += "primary-iface cpuinfo-serial"
 
 UPDATEHUB_DEVICE_ATTRIBUTE ?= ""
 UPDATEHUB_DEVICE_ATTRIBUTE[type] = "list"
