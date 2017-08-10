@@ -60,6 +60,14 @@
 #  Specifies the UpdateHub Server address to use. This is required in
 #  case you are running it inside your private clould.
 #
+#  UPDATEHUB_ACCESS_ID
+#  UPDATEHUB_ACCESS_SECRET
+#
+#  When using the uhupush task we can override the Access Id and the
+#  corresponding Secret for use. This is usually used in auto builders
+#  as they may require different credentials depending on the product
+#  being build.
+#
 # Copyright 2017 (C) O.S. Systems Software LTDA.
 
 inherit updatehub-runtime updatehub-image-tasks

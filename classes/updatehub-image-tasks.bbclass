@@ -42,6 +42,8 @@ do_generate_updatehub_dependencies() {
 
 UHUPKG = "${DEPLOY_DIR_IMAGE}/${IMAGE_BASENAME}.${MACHINE}.uhupkg.config"
 UPDATEHUB_SERVER_URL ?= "api.updatehub.io"
+UPDATEHUB_ACCESS_ID ?= ""
+UPDATEHUB_ACCESS_SECRET ?= ""
 
 uhu_setup() {
     # Remove any leftover from previous run
@@ -139,7 +141,26 @@ do_uhuarchive[nostamp] = "1"
 uhupush_run() {
     uhu_setup
 
+    if [ -n "${UPDATEHUB_ACCESS_ID}" ] && [ -z "${UPDATEHUB_ACCESS_SECRET}" ] || \
+           [ -z "${UPDATEHUB_ACCESS_ID}" ] && [ -n "${UPDATEHUB_ACCESS_SECRET}" ]; then
+        bberror "Both UPDATEHUB_ACCESS_ID and UPDATEHUB_ACCESS_SECRET must be set. Aborting."
+    fi
+
+    uhu_specific_auth=$(mktemp)
+    if [ -n "${UPDATEHUB_ACCESS_ID}" ] && [ -n "${UPDATEHUB_ACCESS_SECRET}" ]; then
+        uhu_specific_auth=$(mktemp)
+        cat > $uhu_specific_auth <<EOF
+[auth]
+access_id = ${UPDATEHUB_ACCESS_ID}
+access_secret = ${UPDATEHUB_ACCESS_SECRET}
+EOF
+        export UHU_GLOBAL_CONFIG=$uhu_specific_auth
+    fi
+
     uhu package push
+
+    [ -n "$uhu_specific_auth" ] && rm $uhu_specific_auth
+
     uhu cleanup
 }
 uhupush_run[dirs] ?= "${DEPLOY_DIR_IMAGE}"
