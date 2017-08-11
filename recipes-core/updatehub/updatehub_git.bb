@@ -18,7 +18,7 @@ PV = "0.0+${SRCPV}"
 
 S = "${WORKDIR}/${GO_IMPORT}"
 
-inherit go systemd update-rc.d
+inherit go systemd update-rc.d pkgconfig
 
 SYSTEMD_PACKAGE = "${PN}"
 SYSTEMD_SERVICE_${PN} = "${PN}.service"
