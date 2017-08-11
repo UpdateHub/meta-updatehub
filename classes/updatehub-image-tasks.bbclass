@@ -165,6 +165,7 @@ EOF
 }
 uhupush_run[dirs] ?= "${DEPLOY_DIR_IMAGE}"
 uhupush_run[nostamp] = "1"
+uhupush_run[progress] = "percent"
 
 python do_uhupush () {
     bb.build.exec_func('uhupush_run', d)
