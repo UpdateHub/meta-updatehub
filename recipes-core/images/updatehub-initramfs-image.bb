@@ -6,7 +6,6 @@ LICENSE = "MIT"
 
 IMAGE_FSTYPES = "cpio.gz.u-boot"
 IMAGE_ROOTFS_SIZE = "8192"
-IMAGE_CLASSES = "image_types_uboot"
 
 inherit core-image
 
