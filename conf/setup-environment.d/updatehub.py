@@ -5,7 +5,6 @@ def __after_init_updatehub():
                     [
                         'meta-openembedded/meta-oe',
                         'meta-openembedded/meta-python',
-                        'oe-meta-go',
                         'meta-updatehub',
                     ]])
 
