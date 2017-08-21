@@ -32,13 +32,17 @@ RDEPENDS_${PN} += " \
 
 RDEPENDS_${PN} += " \
     updatehub-package-schema \
+    python3-certifi \
+    python3-chardet \
     python3-click \
+    python3-humanize \
+    python3-idna \
+    python3-jsonschema \
     python3-progress \
+    python3-prompt-toolkit \
     python3-requests \
     python3-rfc3987 \
-    python3-jsonschema \
-    python3-prompt-toolkit \
-    python3-humanize \
+    python3-urllib3 \
 "
 
 BBCLASSEXTEND = "native nativesdk"
