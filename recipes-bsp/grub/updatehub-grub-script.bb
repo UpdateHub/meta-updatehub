@@ -19,6 +19,5 @@ addtask deploy after do_install before do_build
 do_configure[noexec] = "1"
 do_compile[noexec] = "1"
 do_install[noexec] = "1"
-do_populate_sysroot[noexec] = "1"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
