@@ -16,7 +16,7 @@ CLEANBROKEN = "1"
 
 do_install_append_class-native() {
      sed -i -e '1s|^#!.*|#!/usr/bin/env python3|' ${D}${bindir}/uhu
-     create_wrapper ${D}${bindir}/uhu LC_ALL=C.UTF-8 LANG=C.UTF-8 LOCPATH=/usr/lib/locale
+     create_wrapper ${D}${bindir}/uhu
 }
 
 # FIXME: The native package is not adding the runtime dependencies for
