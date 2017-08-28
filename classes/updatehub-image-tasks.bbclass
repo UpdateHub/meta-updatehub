@@ -46,6 +46,8 @@ UPDATEHUB_ACCESS_ID ?= ""
 UPDATEHUB_ACCESS_SECRET ?= ""
 
 uhu_setup() {
+    need_key=$1
+
     # Remove any leftover from previous run
     if [ -e ".uhu" ] || [ -e "${UHUPKG}" ]; then
         rm -f ".uhu" "${UHUPKG}"
@@ -61,6 +63,14 @@ uhu_setup() {
 
     if [ -n "${UPDATEHUB_SERVER_URL}" ]; then
         export UHU_SERVER_URL=${UPDATEHUB_SERVER_URL}
+    fi
+
+    if [ "$need_key" = "yes" ]; then
+        if [ -z "${UPDATEHUB_UHUPKG_PRIVATE_KEY}" ]; then
+            bberror "It is not possible to run this task as UPDATEHUB_UHUPKG_PRIVATE_KEY is unset"
+        fi
+
+        export UHU_PRIVATE_KEY="${UPDATEHUB_UHUPKG_PRIVATE_KEY}"
     fi
 
     uhu hardware reset
@@ -122,7 +132,7 @@ do_uhushell[dirs] ?= "${DEPLOY_DIR_IMAGE}"
 do_uhushell[nostamp] = "1"
 
 uhuarchive_run() {
-    uhu_setup
+    uhu_setup yes
 
     uhu package archive --output ${IMAGE_NAME}.uhupkg
     uhu cleanup
@@ -139,7 +149,7 @@ addtask uhuarchive after do_image_complete do_unpack
 do_uhuarchive[nostamp] = "1"
 
 uhupush_run() {
-    uhu_setup
+    uhu_setup yes
 
     if [ -n "${UPDATEHUB_ACCESS_ID}" ] && [ -z "${UPDATEHUB_ACCESS_SECRET}" ] || \
            [ -z "${UPDATEHUB_ACCESS_ID}" ] && [ -n "${UPDATEHUB_ACCESS_SECRET}" ]; then
