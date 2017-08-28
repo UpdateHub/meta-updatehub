@@ -34,8 +34,8 @@ EOF
 }
 
 do_install () {
-    install -d ${D}${sysconfdir}
-    install -m 0644 updatehub.conf ${D}${sysconfdir}/
+    # Install the global configuration
+    install -Dm 0644 updatehub.conf ${D}${sysconfdir}/updatehub.conf
 }
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
