@@ -4,7 +4,7 @@ LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=d7d0c756730e640e1731676efa6782e9"
 
 SRC_URI = "git://github.com/UpdateHub/uhu.git;protocol=https"
-SRCREV = "70366a25646f6304cc7d175ec20cbda27e1e6828"
+SRCREV = "c024b653cffa2fcc29d9aafb0bb53dbb3550fe3c"
 
 PV = "1.0.0+${SRCPV}"
 

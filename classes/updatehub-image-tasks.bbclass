@@ -146,20 +146,12 @@ uhupush_run() {
         bberror "Both UPDATEHUB_ACCESS_ID and UPDATEHUB_ACCESS_SECRET must be set. Aborting."
     fi
 
-    uhu_specific_auth=$(mktemp)
     if [ -n "${UPDATEHUB_ACCESS_ID}" ] && [ -n "${UPDATEHUB_ACCESS_SECRET}" ]; then
-        uhu_specific_auth=$(mktemp)
-        cat > $uhu_specific_auth <<EOF
-[auth]
-access_id = ${UPDATEHUB_ACCESS_ID}
-access_secret = ${UPDATEHUB_ACCESS_SECRET}
-EOF
-        export UHU_GLOBAL_CONFIG=$uhu_specific_auth
+        export UHU_ACCESS_ID=${UPDATEHUB_ACCESS_ID}
+        export UHU_ACCESS_SECRET=${UPDATEHUB_ACCESS_SECRET}
     fi
 
     uhu package push
-
-    [ -n "$uhu_specific_auth" ] && rm $uhu_specific_auth
 
     uhu cleanup
 }
