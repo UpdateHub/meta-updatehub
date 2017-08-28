@@ -10,6 +10,9 @@
 
 UPDATEHUB_PACKAGE_VERSION ?= "${DISTRO_VERSION}"
 
+UPDATEHUB_UHUPKG_PUBLIC_KEY ?= ""
+UPDATEHUB_UHUPKG_PRIVATE_KEY ?= ""
+
 UPDATEHUB_IMAGE_TYPE[type] = "list"
 UPDATEHUB_IMAGE_TYPE[validitems] += "initramfs active/inactive"
 
@@ -64,6 +67,17 @@ python () {
                 raise bb.parse.SkipRecipe("To enable UpdateHub with initramfs image schema support, the 'UPDATEHUB_ACTIVE_INACTIVE_BACKEND' variable must NOT be set.")
             d.appendVar('IMAGE_INSTALL', ' packagegroup-updatehub-initramfs-support')
 
+    ### Ensure a valid public key is provided
+    uhupkg_public_key = d.getVar('UPDATEHUB_UHUPKG_PUBLIC_KEY', True)
+    if not uhupkg_public_key:
+        bb.warn("UpdateHub requires 'UPDATEHUB_UHUPKG_PUBLIC_KEY' variable to be set. The update system is not fully working on the generated images.")
+    if uhupkg_public_key and not os.path.exists(uhupkg_public_key):
+        raise bb.parse.SkipRecipe("The 'UPDATEHUB_UHUPKG_PUBLIC_KEY' variable must point to a existing file.")
+
+    ### Ensure a valid private key is provided
+    uhupkg_private_key = d.getVar('UPDATEHUB_UHUPKG_PRIVATE_KEY', True)
+    if uhupkg_private_key and not os.path.exists(uhupkg_private_key):
+        raise bb.parse.SkipRecipe("The 'UPDATEHUB_UHUPKG_PRIVATE_KEY' variable must point to a existing file.")
 
     ### Handle device identity selection
     device_identities = (d.getVar('UPDATEHUB_DEVICE_IDENTITY', True) or "").split()

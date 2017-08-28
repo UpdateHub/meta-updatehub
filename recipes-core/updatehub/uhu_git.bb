@@ -4,7 +4,7 @@ LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=d7d0c756730e640e1731676efa6782e9"
 
 SRC_URI = "git://github.com/UpdateHub/uhu.git;protocol=https"
-SRCREV = "c024b653cffa2fcc29d9aafb0bb53dbb3550fe3c"
+SRCREV = "80bf1f1a29d954c9dcbe99892eccc901f5834721"
 
 PV = "1.0.0+${SRCPV}"
 
@@ -33,6 +33,7 @@ RDEPENDS_${PN} += " \
 RDEPENDS_${PN} += " \
     updatehub-package-schema \
     python3-click \
+    python3-pycrypto \
     python3-progress \
     python3-requests \
     python3-rfc3987 \

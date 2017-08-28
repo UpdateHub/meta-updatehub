@@ -8,6 +8,17 @@
 #  used by the UpdateHub server to identify the product and track the
 #  possible versions for rollouts.
 #
+#  UPDATEHUB_UHUPKG_PUBLIC_KEY
+#  UPDATEHUB_UHUPKG_PRIVATE_KEY
+#
+#  The UPDATEHUB_UHUPKG_PUBLIC_KEY and UPDATEHUB_UHUPKG_PRIVATE_KEY
+#  variables are required to point to the keys which are used to
+#  validate and sign the update package.
+#
+#  The keys may or not be stored on the layer. Commonly the keys are
+#  not available for developers and passed to the build system using
+#  the local.conf file of the autobuilder.
+#
 #  UPDATEHUB_IMAGE_TYPE
 #
 #  The UpdateHub can operate using different setup which can be chosen

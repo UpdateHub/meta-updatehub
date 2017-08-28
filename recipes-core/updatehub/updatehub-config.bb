@@ -3,9 +3,10 @@ LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
 INHIBIT_DEFAULT_DEPS = "1"
 
+SRC_URI = "${@'file://${UPDATEHUB_UHUPKG_PUBLIC_KEY}' if '${UPDATEHUB_UHUPKG_PUBLIC_KEY}' else ''}"
+
 inherit updatehub-runtime
 
-do_fetch[noexec] = "1"
 do_unpack[noexec] = "1"
 do_patch[noexec] = "1"
 do_configure[noexec] = "1"
@@ -36,6 +37,13 @@ EOF
 do_install () {
     # Install the global configuration
     install -Dm 0644 updatehub.conf ${D}${sysconfdir}/updatehub.conf
+
+    # Install the uhupkg public key
+    if [ -n "${UPDATEHUB_UHUPKG_PUBLIC_KEY}" ]; then
+        install -Dm 0644 ${UPDATEHUB_UHUPKG_PUBLIC_KEY} ${D}${datadir}/updatehub/key.pub
+    fi
 }
+
+FILES_${PN} += "${datadir}/updatehub/key.pub"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
