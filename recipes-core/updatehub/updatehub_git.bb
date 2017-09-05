@@ -12,7 +12,7 @@ SRC_URI = " \
     file://updatehub.service \
 "
 
-SRCREV = "791cdf81f984ddadb619b338ea9dca89a5db3b72"
+SRCREV = "779ba8a43564162391666d746b2c76a333129af7"
 
 PV = "0.0+${SRCPV}"
 
@@ -58,13 +58,15 @@ do_install() {
 
 apply_upx() {
     ${UPX} ${UPX_ARGS} ${PKGDEST}/${PN}/${bindir}/updatehub
+    ${UPX} ${UPX_ARGS} ${PKGDEST}/${PN}-ctl/${bindir}/updatehub-ctl
     ${UPX} ${UPX_ARGS} ${PKGDEST}/${PN}-server/${bindir}/updatehub-server
 }
 
 PACKAGEFUNCS += "apply_upx"
 
-PACKAGES =+ "${PN}-server"
+PACKAGES =+ "${PN}-ctl ${PN}-server"
 
+FILES_${PN}-ctl += "${bindir}/${PN}-ctl"
 FILES_${PN}-server += "${bindir}/${PN}-server"
 
 RDEPENDS_${PN}-dev += "bash"
