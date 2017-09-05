@@ -14,7 +14,7 @@ do_configure[noexec] = "1"
 UPDATEHUB_POLLING_INTERVAL ??= "1d"
 
 UPDATEHUB_RUNTIME          ??= "${localstatedir}/lib/updatehub"
-UPDATEHUB_RUNTIME_SETTINGS ??= "${UPDATEHUB_RUNTIME}/state.data"
+UPDATEHUB_RUNTIME_SETTINGS ??= "/data/updatehub/state.data"
 UPDATEHUB_DOWNLOAD_DIR     ??= "${UPDATEHUB_RUNTIME}/download"
 
 do_compile () {
