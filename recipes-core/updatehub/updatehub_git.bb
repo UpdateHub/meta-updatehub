@@ -12,7 +12,7 @@ SRC_URI = " \
     file://updatehub.service \
 "
 
-SRCREV = "779ba8a43564162391666d746b2c76a333129af7"
+SRCREV = "cd03e5e7eea8fda73fb2f4009a5d3e9f39a5b833"
 
 PV = "0.0+${SRCPV}"
 
@@ -45,6 +45,10 @@ do_install() {
     find "${S}/bin" ! -type d -print0 | xargs -r0 cp --target-directory="${D}${bindir}"
     chown -R root:root ${D}${bindir}
 
+    # UpdateHub server udev rule for USB mounting
+    install -Dm 0644 ${S}/cmd/updatehub-server/udev.rules \
+                     ${D}${nonarch_base_libdir}/udev/rules.d/99-updatehub.rules
+
     # We don't want this shipped in target
     rm ${D}${bindir}/glide
 
@@ -64,10 +68,12 @@ apply_upx() {
 
 PACKAGEFUNCS += "apply_upx"
 
-PACKAGES =+ "${PN}-ctl ${PN}-server"
+PACKAGES =+ "${PN}-ctl ${PN}-server ${PN}-local-update"
 
 FILES_${PN}-ctl += "${bindir}/${PN}-ctl"
 FILES_${PN}-server += "${bindir}/${PN}-server"
+FILES_${PN}-local-update += "${nonarch_base_libdir}/udev/rules.d/99-updatehub.rules"
+RDEPENDS_${PN}-local-update += "${PN}-server"
 
 RDEPENDS_${PN}-dev += "bash"
 
