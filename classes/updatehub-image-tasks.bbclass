@@ -65,6 +65,10 @@ uhu_setup() {
         export UHU_SERVER_URL=${UPDATEHUB_SERVER_URL}
     fi
 
+    if [ -n "${UPDATEHUB_CUSTOM_CA_CERTS}" ]; then
+        export UHU_CUSTOM_CA_CERTS=${UPDATEHUB_CUSTOM_CA_CERTS}
+    fi
+
     if [ "$need_key" = "yes" ]; then
         if [ -z "${UPDATEHUB_UHUPKG_PRIVATE_KEY}" ]; then
             bberror "It is not possible to run this task as UPDATEHUB_UHUPKG_PRIVATE_KEY is unset"
