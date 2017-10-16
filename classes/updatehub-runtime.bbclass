@@ -1,4 +1,4 @@
-# Handle UpdateHub agent runtime configuration
+# Handle updatehub agent runtime configuration
 #
 # This class is not intended to be used directly but through the
 # updatehub-image class.
@@ -43,7 +43,7 @@ python () {
         ### Ensures product uid is set
         product_uid = d.getVar("UPDATEHUB_PRODUCT_UID", False)
         if not product_uid:
-            raise bb.parse.SkipRecipe("To enable UpdateHub support, the 'UPDATEHUB_PRODUCT_UID' variable must be set.")
+            raise bb.parse.SkipRecipe("To enable updatehub support, the 'UPDATEHUB_PRODUCT_UID' variable must be set.")
 
         ### Ensure a version is set
         version = d.getVar("UPDATEHUB_PACKAGE_VERSION", False)
@@ -54,23 +54,23 @@ python () {
         active_inactive_backend = d.getVar('UPDATEHUB_ACTIVE_INACTIVE_BACKEND', False)
         valid_active_inactive_backends = d.getVarFlag('UPDATEHUB_ACTIVE_INACTIVE_BACKEND', 'validitems', False).split()
         if not image_type:
-            raise bb.parse.SkipRecipe("To enable UpdateHub support, the 'UPDATEHUB_IMAGE_TYPE' variable must be set. Valid image types are: %s" % ' '.join(valid_image_types))
+            raise bb.parse.SkipRecipe("To enable updatehub support, the 'UPDATEHUB_IMAGE_TYPE' variable must be set. Valid image types are: %s" % ' '.join(valid_image_types))
         elif not image_type in valid_image_types:
             raise bb.parse.SkipRecipe("'%s' in UPDATEHUB_IMAGE_TYPE is not a valid image type. Valid image types are: %s" % (image_type, ' '.join(valid_image_types)))
         elif image_type in ['active/inactive']:
             if not active_inactive_backend:
-                raise bb.parse.SkipRecipe("To enable UpdateHub with Active/Inactive image schema support, the 'UPDATEHUB_ACTIVE_INACTIVE_BACKEND' variable must be set. Valid backends are: %s" % ' '.join(valid_active_inactive_backends))
+                raise bb.parse.SkipRecipe("To enable updatehub with Active/Inactive image schema support, the 'UPDATEHUB_ACTIVE_INACTIVE_BACKEND' variable must be set. Valid backends are: %s" % ' '.join(valid_active_inactive_backends))
 
             d.appendVar('IMAGE_INSTALL', ' packagegroup-updatehub-active-inactive-runtime')
         elif image_type in ['initramfs']:
             if active_inactive_backend:
-                raise bb.parse.SkipRecipe("To enable UpdateHub with initramfs image schema support, the 'UPDATEHUB_ACTIVE_INACTIVE_BACKEND' variable must NOT be set.")
+                raise bb.parse.SkipRecipe("To enable updatehub with initramfs image schema support, the 'UPDATEHUB_ACTIVE_INACTIVE_BACKEND' variable must NOT be set.")
             d.appendVar('IMAGE_INSTALL', ' packagegroup-updatehub-initramfs-support')
 
     ### Ensure a valid public key is provided
     uhupkg_public_key = d.getVar('UPDATEHUB_UHUPKG_PUBLIC_KEY', True)
     if not uhupkg_public_key:
-        bb.warn("UpdateHub requires 'UPDATEHUB_UHUPKG_PUBLIC_KEY' variable to be set. The update system is not fully working on the generated images.")
+        bb.warn("updatehub requires 'UPDATEHUB_UHUPKG_PUBLIC_KEY' variable to be set. The update system is not fully working on the generated images.")
     if uhupkg_public_key and not os.path.exists(uhupkg_public_key):
         raise bb.parse.SkipRecipe("The 'UPDATEHUB_UHUPKG_PUBLIC_KEY' variable must point to a existing file.")
 
@@ -83,7 +83,7 @@ python () {
     device_identities = (d.getVar('UPDATEHUB_DEVICE_IDENTITY', True) or "").split()
     valid_device_identities = d.getVarFlag('UPDATEHUB_DEVICE_IDENTITY', 'validitems', False).split()
     if not device_identities:
-        raise bb.parse.SkipRecipe("To enable UpdateHub the 'UPDATEHUB_DEVICE_IDENTITY' variable must be set. Valid device identities are: %s" % ' '.join(valid_device_identities))
+        raise bb.parse.SkipRecipe("To enable updatehub the 'UPDATEHUB_DEVICE_IDENTITY' variable must be set. Valid device identities are: %s" % ' '.join(valid_device_identities))
     for device_identity in device_identities:
         d.appendVar('UPDATEHUB_RUNTIME_PACKAGES', ' updatehub-device-identity-%s' % device_identity)
         if not device_identity in valid_device_identities:
@@ -112,7 +112,7 @@ python () {
     if any(map(lambda x: x not in mode_rdepends_map.keys(), valid_modes)):
         raise bb.parse.SkipRecipe("Not all valid modes has the runtime dependencies mapped. Please check.")
     if not modes:
-        raise bb.parse.SkipRecipe("To enable UpdateHub support, the 'UPDATEHUB_INSTALL_MODE' variable must be set. Valid modes are: %s" % ' '.join(valid_modes))
+        raise bb.parse.SkipRecipe("To enable updatehub support, the 'UPDATEHUB_INSTALL_MODE' variable must be set. Valid modes are: %s" % ' '.join(valid_modes))
     else:
         for mode in modes:
             d.appendVar('UPDATEHUB_RUNTIME_PACKAGES', ' %s' % mode_rdepends_map[mode])

@@ -1,9 +1,9 @@
-SUMMARY = "UpdateHub - System Inquiry"
+SUMMARY = "updatehub - System Inquiry"
 SECTION = "base"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://COPYING;md5=838c366f69b72c5df05c96dff79b35f2"
 
-SRC_URI = "git://github.com/UpdateHub/system-inquiry.git;protocol=https"
+SRC_URI = "git://github.com/updatehub/system-inquiry.git;protocol=https"
 SRCREV = "399c52ed503e700fdb266c049520a15312f84b3e"
 
 S = "${WORKDIR}/git"

@@ -1,8 +1,8 @@
-SUMMARY = "UpdateHub's device attributes scripts"
+SUMMARY = "updatehub's device attributes scripts"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://COPYING;md5=838c366f69b72c5df05c96dff79b35f2"
 
-SRC_URI = "git://github.com/UpdateHub/device-attributes;protocol=https"
+SRC_URI = "git://github.com/updatehub/device-attributes;protocol=https"
 SRCREV = "b9fd983a9445f285355c82988835d2327887fbae"
 
 S = "${WORKDIR}/git"
@@ -21,7 +21,7 @@ do_install() {
 python split_plugins_packages () {
     device_attribute_dir = d.expand('${datadir}/updatehub/device-attributes.d/')
     do_split_packages(d, device_attribute_dir, '^(.*)', 'updatehub-device-attribute-%s',
-                      'UpdateHub %s device attribute script', extra_depends='')
+                      'updatehub %s device attribute script', extra_depends='')
 }
 
 PACKAGES_DYNAMIC = "updatehub-device-attribute-*"

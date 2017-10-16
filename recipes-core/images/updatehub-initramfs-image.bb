@@ -1,6 +1,6 @@
 # Copyright (C) 2017 O.S. Systems Software LTDA.
 
-SUMMARY = "UpdateHub initramfs image"
+SUMMARY = "updatehub initramfs image"
 
 LICENSE = "MIT"
 

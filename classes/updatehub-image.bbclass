@@ -1,11 +1,11 @@
-# Handle UpdateHub image integration
+# Handle updatehub image integration
 #
 # Required variables:
 #
 #  UPDATEHUB_PRODUCT_UID
 #
 #  The UPDATEHUB_PRODUCT_UID identifies the product id in use. This is
-#  used by the UpdateHub server to identify the product and track the
+#  used by the updatehub server to identify the product and track the
 #  possible versions for rollouts.
 #
 #  UPDATEHUB_UHUPKG_PUBLIC_KEY
@@ -21,15 +21,15 @@
 #
 #  UPDATEHUB_IMAGE_TYPE
 #
-#  The UpdateHub can operate using different setup which can be chosen
+#  The updatehub can operate using different setup which can be chosen
 #  using the UPDATEHUB_IMAGE_TYPE variable. It supports different
 #  values, as below:
 #
 #     initramfs
 #
-#     Enables the UpdateHub gold firmware support; this adds an
+#     Enables the updatehub gold firmware support; this adds an
 #     initramfs based image which is used for the upgrade process. In
-#     this mode, the UpdateHub agent is ran inside an initramfs image
+#     this mode, the updatehub agent is ran inside an initramfs image
 #     which allows for the image to be changed without the need of a
 #     spare storage space.
 #
@@ -68,7 +68,7 @@
 #
 #  UPDATEHUB_SERVER_URL
 #
-#  Specifies the UpdateHub Server address to use. This is required in
+#  Specifies the updatehub Server address to use. This is required in
 #  case you are running it inside your private clould.
 #
 #  UPDATEHUB_ACCESS_ID

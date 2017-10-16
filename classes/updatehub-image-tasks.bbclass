@@ -1,4 +1,4 @@
-# Handle UpdateHub image integration tasks
+# Handle updatehub image integration tasks
 #
 # This class is not intended to be used directly but through the
 # updatehub-image class.
@@ -109,7 +109,7 @@ python do_uhushell () {
     import tempfile
     pidfile = tempfile.NamedTemporaryFile(delete = False).name
     try:
-        oe_terminal("${SHELL} -c 'echo $$ > %s ; uhu'" % pidfile, "UpdateHub Shell", d)
+        oe_terminal("${SHELL} -c 'echo $$ > %s ; uhu'" % pidfile, "updatehub Shell", d)
         while os.stat(pidfile).st_size <= 0:
             continue
         with open(pidfile, "r") as f:
@@ -128,7 +128,7 @@ python do_uhushell () {
     bb.build.exec_func('uhushell_finish', d)
 
     uhupkg = d.getVar('UHUPKG', True)
-    bb.plain("UpdateHub package exported in '%s'. Please add it to your image directory." % uhupkg)
+    bb.plain("updatehub package exported in '%s'. Please add it to your image directory." % uhupkg)
 }
 
 addtask uhushell after do_image_complete do_unpack

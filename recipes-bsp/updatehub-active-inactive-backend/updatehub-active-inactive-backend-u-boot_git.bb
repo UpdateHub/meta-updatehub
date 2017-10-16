@@ -1,8 +1,8 @@
-SUMMARY = "UpdateHub - Active/Inactive U-Boot backend"
+SUMMARY = "updatehub - Active/Inactive U-Boot backend"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://COPYING;md5=838c366f69b72c5df05c96dff79b35f2"
 
-SRC_URI = "git://github.com/UpdateHub/active-inactive-backend-u-boot.git;protocol=https"
+SRC_URI = "git://github.com/updatehub/active-inactive-backend-u-boot.git;protocol=https"
 SRCREV = "4249f67a80fec383aaf28197aedf875c1c7167d2"
 
 S = "${WORKDIR}/git"

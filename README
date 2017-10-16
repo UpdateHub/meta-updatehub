@@ -1,7 +1,7 @@
-OpenEmbedded/Yocto Project support layer for UpdateHub
+OpenEmbedded/Yocto Project support layer for updatehub
 =======================================================
 
-UpdateHub provides a generic and safe Firmware Over-The-Air agent for
+updatehub provides a generic and safe Firmware Over-The-Air agent for
 Embedded and Industrial Linux-based devices.
 
 Dependencies
