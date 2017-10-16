@@ -79,6 +79,12 @@
 #  as they may require different credentials depending on the product
 #  being build.
 #
+#  UPDATEHUB_CUSTOM_CA_CERTS
+#
+#  Specify the CA certificate bundle to be used for uhupush task. It
+#  is currently used by updatehub staging server for tests but may be
+#  interesting for other users when doing custom server deployments.
+#
 # Copyright 2017 (C) O.S. Systems Software LTDA.
 
 inherit updatehub-runtime updatehub-image-tasks
