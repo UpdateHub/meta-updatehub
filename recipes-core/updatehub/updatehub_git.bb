@@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = "file://${S}/src/${GO_IMPORT}/COPYING;md5=ba69bae29a956ebfb5d
 
 DEPENDS_append = " glide-native libarchive upx-native"
 
-GO_IMPORT = "github.com/UpdateHub/updatehub"
+GO_IMPORT = "github.com/updatehub/updatehub"
 SRC_URI = " \
     git://${GO_IMPORT} \
     file://updatehub.initd \
@@ -39,7 +39,7 @@ GO_INSTALL = " \
 "
 
 do_install_append() {
-    # UpdateHub server udev rule for USB mounting
+    # updatehub server udev rule for USB mounting
     install -Dm 0644 ${S}/src/${GO_IMPORT}/cmd/updatehub-server/udev.rules \
                      ${D}${nonarch_base_libdir}/udev/rules.d/99-updatehub.rules
 

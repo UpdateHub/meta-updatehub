@@ -1,4 +1,4 @@
-SUMMARY = "Merge machine and UpdateHub options to create a runtime set"
+SUMMARY = "Merge machine and updatehub options to create a runtime set"
 
 LICENSE = "MIT"
 

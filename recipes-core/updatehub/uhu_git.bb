@@ -1,9 +1,9 @@
-SUMMARY = "UpdateHub utilities for update package management and server"
+SUMMARY = "updatehub utilities for update package management and server"
 SECTION = "devel/python"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=d7d0c756730e640e1731676efa6782e9"
 
-SRC_URI = "git://github.com/UpdateHub/uhu.git;protocol=https"
+SRC_URI = "git://github.com/updatehub/uhu.git;protocol=https"
 SRCREV = "3c3408cce8d5ec7f456d0544cd733c52dc0d1642"
 
 PV = "1.0.0+${SRCPV}"

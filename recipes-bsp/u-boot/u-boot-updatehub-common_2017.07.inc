@@ -4,7 +4,7 @@ PE = "1"
 
 SRCREV = "6b5279448feae62fae6a961947ff1478853089bf"
 
-SRC_URI = "git://github.com/UpdateHub/u-boot-updatehub;branch=${SRCBRANCH}"
+SRC_URI = "git://github.com/updatehub/u-boot-updatehub;branch=${SRCBRANCH}"
 SRCBRANCH = "2017.07+updatehub"
 
 S = "${WORKDIR}/git"
