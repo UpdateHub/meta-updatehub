@@ -1,7 +1,7 @@
 SUMMARY = "A Firmware Over-The-Air agent for Embedded and Industrial Linux-based devices"
 HOMEPAGE = "https://updatehub.io"
 LICENSE = "MIT"
-LIC_FILES_CHKSUM = "file://${S}/src/${GO_IMPORT}/COPYING;md5=ba69bae29a956ebfb5d983fef66a2ea9"
+LIC_FILES_CHKSUM = "file://${S}/src/${GO_IMPORT}/COPYING;md5=21acc3521d288a5d8a4b3fb611a39604"
 
 DEPENDS_append = " glide-native libarchive upx-native"
 
@@ -12,7 +12,7 @@ SRC_URI = " \
     file://updatehub.service \
 "
 
-SRCREV = "6fcc8b1ede85c8db43d97078c690e464b88e5985"
+SRCREV = "10dfed20a0934560aa2c898f6c58a6a82a8b8b92"
 
 PV = "0.0+${SRCPV}"
 
