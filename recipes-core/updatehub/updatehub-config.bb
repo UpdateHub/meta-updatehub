@@ -11,6 +11,7 @@ do_unpack[noexec] = "1"
 do_patch[noexec] = "1"
 do_configure[noexec] = "1"
 
+UPDATEHUB_POLLING_ENABLED  ??= "true"
 UPDATEHUB_POLLING_INTERVAL ??= "1d"
 
 UPDATEHUB_RUNTIME          ??= "${localstatedir}/lib/updatehub"
@@ -26,6 +27,7 @@ ServerAddress=${UPDATEHUB_SERVER_URL}
 RuntimeSettingsPath=${UPDATEHUB_RUNTIME_SETTINGS}
 
 [Polling]
+Enabled=${UPDATEHUB_POLLING_ENABLED}
 Interval=${UPDATEHUB_POLLING_INTERVAL}
 
 [Update]
