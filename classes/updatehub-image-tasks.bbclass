@@ -69,13 +69,11 @@ uhu_setup() {
         export UHU_CUSTOM_CA_CERTS=${UPDATEHUB_CUSTOM_CA_CERTS}
     fi
 
-    if [ "$need_key" = "yes" ]; then
-        if [ -z "${UPDATEHUB_UHUPKG_PRIVATE_KEY}" ]; then
-            bberror "It is not possible to run this task as UPDATEHUB_UHUPKG_PRIVATE_KEY is unset"
-        fi
-
-        export UHU_PRIVATE_KEY="${UPDATEHUB_UHUPKG_PRIVATE_KEY}"
+    if [ -z "${UPDATEHUB_UHUPKG_PRIVATE_KEY}" ]; then
+        bberror "It is not possible to run this task as UPDATEHUB_UHUPKG_PRIVATE_KEY is unset"
     fi
+
+    export UHU_PRIVATE_KEY="${UPDATEHUB_UHUPKG_PRIVATE_KEY}"
 
     uhu hardware reset
     uhu hardware add "${MACHINE}"
@@ -109,7 +107,12 @@ python do_uhushell () {
     import tempfile
     pidfile = tempfile.NamedTemporaryFile(delete = False).name
     try:
-        oe_terminal("${SHELL} -c 'echo $$ > %s ; uhu'" % pidfile, "updatehub Shell", d)
+        oe_terminal("${SHELL} -c 'echo $$ > %s ; UHU_ACCESS_ID=\"%s\" UHU_ACCESS_SECRET=\"%s\" UHU_PRIVATE_KEY=\"%s\" uhu'" % (
+            pidfile,
+            d.getVar('UPDATEHUB_ACCESS_ID'),
+            d.getVar('UPDATEHUB_ACCESS_SECRET'),
+            d.getVar('UPDATEHUB_UHUPKG_PRIVATE_KEY')
+        ), "updatehub Shell", d)
         while os.stat(pidfile).st_size <= 0:
             continue
         with open(pidfile, "r") as f:
@@ -136,7 +139,7 @@ do_uhushell[dirs] ?= "${DEPLOY_DIR_IMAGE}"
 do_uhushell[nostamp] = "1"
 
 uhuarchive_run() {
-    uhu_setup yes
+    uhu_setup
 
     uhu package archive --output ${IMAGE_NAME}.uhupkg
     uhu cleanup
@@ -153,7 +156,7 @@ addtask uhuarchive after do_image_complete do_unpack
 do_uhuarchive[nostamp] = "1"
 
 uhupush_run() {
-    uhu_setup yes
+    uhu_setup
 
     if [ -n "${UPDATEHUB_ACCESS_ID}" ] && [ -z "${UPDATEHUB_ACCESS_SECRET}" ] || \
            [ -z "${UPDATEHUB_ACCESS_ID}" ] && [ -n "${UPDATEHUB_ACCESS_SECRET}" ]; then
