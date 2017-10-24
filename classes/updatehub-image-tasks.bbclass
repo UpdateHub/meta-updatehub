@@ -62,11 +62,11 @@ uhu_setup() {
     fi
 
     if [ -n "${UPDATEHUB_SERVER_URL}" ]; then
-        export UHU_SERVER_URL=${UPDATEHUB_SERVER_URL}
+        export UHU_SERVER_URL="${UPDATEHUB_SERVER_URL}"
     fi
 
     if [ -n "${UPDATEHUB_CUSTOM_CA_CERTS}" ]; then
-        export UHU_CUSTOM_CA_CERTS=${UPDATEHUB_CUSTOM_CA_CERTS}
+        export UHU_CUSTOM_CA_CERTS="${UPDATEHUB_CUSTOM_CA_CERTS}"
     fi
 
     if [ -z "${UPDATEHUB_UHUPKG_PRIVATE_KEY}" ]; then
@@ -164,8 +164,8 @@ uhupush_run() {
     fi
 
     if [ -n "${UPDATEHUB_ACCESS_ID}" ] && [ -n "${UPDATEHUB_ACCESS_SECRET}" ]; then
-        export UHU_ACCESS_ID=${UPDATEHUB_ACCESS_ID}
-        export UHU_ACCESS_SECRET=${UPDATEHUB_ACCESS_SECRET}
+        export UHU_ACCESS_ID="${UPDATEHUB_ACCESS_ID}"
+        export UHU_ACCESS_SECRET="${UPDATEHUB_ACCESS_SECRET}"
     fi
 
     uhu package push
