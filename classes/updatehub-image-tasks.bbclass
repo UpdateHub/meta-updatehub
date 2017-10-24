@@ -41,7 +41,7 @@ do_generate_updatehub_dependencies() {
 }
 
 UHUPKG = "${DEPLOY_DIR_IMAGE}/${IMAGE_BASENAME}.${MACHINE}.uhupkg.config"
-UPDATEHUB_SERVER_URL ?= "api.updatehub.io"
+UPDATEHUB_SERVER_URL ?= "https://api.updatehub.io"
 UPDATEHUB_ACCESS_ID ?= ""
 UPDATEHUB_ACCESS_SECRET ?= ""
 
