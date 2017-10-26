@@ -12,7 +12,7 @@ SRC_URI = " \
     file://updatehub.service \
 "
 
-SRCREV = "18d0318628cdba826dd2b3802c6e4cfbd1f9208d"
+SRCREV = "11208f8e5679aea3d6bd24182734d82712030ef4"
 
 PV = "0.0+${SRCPV}"
 
@@ -32,10 +32,6 @@ UPX_ARGS ?= "--best -q"
 do_configure() {
     mkdir -p ${S}/src
     GOPATH=${S}:${STAGING_LIBDIR}/${TARGET_SYS}/go glide install
-
-    # Fixup while https://github.com/go-ini/ini/pull/126 is not merged
-    sed -i 's/ if err == nil && int(durationVal) > 0 {/ if err == nil && int64(durationVal) > 0 {/g' \
-        ${S}/vendor/github.com/go-ini/ini/struct.go
 }
 
 do_compile() {
