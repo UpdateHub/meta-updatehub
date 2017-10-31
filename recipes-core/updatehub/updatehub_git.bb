@@ -38,6 +38,10 @@ GO_INSTALL = " \
     ${GO_IMPORT}/cmd/updatehub-server \
 "
 
+GO_LINKMODE_append = " \
+    -X main.gitversion=${PV} \
+"
+
 do_install_append() {
     # updatehub server udev rule for USB mounting
     install -Dm 0644 ${S}/src/${GO_IMPORT}/cmd/updatehub-server/udev.rules \
