@@ -1,16 +1,12 @@
 SUMMARY = "updatehub utilities for update package management and server"
 SECTION = "devel/python"
 LICENSE = "MIT"
-LIC_FILES_CHKSUM = "file://LICENSE;md5=d7d0c756730e640e1731676efa6782e9"
+LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
 
-SRC_URI = "git://github.com/updatehub/uhu.git;protocol=https"
-SRCREV = "d25d989f87b34540d2782b6e910e2f215ceb2e71"
+inherit pypi setuptools3
 
-PV = "1.0.0+${SRCPV}"
-
-S = "${WORKDIR}/git"
-
-inherit setuptools3
+SRC_URI[md5sum] = "d3280e40c0dde60bd6adfca7f96bb8d0"
+SRC_URI[sha256sum] = "61855684ecb2cbf76a6d2fdfc76151bb8624b586a1fc8d958d4b246daa3c838c"
 
 CLEANBROKEN = "1"
 
