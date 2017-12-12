@@ -109,9 +109,9 @@ python do_uhushell () {
     try:
         oe_terminal("${SHELL} -c 'echo $$ > %s ; UHU_ACCESS_ID=\"%s\" UHU_ACCESS_SECRET=\"%s\" UHU_PRIVATE_KEY=\"%s\" uhu'" % (
             pidfile,
-            d.getVar('UPDATEHUB_ACCESS_ID'),
-            d.getVar('UPDATEHUB_ACCESS_SECRET'),
-            d.getVar('UPDATEHUB_UHUPKG_PRIVATE_KEY')
+            d.getVar('UPDATEHUB_ACCESS_ID', True),
+            d.getVar('UPDATEHUB_ACCESS_SECRET', True),
+            d.getVar('UPDATEHUB_UHUPKG_PRIVATE_KEY', True)
         ), "updatehub Shell", d)
         while os.stat(pidfile).st_size <= 0:
             continue
