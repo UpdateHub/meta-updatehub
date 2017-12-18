@@ -7,14 +7,14 @@ DEPENDS_append = " glide-native libarchive upx-native"
 
 GO_IMPORT = "github.com/updatehub/updatehub"
 SRC_URI = " \
-    git://${GO_IMPORT};protocol=https;destsuffix=${GO_IMPORT} \
+    git://${GO_IMPORT};protocol=https;destsuffix=${GO_IMPORT};branch=v1 \
     file://updatehub.initd \
     file://updatehub.service \
 "
 
-SRCREV = "66669fab367927c364fd83893eb5f82b6fe10c02"
+SRCREV = "896c01e7e9fb68a111de4e5098aa3bac38fef1e2"
 
-PV = "0.0+${SRCPV}"
+PV = "1.0.0"
 
 S = "${WORKDIR}/${GO_IMPORT}"
 
