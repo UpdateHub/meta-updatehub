@@ -10,19 +10,16 @@ Dependencies
 This layer depends on:
 
   URI: git://git.openembedded.org/bitbake
-  branch: 1.30
+  branch: 1.34
 
   URI: git://git.openembedded.org/openembedded-core
   layers: meta
-  branch: krogoth
-
-  URI: git://github.com/mem/oe-meta-go
-  branch: master
+  branch: pyro
 
   URI: git://github.com/openembedded/meta-openembedded.git
   subdirectory: meta-oe
-  branch: krogoth
+  branch: pyro
 
   URI: git://github.com/openembedded/meta-openembedded.git
   subdirectory: meta-python
-  branch: krogoth
+  branch: pyro
