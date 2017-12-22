@@ -87,4 +87,4 @@
 #
 # Copyright 2017 (C) O.S. Systems Software LTDA.
 
-inherit updatehub-runtime updatehub-image-tasks
+inherit updatehub-image-tasks

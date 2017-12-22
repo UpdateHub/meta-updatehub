@@ -8,7 +8,7 @@
 #
 # Copyright 2017 (C) O.S. Systems Software LTDA.
 
-inherit terminal python3native
+inherit terminal python3native updatehub-runtime
 
 UHUPKG_FILES ?= "${IMAGE_BASENAME}.${MACHINE}.uhupkg.config ${IMAGE_BASENAME}.uhupkg.config ${MACHINE}.uhupkg.config"
 UHUPKG_SEARCH_PATH ?= "${THISDIR}:${@':'.join('%s/uhu' % p for p in '${BBPATH}'.split(':'))}"
@@ -41,7 +41,6 @@ do_generate_updatehub_dependencies() {
 }
 
 UHUPKG = "${DEPLOY_DIR_IMAGE}/${IMAGE_BASENAME}.${MACHINE}.uhupkg.config"
-UPDATEHUB_SERVER_URL ?= "https://api.updatehub.io"
 UPDATEHUB_ACCESS_ID ?= ""
 UPDATEHUB_ACCESS_SECRET ?= ""
 
