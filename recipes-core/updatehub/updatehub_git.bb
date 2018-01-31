@@ -12,9 +12,9 @@ SRC_URI = " \
     file://updatehub.service \
 "
 
-SRCREV = "ec581e042346ff33b0944241e609fa5fa7482dc6"
+SRCREV = "6faa8522dceb56b9c9dbcb2645cd895c0af010f8"
 
-PV = "1.0.1"
+PV = "1.0.2"
 
 inherit go systemd update-rc.d pkgconfig
 
