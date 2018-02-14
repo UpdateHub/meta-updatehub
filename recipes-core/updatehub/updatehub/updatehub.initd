@@ -3,16 +3,16 @@ PATH=/sbin:/usr/sbin:/bin:/usr/bin
 
 DESC="updatehub"
 NAME=updatehub
-DAEMON=/usr/bin/$NAME
+DAEMON=@BINDIR@/$NAME
 DAEMON_ARGS=""
-PIDFILE=/var/run/$NAME.pid
-LOGFILE=/var/log/$NAME.log
-SCRIPTNAME=/etc/init.d/$NAME
+PIDFILE=@LOCALSTATEDIR@/run/$NAME.pid
+LOGFILE=@LOCALSTATEDIR@/log/$NAME.log
+SCRIPTNAME=@SYSCONFDIR@/init.d/$NAME
 
 # Exit if the package is not installed
 [ -x "$DAEMON" ] || exit 0
 
-. /etc/init.d/functions
+. @SYSCONFDIR@/init.d/functions
 
 log_daemon_msg() {
     echo -n $*
@@ -35,7 +35,7 @@ do_start()
         rm -f /tmp/.stop-updatehub
         (while [ ! -f /tmp/.stop-updatehub ]; do
         start-stop-daemon --start --quiet --pidfile $PIDFILE --make-pidfile \
-                          --startas /bin/sh -- -c /usr/lib/updatehub/updatehub.start || sleep 1
+                          --startas /bin/sh -- -c @LIBDIR@/updatehub/updatehub.start || sleep 1
         done ; rm -f /tmp/.stop-updatehub) &
 }
 

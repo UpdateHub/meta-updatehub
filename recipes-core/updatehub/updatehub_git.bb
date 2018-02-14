@@ -56,10 +56,16 @@ do_install() {
     # Handle init system integration
     if ${@bb.utils.contains('DISTRO_FEATURES','systemd','true','false',d)}; then
         install -Dm 0644 ${WORKDIR}/updatehub.service ${D}${systemd_unitdir}/system/updatehub.service
+        sed -i -e 's,@BINDIR@,${bindir},g' ${D}${systemd_unitdir}/system/updatehub.service
     fi
     if ${@bb.utils.contains('DISTRO_FEATURES','sysvinit','true','false',d)}; then
         install -Dm 0755 ${WORKDIR}/updatehub.initd ${D}/${sysconfdir}/init.d/updatehub
         install -Dm 0755 ${WORKDIR}/updatehub.start ${D}${libdir}/updatehub/updatehub.start
+        sed -i -e 's,@BINDIR@,${bindir},g' \
+            -e 's,@LIBDIR@,${libdir},g' \
+            -e 's,@LOCALSTATEDIR@,${localstatedir},g' \
+            -e 's,@SYSCONFDIR@,${sysconfdir},g' \
+            ${D}/${sysconfdir}/init.d/updatehub
     fi
 }
 
