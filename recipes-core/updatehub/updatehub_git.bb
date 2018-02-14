@@ -55,7 +55,8 @@ do_install() {
     # Handle init system integration
     if ${@bb.utils.contains('DISTRO_FEATURES','systemd','true','false',d)}; then
         install -Dm 0644 ${WORKDIR}/updatehub.service ${D}${systemd_unitdir}/system/updatehub.service
-    else
+    fi
+    if ${@bb.utils.contains('DISTRO_FEATURES','sysvinit','true','false',d)}; then
         install -Dm 0755 ${WORKDIR}/updatehub.initd ${D}/${sysconfdir}/init.d/updatehub
     fi
 }
