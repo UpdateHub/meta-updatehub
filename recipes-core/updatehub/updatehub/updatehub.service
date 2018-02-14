@@ -4,6 +4,7 @@ After=network.target time-sync.target
 
 [Service]
 ExecStart=/usr/bin/updatehub
+Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
