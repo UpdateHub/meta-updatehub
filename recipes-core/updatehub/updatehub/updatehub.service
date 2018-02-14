@@ -3,7 +3,7 @@ Description=updatehub agent
 After=network.target time-sync.target
 
 [Service]
-ExecStart=/usr/bin/updatehub
+ExecStart=@BINDIR@/updatehub
 Restart=on-failure
 
 [Install]
