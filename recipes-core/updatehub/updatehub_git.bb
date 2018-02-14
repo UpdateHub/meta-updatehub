@@ -10,6 +10,7 @@ SRC_URI = " \
     git://${GO_IMPORT};branch=v1 \
     file://updatehub.initd \
     file://updatehub.service \
+    file://updatehub.start \
 "
 
 SRCREV = "45c5010430449df7c8e6611f646662c62a68f6a5"
@@ -53,6 +54,7 @@ do_install_append() {
     fi
     if ${@bb.utils.contains('DISTRO_FEATURES','sysvinit','true','false',d)}; then
         install -Dm 0755 ${WORKDIR}/updatehub.initd ${D}/${sysconfdir}/init.d/updatehub
+        install -Dm 0755 ${WORKDIR}/updatehub.start ${D}${libdir}/updatehub/updatehub.start
     fi
 }
 
