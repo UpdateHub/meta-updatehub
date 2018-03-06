@@ -17,7 +17,7 @@ SRCREV = "9f213b7fae435cef3650e4c0e280a3c264c557c8"
 
 PV = "1.0.4"
 
-inherit go systemd update-rc.d pkgconfig
+inherit go glide systemd update-rc.d pkgconfig
 
 SYSTEMD_PACKAGE = "${PN}"
 SYSTEMD_SERVICE_${PN} = "${PN}.service"
@@ -27,11 +27,6 @@ INITSCRIPT_PARAMS = "defaults 99"
 
 UPX ?= "${STAGING_BINDIR_NATIVE}/upx"
 UPX_ARGS ?= "--best -q"
-
-do_configure_append() {
-    cd ${S}/src/${GO_IMPORT}
-    GOPATH=${B}:${STAGING_LIBDIR}/${TARGET_SYS}/go glide install
-}
 
 GO_INSTALL = " \
     ${GO_IMPORT}/cmd/updatehub \
