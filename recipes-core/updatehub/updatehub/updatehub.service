@@ -1,6 +1,7 @@
 [Unit]
 Description=updatehub agent
-After=network.target time-sync.target
+After=network-online.target time-sync.target
+Wants=network-online.target
 
 [Service]
 ExecStart=@BINDIR@/updatehub
