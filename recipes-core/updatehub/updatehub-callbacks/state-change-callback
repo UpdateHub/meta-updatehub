@@ -1,0 +1,6 @@
+#!/bin/sh
+
+ACTION=$1
+STATE=$2
+
+run-parts --exit-on-error -a "$ACTION" -a "$STATE" /usr/share/updatehub/state-change-callbacks.d 2> /dev/null
