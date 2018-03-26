@@ -1,0 +1,5 @@
+#!/bin/sh
+
+MESSAGE=$*
+
+run-parts --exit-on-error -a "$MESSAGE" /usr/share/updatehub/error-callbacks.d 2> /dev/null

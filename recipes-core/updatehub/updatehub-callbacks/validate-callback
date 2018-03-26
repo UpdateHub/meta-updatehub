@@ -1,0 +1,3 @@
+#!/bin/sh
+
+run-parts --exit-on-error /usr/share/updatehub/validate-callbacks.d 2> /dev/null
