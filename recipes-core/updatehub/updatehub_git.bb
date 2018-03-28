@@ -13,9 +13,9 @@ SRC_URI = " \
     file://updatehub.start \
 "
 
-SRCREV = "9f213b7fae435cef3650e4c0e280a3c264c557c8"
+SRCREV = "dbf928392c9c7d21ba7fd717cac0785d9e3e6753"
 
-PV = "1.0.4"
+PV = "1.0.5"
 
 inherit go glide systemd update-rc.d pkgconfig
 
