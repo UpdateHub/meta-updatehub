@@ -1,6 +1,12 @@
 #!/bin/sh
 
-ACTION=$1
-STATE=$2
+DIR=/usr/share/updatehub/state-change-callbacks.d
 
-run-parts --exit-on-error -a "$ACTION" -a "$STATE" /usr/share/updatehub/state-change-callbacks.d 2> /dev/null
+for f in $(find $DIR -maxdepth 1 -perm /111 -type f ! -name '*~' | sort); do
+    output=$($f "$@") || exit 1
+    echo "$output" | grep -q -e "^try_again\s\?[0-9]\+\?$" -e "^cancel$" && {
+        echo "$output" && exit 0
+    }
+done
+
+exit 0
