@@ -1,0 +1,8 @@
+#!/bin/sh
+
+ACTION=$1
+STATE=$2
+
+FLOW=$(echo "$ACTION $STATE" | nc -q -1 -U /run/updatehub-statechange.sock)
+
+echo "$FLOW"
