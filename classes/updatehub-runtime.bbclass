@@ -36,7 +36,7 @@ UPDATEHUB_DEVICE_IDENTITY[validitems] += "primary-iface cpuinfo-serial custom"
 
 UPDATEHUB_DEVICE_ATTRIBUTE ?= ""
 UPDATEHUB_DEVICE_ATTRIBUTE[type] = "list"
-UPDATEHUB_DEVICE_ATTRIBUTE[validitems] += "kernel cpu-model mem-total"
+UPDATEHUB_DEVICE_ATTRIBUTE[validitems] += "kernel cpu-model mem-total ipinfo-io"
 
 UPDATEHUB_RUNTIME_PACKAGES = ""
 
