@@ -26,5 +26,3 @@ python split_plugins_packages () {
 
 PACKAGES_DYNAMIC = "updatehub-device-attribute-*"
 PACKAGESPLITFUNCS_prepend = " split_plugins_packages "
-
-PACKAGE_ARCH = "${MACHINE_ARCH}"
