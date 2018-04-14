@@ -19,6 +19,8 @@ EXTRA_QMAKEVARS_PRE += " \
   ${PACKAGECONFIG_CONFARGS} \
 "
 
+RDEPENDS_${PN} += "updatehub-sdk-statechange-trigger"
+
 PACKAGES += "${PN}-qmlplugin"
 
 FILES_${PN}-qmlplugin += "${OE_QMAKE_PATH_QML}/updatehub"
