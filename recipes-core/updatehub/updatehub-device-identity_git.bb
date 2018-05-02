@@ -27,3 +27,5 @@ PACKAGES_DYNAMIC = "updatehub-device-identity-*"
 PACKAGESPLITFUNCS_prepend = " split_plugins_packages "
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
+
+ALLOW_EMPTY_${PN} = "1"
