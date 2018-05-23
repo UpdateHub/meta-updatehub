@@ -13,7 +13,7 @@ SRC_URI = " \
     file://updatehub.start \
 "
 
-SRCREV = "cc688f3c77b16ed8c28e1df1c0412a0bff91e397"
+SRCREV = "5ebf1df766bcd8c77a114c0c1f2a22277ca98f9a"
 
 PV = "1.0.6"
 
@@ -72,7 +72,7 @@ PACKAGES =+ "${PN}-ctl ${PN}-server ${PN}-local-update"
 FILES_${PN}-ctl += "${bindir}/${PN}-ctl"
 FILES_${PN}-server += "${bindir}/${PN}-server"
 FILES_${PN}-local-update += "${nonarch_base_libdir}/udev/rules.d/99-updatehub.rules"
-RDEPENDS_${PN}-local-update += "${PN}-server"
+RDEPENDS_${PN}-local-update += "${PN}-server at"
 
 RDEPENDS_${PN}-dev += "bash"
 
