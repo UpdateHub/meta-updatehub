@@ -13,9 +13,9 @@ SRC_URI = " \
     file://updatehub.start \
 "
 
-SRCREV = "3a66c1c9e8ba76d7df4df981e5feb5156c0d6a2e"
+SRCREV = "4a8800cad0033e0f10dbf817031411e417b188d8"
 
-PV = "1.0.8"
+PV = "1.0.9"
 
 inherit go glide systemd update-rc.d pkgconfig
 
@@ -74,6 +74,7 @@ FILES_${PN}-server += "${bindir}/${PN}-server"
 FILES_${PN}-local-update += "${nonarch_base_libdir}/udev/rules.d/99-updatehub.rules"
 RDEPENDS_${PN}-local-update += "${PN}-server at"
 
+RDEPENDS_${PN} += "util-linux-unshare"
 RDEPENDS_${PN}-dev += "bash"
 
 BBCLASSEXTEND = "native nativesdk"
