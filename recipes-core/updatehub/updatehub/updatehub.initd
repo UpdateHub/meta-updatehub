@@ -6,7 +6,6 @@ NAME=updatehub
 DAEMON=@BINDIR@/$NAME
 DAEMON_ARGS=""
 PIDFILE=@LOCALSTATEDIR@/run/$NAME.pid
-LOGFILE=@LOCALSTATEDIR@/log/$NAME.log
 SCRIPTNAME=@SYSCONFDIR@/init.d/$NAME
 
 # Exit if the package is not installed
@@ -28,7 +27,6 @@ log_end_msg() {
 }
 
 export DAEMON_ARGS
-export LOGFILE
 
 do_start()
 {
