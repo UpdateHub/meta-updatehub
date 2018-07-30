@@ -13,9 +13,9 @@ SRC_URI = " \
     file://updatehub.start \
 "
 
-SRCREV = "d30b85e76f8edac512455eb8f376039fbd53becd"
+SRCREV = "7bc65112151efd670e10a472375c946d9120dba8"
 
-PV = "1.0.10"
+PV = "1.0.11"
 
 S = "${WORKDIR}/${GO_IMPORT}"
 
