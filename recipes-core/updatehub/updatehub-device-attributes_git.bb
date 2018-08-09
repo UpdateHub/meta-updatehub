@@ -3,7 +3,7 @@ DEPENDS = "bind jq"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://COPYING;md5=838c366f69b72c5df05c96dff79b35f2"
 SRC_URI = "git://github.com/updatehub/device-attributes;protocol=https"
-SRCREV = "cb588481493e33d773609aeabc9fe4f37e9dbeaf"
+SRCREV = "c7ee915b0d304cec33a08cea7d3f184150c88dd1"
 
 S = "${WORKDIR}/git"
 
@@ -28,4 +28,4 @@ python split_plugins_packages () {
 PACKAGES_DYNAMIC = "updatehub-device-attribute-*"
 PACKAGESPLITFUNCS_prepend = " split_plugins_packages "
 
-RDEPENDS_updatehub-device-attribute-ipinfo-io += "jq bind-utils"
+RDEPENDS_updatehub-device-attribute-ipinfo-io += "jq"
