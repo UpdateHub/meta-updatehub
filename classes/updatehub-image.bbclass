@@ -87,4 +87,8 @@
 #
 # Copyright 2017 (C) O.S. Systems Software LTDA.
 
+# Allow Go cross compiling with the SDK
+TOOLCHAIN_HOST_TASK_append   = " packagegroup-go-cross-canadian-${MACHINE}"
+TOOLCHAIN_TARGET_TASK_append = " packagegroup-go-sdk-target"
+
 inherit updatehub-image-tasks
