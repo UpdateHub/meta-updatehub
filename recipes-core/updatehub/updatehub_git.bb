@@ -19,6 +19,9 @@ PV = "1.0.12"
 
 inherit go glide systemd update-rc.d pkgconfig
 
+# Avoid dynamic linking as it causes segfault
+GO_LINKSHARED = ""
+
 SYSTEMD_PACKAGE = "${PN}"
 SYSTEMD_SERVICE_${PN} = "${PN}.service"
 
