@@ -21,6 +21,9 @@ S = "${WORKDIR}/${GO_IMPORT}"
 
 inherit go systemd update-rc.d pkgconfig
 
+# Avoid dynamic linking as it causes segfault
+GO_LINKSHARED = ""
+
 SYSTEMD_PACKAGE = "${PN}"
 SYSTEMD_SERVICE_${PN} = "${PN}.service"
 
