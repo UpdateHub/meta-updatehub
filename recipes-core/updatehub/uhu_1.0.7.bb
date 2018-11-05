@@ -3,10 +3,10 @@ SECTION = "devel/python"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
 
-inherit pypi setuptools3
+SRC_URI[md5sum] = "1966d68722a4273a63ba1311ea40ec03"
+SRC_URI[sha256sum] = "4d8214d8012e80169ef90ae9b0a8391e1e72f7688b5d159533f49ea1eb243a8e"
 
-SRC_URI[md5sum] = "7ec7a292f42e50bbe64e617ba7357217"
-SRC_URI[sha256sum] = "94cd3da32cbc4817970d4921f44eb8d111cdb694214771ba347f1a7c6ab7c3a7"
+inherit pypi setuptools3
 
 CLEANBROKEN = "1"
 
