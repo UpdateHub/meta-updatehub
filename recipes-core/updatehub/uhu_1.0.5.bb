@@ -3,10 +3,12 @@ SECTION = "devel/python"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
 
-inherit pypi setuptools3
+SRC_URI += "file://0001-Revert-setup.py-Update-requests-requirement-for-2.20.patch"
 
-SRC_URI[md5sum] = "e8828b3c2e280b0e6211a509ac1aeb76"
-SRC_URI[sha256sum] = "8860f8aaf42e3a1872c0eb88a67ce7b4fe48fb6806f6ce963fa0a45825ebbcc8"
+SRC_URI[md5sum] = "9f7a94cbbc97aac9ee614d782e262a51"
+SRC_URI[sha256sum] = "a9a95da05f098260df862c250dae94b9fc2c05ce6271e61004b027fb5e04b252"
+
+inherit pypi setuptools3
 
 CLEANBROKEN = "1"
 
