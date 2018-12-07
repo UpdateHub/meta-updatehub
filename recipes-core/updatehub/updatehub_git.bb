@@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = "file://${S}/src/${GO_IMPORT}/COPYING;md5=21acc3521d288a5d8a4
 
 DEPENDS_append = " glide-native libarchive upx-native"
 
-GO_IMPORT = "github.com/updatehub/updatehub"
+GO_IMPORT = "github.com/UpdateHub/updatehub"
 SRC_URI = " \
     git://${GO_IMPORT};branch=v1 \
     file://updatehub.initd \
