@@ -51,7 +51,7 @@ do_install() {
                      ${D}${nonarch_base_libdir}/udev/rules.d/99-updatehub.rules
 
     # We don't want this shipped in target
-    rm ${D}${bindir}/glide
+    rm -f ${D}${bindir}/glide
 
     # Handle init system integration
     if ${@bb.utils.contains('DISTRO_FEATURES','systemd','true','false',d)}; then
