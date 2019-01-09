@@ -7,8 +7,8 @@ DEPENDS = "${PYTHON_PN}-setuptools"
 
 inherit pypi
 
-SRC_URI[md5sum] = "f9ede04bfb9fbd3a4ba74929379368a7"
-SRC_URI[sha256sum] = "aface0f287dcba235632c8b86e5afc46b07d51fd73a98c5c48f2b664d3dc6aa8"
+SRC_URI[md5sum] = "8d32a1d1d505e8fd19eacd34b5f5bf40"
+SRC_URI[sha256sum] = "537844c066f448c0a983ed8a106e009caac8b257fb2901fd5bc10b2548fbf611"
 
 RDEPENDS_${PN} += " \
     ${PYTHON_PN}-io \
