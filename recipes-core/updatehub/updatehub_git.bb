@@ -13,9 +13,9 @@ SRC_URI = " \
     file://updatehub.start \
 "
 
-SRCREV = "c564065421337701c3ee49c2fd5a4c2f36277c54"
+SRCREV = "66504de7effb681844df6075de41ad75483dda42"
 
-PV = "1.0.15"
+PV = "1.0.16"
 
 S = "${WORKDIR}/${GO_IMPORT}"
 
@@ -49,9 +49,6 @@ do_install() {
     # updatehub server udev rule for USB mounting
     install -Dm 0644 ${S}/cmd/updatehub-server/udev.rules \
                      ${D}${nonarch_base_libdir}/udev/rules.d/99-updatehub.rules
-
-    # We don't want this shipped in target
-    rm ${D}${bindir}/glide
 
     # Handle init system integration
     if ${@bb.utils.contains('DISTRO_FEATURES','systemd','true','false',d)}; then
