@@ -153,6 +153,7 @@ python do_uhuarchive () {
 
 addtask uhuarchive after do_image_complete do_unpack
 do_uhuarchive[nostamp] = "1"
+do_uhuarchive[recrdeptask] += "do_deploy"
 
 uhupush_run() {
     uhu_setup
@@ -181,3 +182,4 @@ python do_uhupush () {
 
 addtask uhupush after do_image_complete do_unpack
 do_uhupush[nostamp] = "1"
+do_uhupush[recrdeptask] += "do_deploy"
