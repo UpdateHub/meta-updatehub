@@ -69,7 +69,7 @@ uhu_setup() {
     fi
 
     if [ -z "${UPDATEHUB_UHUPKG_PRIVATE_KEY}" ]; then
-        bberror "It is not possible to run this task as UPDATEHUB_UHUPKG_PRIVATE_KEY is unset"
+        bbwarn "'UPDATEHUB_UHUPKG_PUBLIC_KEY' variable is not set. The system is not verifying the image authenticity."
     fi
 
     export UHU_PRIVATE_KEY="${UPDATEHUB_UHUPKG_PRIVATE_KEY}"
