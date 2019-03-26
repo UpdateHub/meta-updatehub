@@ -44,7 +44,9 @@ python () {
     if bb.data.inherits_class('image', d):
         ### Ensures product uid is set
         product_uid = d.getVar("UPDATEHUB_PRODUCT_UID", False)
-        if not product_uid:
+        if product_uid == '0000000000000000000000000000000000000000000000000000000000000000':
+            bb.warn("UPDATEHUB_PRODUCT_UID is set to a generic id")
+        elif not product_uid:
             raise bb.parse.SkipRecipe("To enable updatehub support, the 'UPDATEHUB_PRODUCT_UID' variable must be set.")
 
         ### Ensure a version is set
