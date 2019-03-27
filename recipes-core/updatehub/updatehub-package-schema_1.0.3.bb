@@ -5,8 +5,8 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/MIT;md5=0835ad
 
 inherit pypi setuptools3
 
-SRC_URI[md5sum] = "f998eb2f01f2b91c527df0130ec1235a"
-SRC_URI[sha256sum] = "22b277edfb0657c4a95063c4ad5be640ee7eadb788a3142c8446620199ba3e39"
+SRC_URI[md5sum] = "2ad45062e9baba7a764cbbe531621d75"
+SRC_URI[sha256sum] = "1f541bc006f1d65854103550d42f0ee09a74424b8fe72717c461d47bf1548be2"
 
 CLEANBROKEN = "1"
 
