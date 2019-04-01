@@ -11,6 +11,7 @@ To learn more about UpdateHub, check out our [documentation](https://docs.update
 
 This layer depends on:
 
+```shell
   URI: git://git.openembedded.org/bitbake
   branch: master
 
@@ -25,6 +26,7 @@ This layer depends on:
   URI: git://github.com/openembedded/meta-openembedded.git
   subdirectory: meta-python
   branch: master
+```
 
 ## Contributing
 
