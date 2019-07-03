@@ -7,7 +7,6 @@ SRC_URI = "${@'file://${UPDATEHUB_UHUPKG_PUBLIC_KEY}' if '${UPDATEHUB_UHUPKG_PUB
 
 inherit updatehub-runtime
 
-do_unpack[noexec] = "1"
 do_patch[noexec] = "1"
 do_configure[noexec] = "1"
 
