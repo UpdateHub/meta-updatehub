@@ -7,15 +7,15 @@ DEPENDS_append = " glide-native libarchive upx-native"
 
 GO_IMPORT = "github.com/UpdateHub/updatehub"
 SRC_URI = " \
-    git://${GO_IMPORT};branch=v1 \
+    git://${GO_IMPORT};branch=v1.0.x \
     file://updatehub.initd \
     file://updatehub.service \
     file://updatehub.start \
 "
 
-SRCREV = "69864e9c318eb5f74021a96dcf3d06e74bb83069"
+SRCREV = "da3629a4088a10c1ef36219caf3212106331e7d4"
 
-PV = "1.0.17"
+PV = "1.0.18"
 
 inherit go glide systemd update-rc.d pkgconfig
 
