@@ -8,7 +8,7 @@
 #
 # Copyright 2016, 2017 (C) O.S. Systems Software LTDA.
 
-UPDATEHUB_PACKAGE_VERSION ?= "${DISTRO_VERSION}"
+UPDATEHUB_PACKAGE_VERSION ?= "${@sanitise_version(d.getVar('DISTRO_VERSION'))}"
 
 UPDATEHUB_SERVER_URL ?= "https://api.updatehub.io"
 
@@ -159,3 +159,10 @@ python () {
     elif active_inactive_backend:
         d.appendVar('UPDATEHUB_RUNTIME_PACKAGES', ' updatehub-active-inactive-backend-%s' % active_inactive_backend)
 }
+
+def sanitise_version(ver):
+    # VERSION_ID should be (from os-release(5)):
+    #    lower-case string (mostly numeric, no spaces or other characters
+    #    outside of 0-9, a-z, ".", "_" and "-")
+    ret = ver.replace('+', '-').replace(' ','_')
+    return ret.lower()
