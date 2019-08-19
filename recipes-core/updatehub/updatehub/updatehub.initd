@@ -26,20 +26,14 @@ log_end_msg() {
     echo
 }
 
-export DAEMON_ARGS
-
 do_start()
 {
-        rm -f /tmp/.stop-updatehub
-        (while [ ! -f /tmp/.stop-updatehub ]; do
-        start-stop-daemon --start --quiet --pidfile $PIDFILE --make-pidfile \
-                          --startas /bin/sh -- -c @LIBDIR@/updatehub/updatehub.start || sleep 1
-        done ; rm -f /tmp/.stop-updatehub) &
+        start-stop-daemon --start --background --quiet --pidfile $PIDFILE --make-pidfile \
+        --startas /bin/sh -- -c "$DAEMON $DAEMON_ARGS" || return 2
 }
 
 do_stop()
 {
-        > /tmp/.stop-updatehub
         start-stop-daemon --stop --quiet --retry=TERM/30/KILL/5 --pidfile $PIDFILE --name $NAME
         RETVAL="$?"
         [ "$RETVAL" = 2 ] && return 2
@@ -72,7 +66,6 @@ case "$1" in
   restart|force-reload)
         log_daemon_msg "Restarting $DESC" "$NAME"
         do_stop
-        sleep 3
         case "$?" in
           0|1)
                 do_start

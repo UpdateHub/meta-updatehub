@@ -1,0 +1,11 @@
+ENV{ID_FS_LABEL}=="updatehub|UPDATEHUB", \
+  ENV{DEVTYPE}=="partition", \
+  ACTION=="add", \
+  SUBSYSTEM=="block", \
+  RUN+="/usr/bin/updatehub-local-update %k"
+
+ENV{ID_FS_LABEL}=="updatehub|UPDATEHUB", \
+  ENV{DEVTYPE}=="partition", \
+  ACTION=="remove", \
+  RUN+="/bin/umount /mnt/updatehub", \
+  RUN+="/bin/rm -rf /mnt/updatehub"
