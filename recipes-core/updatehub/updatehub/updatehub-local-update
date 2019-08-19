@@ -1,0 +1,6 @@
+#!/bin/sh
+
+mkdir -p /mnt/updatehub
+mount /dev/$1 /mnt/updatehub
+
+updatehub-ctl probe -f file:///mnt/updatehub

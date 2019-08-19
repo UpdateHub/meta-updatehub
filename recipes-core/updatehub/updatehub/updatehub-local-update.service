@@ -1,0 +1,9 @@
+[Unit]
+Description=Run UpdateHub Local Update
+
+[Service]
+Type=oneshot
+ExecStart=@BINDIR@/updatehub-local-update %i
+
+[Install]
+WantedBy=multi-user.target

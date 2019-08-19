@@ -4,7 +4,7 @@ After=local-fs.target network.target time-sync.target
 Requires=local-fs.target
 
 [Service]
-ExecStart=@BINDIR@/unshare -m @BINDIR@/updatehub
+ExecStart=@BINDIR@/updatehub
 Restart=on-failure
 
 [Install]
