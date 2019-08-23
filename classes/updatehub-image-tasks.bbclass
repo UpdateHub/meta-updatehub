@@ -82,6 +82,7 @@ uhu_setup() {
     # Replace few commonly used variables
     sed -e "s,\$IMAGE_BASENAME,${IMAGE_BASENAME},g" \
         -e "s,\$MACHINE,${MACHINE},g" \
+        -e "s,\$UBOOT_BINARY,${UBOOT_BINARY},g" \
         -i .uhu
 }
 uhu_setup[dirs] ?= "${DEPLOY_DIR_IMAGE}"
@@ -93,6 +94,7 @@ uhushell_finish() {
     # Replace few commonly used variables
     sed -e "s,${IMAGE_BASENAME},\$IMAGE_BASENAME,g" \
         -e "s,${MACHINE},\$MACHINE,g" \
+        -e "s,${UBOOT_BINARY},\$UBOOT_BINARY,g" \
         -i ${UHUPKG}
 }
 uhushell_finish[dirs] ?= "${DEPLOY_DIR_IMAGE}"
