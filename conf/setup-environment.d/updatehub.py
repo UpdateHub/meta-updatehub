@@ -6,6 +6,7 @@ def __after_init_updatehub():
                         'meta-openembedded/meta-networking',
                         'meta-openembedded/meta-oe',
                         'meta-openembedded/meta-python',
+                        'meta-rust-bin',
                         'meta-updatehub',
                     ]])
 
