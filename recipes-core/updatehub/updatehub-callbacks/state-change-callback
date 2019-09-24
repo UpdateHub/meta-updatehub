@@ -4,7 +4,7 @@ DIR=/usr/share/updatehub/state-change-callbacks.d
 
 for f in $(find $DIR -maxdepth 1 -perm /111 -type f ! -name '*~' | sort); do
     output=$($f "$@") || exit 1
-    echo "$output" | grep -q -e "^try_again\s\?[0-9]\+\?$" -e "^cancel$" && {
+    echo "$output" | egrep -q "^(try_again\s*[0-9]*|cancel)$" && {
         echo "$output" && exit 0
     }
 done
