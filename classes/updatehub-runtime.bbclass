@@ -8,7 +8,7 @@
 #
 # Copyright 2016, 2017 (C) O.S. Systems Software LTDA.
 
-UPDATEHUB_PACKAGE_VERSION ?= "${@sanitise_version(d.getVar('DISTRO_VERSION'))}"
+UPDATEHUB_PACKAGE_VERSION ?= "${@sanitise_version(d.getVar('DISTRO_VERSION', 1))}"
 
 UPDATEHUB_SERVER_URL ?= "https://api.updatehub.io"
 
