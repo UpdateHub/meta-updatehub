@@ -21,4 +21,7 @@ do_compile[noexec] = "1"
 do_install[noexec] = "1"
 
 RPROVIDES_${PN} += "virtual/grub-bootconf"
+
+ALLOW_EMPTY_${PN} = "1"
+
 PACKAGE_ARCH = "${MACHINE_ARCH}"
