@@ -86,5 +86,6 @@ FILES_${PN}-local-update += " \
 "
 
 RDEPENDS_${PN}-dev += "bash"
+RDEPENDS_${PN}-local-update += "${PN}-ctl"
 
 BBCLASSEXTEND = "native nativesdk"
