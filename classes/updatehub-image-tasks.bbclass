@@ -83,6 +83,7 @@ uhu_setup() {
     sed -e "s,\$IMAGE_BASENAME,${IMAGE_BASENAME},g" \
         -e "s,\$MACHINE,${MACHINE},g" \
         -e "s,\$UBOOT_BINARY,${UBOOT_BINARY},g" \
+        -e "s,\$SDIMG_KERNELIMAGE,${SDIMG_KERNELIMAGE},g" \
         -i .uhu
 }
 uhu_setup[dirs] ?= "${DEPLOY_DIR_IMAGE}"
