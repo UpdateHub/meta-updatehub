@@ -6,9 +6,12 @@ order to provide support for some backported features and fixes, or because it \
 was submitted for revision and it takes some time to become part of a stable \
 version, or because it is not applicable for upstreaming."
 
-DEPENDS_append = " dtc-native bison-native"
+DEPENDS += "bc-native bison-native dtc-native flex-native"
 
 PROVIDES += "u-boot"
+
+B = "${WORKDIR}/build"
+do_configure[cleandirs] = "${B}"
 
 # FIXME: Allow linking of 'tools' binaries with native libraries
 #        used for generating the boot logo and other tools used
