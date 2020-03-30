@@ -10,6 +10,8 @@ DEPENDS += "bc-native bison-native dtc-native flex-native"
 
 PROVIDES += "u-boot"
 
+UBOOT_LOCALVERSION = "-updatehub+g${@d.getVar('SRCPV', True).partition('+')[2][0:7]}"
+
 B = "${WORKDIR}/build"
 do_configure[cleandirs] = "${B}"
 
