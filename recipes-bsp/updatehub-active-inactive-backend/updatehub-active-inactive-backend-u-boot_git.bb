@@ -19,5 +19,5 @@ do_install () {
     install -Dm 0755 updatehub-active-validated ${D}${bindir}/updatehub-active-validated
 }
 
-RDEPENDS_${PN} += "u-boot-fw-utils"
+RDEPENDS_${PN} += "u-boot-fw-utils u-boot-default-env"
 INSANE_SKIP_${PN} += "build-deps"
