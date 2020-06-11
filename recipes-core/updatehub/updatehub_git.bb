@@ -22,6 +22,10 @@ PV = "1.1.1"
 
 inherit go glide systemd update-rc.d pkgconfig
 
+# New Go versions has Go modules support enabled by default and cause the
+# UpdateHub tool build to fail.
+export GO111MODULE = "off"
+
 # Avoid dynamic linking as it causes segfault
 GO_LINKSHARED = ""
 
