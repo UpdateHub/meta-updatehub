@@ -1,13 +1,12 @@
 SUMMARY = "A Firmware Over-The-Air agent for Embedded and Industrial Linux-based devices"
 HOMEPAGE = "https://updatehub.io"
 LICENSE = "Apache-2.0"
-LIC_FILES_CHKSUM = "file://${S}/src/${GO_IMPORT}/LICENSE;md5=fa818a259cbed7ce8bc2a22d35a464fc"
+LIC_FILES_CHKSUM = "file://../LICENSE-APACHE;md5=fa818a259cbed7ce8bc2a22d35a464fc"
 
-DEPENDS_append = " glide-native libarchive upx-native"
+DEPENDS = "libarchive openssl upx-native"
 
-GO_IMPORT = "github.com/UpdateHub/updatehub"
 SRC_URI = " \
-    git://${GO_IMPORT};branch=v1 \
+    git://github.com/UpdateHub/updatehub \
     file://updatehub-local-update \
     file://updatehub-local-update-systemd.rules \
     file://updatehub-local-update-sysvinit.rules \
@@ -16,23 +15,23 @@ SRC_URI = " \
     file://updatehub.service \
 "
 
-SRCREV = "746469e2adfbcc19563a0ef3d18c04c0bbb137c9"
+SRCREV = "61861786ae495382847ee9eeb99f591867d908c0"
 
-PV = "1.1.1"
+S = "${WORKDIR}/git/${BPN}"
 
-inherit go glide systemd update-rc.d pkgconfig
+PV = "2.0.0"
 
-# New Go versions has Go modules support enabled by default and cause the
-# UpdateHub tool build to fail.
-export GO111MODULE = "off"
+inherit cargo systemd update-rc.d pkgconfig
 
-# Avoid dynamic linking as it causes segfault
-GO_LINKSHARED = ""
+PACKAGECONFIG ?= "backward-compatibility"
+PACKAGECONFIG[backward-compatibility] = "v1-parsing"
 
-SYSTEMD_PACKAGE = "${PN}"
-SYSTEMD_SERVICE_${PN} = "${PN}.service"
+CARGO_FEATURES = "${PACKAGECONFIG_CONFARGS}"
 
-INITSCRIPT_NAME = "${PN}"
+SYSTEMD_PACKAGE = "${BPN}"
+SYSTEMD_SERVICE_${BPN} = "${BPN}.service"
+
+INITSCRIPT_NAME = "${BPN}"
 INITSCRIPT_PARAMS = "start 99 2 3 4 5 ."
 
 SYSTEMD_PACKAGE_updatehub-local-update = "updatehub-local-update"
@@ -41,15 +40,6 @@ SYSTEMD_AUTO_ENABLE_updatehub-local-update = "disable"
 
 UPX ?= "${STAGING_BINDIR_NATIVE}/upx"
 UPX_ARGS ?= "--ultra-brute -q"
-
-GO_INSTALL = " \
-    ${GO_IMPORT}/cmd/updatehub \
-    ${GO_IMPORT}/cmd/updatehub-ctl \
-"
-
-GO_LINKMODE_append = " \
-    -X main.gitversion=${PV} \
-"
 
 UPDATEHUB_LOCAL_UPDATE_DIR ??= "/mnt/updatehub"
 
@@ -80,21 +70,24 @@ do_install_append() {
 }
 
 apply_upx() {
-    ${UPX} ${UPX_ARGS} ${PKGDEST}/${PN}/${bindir}/updatehub
-    ${UPX} ${UPX_ARGS} ${PKGDEST}/${PN}-ctl/${bindir}/updatehub-ctl
+   ${UPX} ${UPX_ARGS} ${PKGDEST}/${BPN}/${bindir}/updatehub
 }
 
 PACKAGEFUNCS += "apply_upx"
 
-PACKAGES =+ "${PN}-ctl ${PN}-local-update"
+PACKAGES =+ "${BPN}-local-update"
 
-FILES_${PN}-ctl += "${bindir}/${PN}-ctl"
-FILES_${PN}-local-update += " \
+RDEPENDS_${BPN} += "openssl"
+
+# Now, the same updatehub binary works as server and client tool, so replacing
+# the old updatehub-ctl.
+RREPLACES_${BPN} += "${BPN}-ctl"
+RPROVIDES_${BPN} += "${BPN}-ctl"
+RCONFLICTS_${BPN} += "${BPN}-ctl"
+
+FILES_${BPN}-local-update += " \
     ${nonarch_base_libdir}/udev/rules.d/99-updatehub.rules \
     ${systemd_system_unitdir}/updatehub-local-update@.service \
 "
-
-RDEPENDS_${PN}-dev += "bash"
-RDEPENDS_${PN}-local-update += "${PN}-ctl"
 
 BBCLASSEXTEND = "native nativesdk"
