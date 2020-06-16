@@ -19,19 +19,24 @@ UPDATEHUB_DOWNLOAD_DIR     ??= "${UPDATEHUB_RUNTIME}/download"
 
 do_compile () {
     cat > updatehub.conf <<EOF
-[Network]
-ServerAddress=${UPDATEHUB_SERVER_URL}
+[network]
+server_address = "${UPDATEHUB_SERVER_URL}"
+listen_socket = "localhost:8080"
 
-[Storage]
-RuntimeSettingsPath=${UPDATEHUB_RUNTIME_SETTINGS}
+[storage]
+read_only = false
+runtime_settings = "${UPDATEHUB_RUNTIME_SETTINGS}"
 
-[Polling]
-Enabled=${UPDATEHUB_POLLING_ENABLED}
-Interval=${UPDATEHUB_POLLING_INTERVAL}
+[polling]
+enabled = ${UPDATEHUB_POLLING_ENABLED}
+interval = "${UPDATEHUB_POLLING_INTERVAL}"
 
-[Update]
-DownloadDir=${UPDATEHUB_DOWNLOAD_DIR}
-SupportedInstallModes=${@', '.join(d.getVar('UPDATEHUB_INSTALL_MODE', False).split())}
+[update]
+download_dir = "${UPDATEHUB_DOWNLOAD_DIR}"
+supported_install_modes = ${@d.getVar('UPDATEHUB_INSTALL_MODE', False).split()}
+
+[firmware]
+metadata="/usr/share/updatehub"
 EOF
 }
 
