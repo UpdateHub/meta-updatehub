@@ -4,7 +4,7 @@ PATH=/sbin:/usr/sbin:/bin:/usr/bin
 DESC="updatehub"
 NAME=updatehub
 DAEMON=@BINDIR@/$NAME
-DAEMON_ARGS=""
+DAEMON_ARGS="daemon"
 PIDFILE=@LOCALSTATEDIR@/run/$NAME.pid
 SCRIPTNAME=@SYSCONFDIR@/init.d/$NAME
 
