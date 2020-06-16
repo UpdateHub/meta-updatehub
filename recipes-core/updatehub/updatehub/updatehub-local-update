@@ -3,4 +3,6 @@
 mkdir -p @LOCAL_UPDATE_DIR@
 mount /dev/$1 @LOCAL_UPDATE_DIR@
 
-updatehub-ctl probe -f file://@LOCAL_UPDATE_DIR@
+uhupkg=$(ls -t @LOCAL_UPDATE_DIR@/*.uhupkg | head -n1)
+
+updatehub client install-package $uhupkg
