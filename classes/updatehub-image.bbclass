@@ -36,6 +36,36 @@
 #     area and in next reboot the new image is used. The UPDATEHUB_ACTIVE_INACTIVE_BACKEND variable
 #     need to set depending of the machine requirement.
 #
+#  UPDATEHUB_DEVICE_IDENTITY
+#
+#  The UPDATEHUB_DEVICE_IDENTITY allows the selection of how to the device identity is gathered on
+#  the system. The UPDATEHUB_DEVICE_IDENTITY is usually set on the machine file, as it is specific
+#  and may vary among multiple machines. It supports following identity providers, by default:
+#
+#     primary-iface
+#
+#     The use of primary network interface MAC address is a good candidate as a device identity, as
+#     most of time it comes pre-programmed from the vendor and intended to be unique. The primary
+#     interface is used because it is unlikely to change even if removable devices are plugged in
+#     (e.g: USB ethernet adapter or WiFi dongles).
+#
+#
+#     cpuinfo-serial
+#
+#     The processor serial number is a good source of unique identifier for the device and it compes
+#     pre-programmed by the CPU vendor. Currently it tries to get the serial number from
+#     /proc/cpuinfo and in case of failure, fallback to /sys/devices/soc0/serial_number.
+#
+#
+#     custom
+#
+#     For the cases where the default device identity providers does not offer a good source of
+#     identity, the custom provider can be used. The use of the custom allows for user to provide
+#     one or more binaries or scripts which provide the device identity output.
+#
+#     To add a custom provider, the utilities must be installed on /usr/share/device-identity.d and
+#     they are execute in alphabetic order. The output must use the 'key=value' format.
+#
 #  UPDATEHUB_ACTIVE_INACTIVE_BACKEND
 #
 #  The active and inactive image schema requires a backend to identify and choose the image to be
