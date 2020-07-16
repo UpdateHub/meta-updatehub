@@ -1,6 +1,6 @@
 #!/bin/sh
 
-mkdir -p /mnt/updatehub
-mount /dev/$1 /mnt/updatehub
+mkdir -p @LOCAL_UPDATE_DIR@
+mount /dev/$1 @LOCAL_UPDATE_DIR@
 
-updatehub-ctl probe -f file:///mnt/updatehub
+updatehub-ctl probe -f file://@LOCAL_UPDATE_DIR@
