@@ -75,6 +75,8 @@ do_install_append() {
             ${D}${systemd_system_unitdir}/updatehub.service \
             ${D}${systemd_system_unitdir}/updatehub-local-update@.service
     fi
+    sed -i -e 's,@LOCAL_UPDATE_DIR@,${UPDATEHUB_LOCAL_UPDATE_DIR},g' \
+        ${D}${nonarch_base_libdir}/udev/rules.d/99-updatehub.rules
 }
 
 apply_upx() {
