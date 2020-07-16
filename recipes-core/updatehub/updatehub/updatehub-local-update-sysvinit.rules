@@ -7,5 +7,5 @@ ENV{ID_FS_LABEL}=="updatehub|UPDATEHUB", \
 ENV{ID_FS_LABEL}=="updatehub|UPDATEHUB", \
   ENV{DEVTYPE}=="partition", \
   ACTION=="remove", \
-  RUN+="/bin/umount /mnt/updatehub", \
-  RUN+="/bin/rm -rf /mnt/updatehub"
+  RUN+="/bin/umount @LOCAL_UPDATE_DIR@", \
+  RUN+="/bin/rm -rf @LOCAL_UPDATE_DIR@"
