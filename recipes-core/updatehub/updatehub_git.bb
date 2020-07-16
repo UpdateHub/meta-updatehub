@@ -51,8 +51,11 @@ GO_LINKMODE_append = " \
     -X main.gitversion=${PV} \
 "
 
+UPDATEHUB_LOCAL_UPDATE_DIR ??= "/mnt/updatehub"
+
 do_install_append() {
     install -Dm 0755 ${WORKDIR}/updatehub-local-update ${D}${bindir}/updatehub-local-update
+    sed -i -e 's,@LOCAL_UPDATE_DIR@,${UPDATEHUB_LOCAL_UPDATE_DIR},g' ${D}${bindir}/updatehub-local-update
 
     # Handle init system integration and updatehub local update udev rule for USB mounting
     if ${@bb.utils.contains('DISTRO_FEATURES','sysvinit','true','false',d)}; then
