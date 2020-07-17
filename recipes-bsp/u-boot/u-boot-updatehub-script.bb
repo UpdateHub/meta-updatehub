@@ -100,6 +100,17 @@ python() {
 
 do_generate_bootscript() {
     cat > ${B}/boot.cmd <<EOF
+if itest.s "x" == "x\${updatehub_active}" ; then
+    echo Ensuring environment is accessible in Linux...
+    setenv updatehub_active 0
+    saveenv
+fi
+
+if itest.s "\${updatehub_active}" != 0 && itest.s "\${updatehub_active}" != 1; then
+    echo Invalid updatehub_active value, resetting it
+    setenv updatehub_active 0
+    saveenv
+fi
 
 setenv bootargs ''
 
@@ -109,34 +120,31 @@ setenv updatehub_find_root_a "${UPDATEHUB_BOOTSCRIPT_FIND_ROOT_A}"
 setenv updatehub_load_os_b "${UPDATEHUB_BOOTSCRIPT_LOAD_B}"
 setenv updatehub_find_root_b "${UPDATEHUB_BOOTSCRIPT_FIND_ROOT_B}"
 
-if itest.s "x" == "x\${updatehub_active}" ; then
-    echo Ensuring environment is accessible in Linux...
-    setenv updatehub_active 0
-    saveenv
-fi
+# We control the bootcount limit here to allow this logic to be
+# changed inside the script, without storing more contents on
+# the environment.
+if itest.s "x" != "x\${bootcount}" && test \${bootcount} -ge 2; then
+    if test \${updatehub_active} = 0; then
+        echo Bootcount limit reached. Reverting to image B
+        setenv updatehub_active 1
+    else
+        echo Bootcount limit reached. Reverting to image A
+        setenv updatehub_active 0
+    fi
+fi;
 
+# Find out where we should boot
 if itest.s "\${updatehub_active}" == 0 ; then
     echo Loading system from A
     run updatehub_find_root_a updatehub_load_os_a
-
-    setenv bootargs ${UPDATEHUB_BOOTSCRIPT_BOOTARGS}
-    ${UPDATEHUB_BOOTSCRIPT_BOOTCMD}
-
 else
-    if itest.s "\${updatehub_active}" == 1 ; then
-        echo Loading system from B
-        run updatehub_find_root_b updatehub_load_os_b
-
-        setenv bootargs ${UPDATEHUB_BOOTSCRIPT_BOOTARGS}
-        ${UPDATEHUB_BOOTSCRIPT_BOOTCMD}
-
-    else
-        echo Invalid updatehub_active value, resetting it
-        setenv updatehub_active 0
-        saveenv
-        reset
-    fi
+    echo Loading system from B
+    run updatehub_find_root_b updatehub_load_os_b
 fi
+
+# Initialize the boot process
+setenv bootargs ${UPDATEHUB_BOOTSCRIPT_BOOTARGS}
+${UPDATEHUB_BOOTSCRIPT_BOOTCMD}
 EOF
 }
 do_generate_bootscript[dirs] = "${B}"
