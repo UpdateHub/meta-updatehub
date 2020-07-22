@@ -131,6 +131,7 @@ if itest.s "x" != "x\${bootcount}" && test \${bootcount} -ge 2; then
         echo Bootcount limit reached. Reverting to image A
         setenv updatehub_active 0
     fi
+    saveenv
 fi;
 
 # Find out where we should boot
