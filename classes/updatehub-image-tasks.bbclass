@@ -85,6 +85,7 @@ uhu_setup() {
         -e "s,\$UBOOT_BINARY,${UBOOT_BINARY},g" \
         -e "s,\$SPL_BINARY,${SPL_BINARY},g" \
         -e "s,\$SDIMG_KERNELIMAGE,${SDIMG_KERNELIMAGE},g" \
+        -e "s,\$BOOTFILES_DIR_NAME,${BOOTFILES_DIR_NAME},g" \
         -i .uhu
 }
 uhu_setup[dirs] ?= "${DEPLOY_DIR_IMAGE}"
