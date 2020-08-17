@@ -140,6 +140,12 @@ python () {
         'xfs'  : 'xfsprogs-mkfs',
     }
 
+    # Ensure if we enable 'ubifs' we add both the mode and the filesystem
+    # support.
+    if 'ubifs' in modes and not 'ubifs' in filesystems or \
+        not 'ubifs' in modes and 'ubifs' in filesystems:
+        raise bb.parse.SkipRecipe("To use 'ubifs' it must be enabled on the UPDATEHUB_FILESYSTEM_SUPPORT and UPDATEHUB_INSTALL_MODE variables. Please check.")
+
     if any(map(lambda x: x not in filesystem_rdepends_map.keys(), valid_filesystems)):
         raise bb.parse.SkipRecipe("Not all valid filesystems has the runtime dependencies mapped. Please check.")
 
