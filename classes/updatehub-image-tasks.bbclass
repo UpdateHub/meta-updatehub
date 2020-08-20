@@ -24,8 +24,6 @@ def uhupkg_search(files, search_path):
             if searched:
                 return searched
 
-DEPENDS += "uhu-native"
-
 python () {
     ### Queue initramfs image build
     image_type = d.getVar("UPDATEHUB_IMAGE_TYPE", False)
@@ -140,6 +138,7 @@ python do_uhushell () {
 }
 
 addtask uhushell after do_image_complete do_unpack
+do_uhushell[depends] += "uhu-native:do_populate_sysroot"
 do_uhushell[dirs] ?= "${DEPLOY_DIR_IMAGE}"
 do_uhushell[nostamp] = "1"
 
@@ -158,6 +157,7 @@ python do_uhuarchive () {
 }
 
 addtask uhuarchive after do_image_complete do_unpack
+do_uhuarchive[depends] += "uhu-native:do_populate_sysroot"
 do_uhuarchive[nostamp] = "1"
 do_uhuarchive[recrdeptask] += "do_deploy"
 
