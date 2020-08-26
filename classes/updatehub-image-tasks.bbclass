@@ -6,7 +6,7 @@
 # For more information about its usage, is available in
 # 'updatehub-image' class documentation.
 #
-# Copyright 2017 (C) O.S. Systems Software LTDA.
+# Copyright 2017-2020 (C) O.S. Systems Software LTDA.
 
 inherit terminal python3native updatehub-runtime
 
@@ -64,10 +64,6 @@ uhu_setup() {
 
     if [ -n "${UPDATEHUB_CUSTOM_CA_CERTS}" ]; then
         export UHU_CUSTOM_CA_CERTS="${UPDATEHUB_CUSTOM_CA_CERTS}"
-    fi
-
-    if [ -z "${UPDATEHUB_UHUPKG_PRIVATE_KEY}" ]; then
-        bbwarn "'UPDATEHUB_UHUPKG_PUBLIC_KEY' variable is not set. The system is not verifying the image authenticity."
     fi
 
     export UHU_PRIVATE_KEY="${UPDATEHUB_UHUPKG_PRIVATE_KEY}"
@@ -189,3 +185,19 @@ python do_uhupush () {
 addtask uhupush after do_image_complete do_unpack
 do_uhupush[nostamp] = "1"
 do_uhupush[recrdeptask] += "do_deploy"
+
+addtask validate_updatehub_settings before do_uhupush
+addtask validate_updatehub_settings before do_uhuarchive
+do_validate_updatehub_settings[nostamp] = "1"
+python do_validate_updatehub_settings() {
+    ### Ensures product uid is set
+    product_uid = d.getVar("UPDATEHUB_PRODUCT_UID", False)
+    if product_uid == '0000000000000000000000000000000000000000000000000000000000000000':
+       bb.warn("'UPDATEHUB_PRODUCT_UID' is set to a generic id")
+
+    ### Ensure a valid public and private keys are provided
+    uhupkg_public_key = d.getVar('UPDATEHUB_UHUPKG_PUBLIC_KEY', True)
+    uhupkg_private_key = d.getVar('UPDATEHUB_UHUPKG_PRIVATE_KEY', True)
+    if not uhupkg_public_key or not uhupkg_private_key:
+       bb.warn("'UPDATEHUB_UHUPKG_PUBLIC_KEY' and 'UPDATEHUB_UHUPKG_PRIVATE_KEY' variables must be set to allow image authenticity verification. The image authenticity will not be verified in the system.")
+}
