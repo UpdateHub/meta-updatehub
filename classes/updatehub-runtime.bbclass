@@ -6,7 +6,7 @@
 # The supported variables as well as their usage are documented on the
 # updatehub-image class.
 #
-# Copyright 2016, 2017 (C) O.S. Systems Software LTDA.
+# Copyright 2016-2020 (C) O.S. Systems Software LTDA.
 
 UPDATEHUB_PACKAGE_VERSION ?= "${@sanitise_version(d.getVar('DISTRO_VERSION'))}"
 
@@ -44,9 +44,7 @@ python () {
     if bb.data.inherits_class('image', d):
         ### Ensures product uid is set
         product_uid = d.getVar("UPDATEHUB_PRODUCT_UID", False)
-        if product_uid == '0000000000000000000000000000000000000000000000000000000000000000':
-            bb.warn("UPDATEHUB_PRODUCT_UID is set to a generic id")
-        elif not product_uid:
+        if not product_uid:
             raise bb.parse.SkipRecipe("To enable updatehub support, the 'UPDATEHUB_PRODUCT_UID' variable must be set.")
 
         ### Ensure a version is set
@@ -70,16 +68,6 @@ python () {
             if active_inactive_backend:
                 raise bb.parse.SkipRecipe("To enable updatehub with initramfs image schema support, the 'UPDATEHUB_ACTIVE_INACTIVE_BACKEND' variable must NOT be set.")
             d.appendVar('IMAGE_INSTALL', ' packagegroup-updatehub-initramfs-support')
-
-    ### Ensure a valid public key is provided
-    uhupkg_public_key = d.getVar('UPDATEHUB_UHUPKG_PUBLIC_KEY', True)
-    if not uhupkg_public_key:
-        bb.warn("'UPDATEHUB_UHUPKG_PUBLIC_KEY' variable is not set. The system is not verifying the image authenticity.")
-
-    ### Ensure a valid private key is provided
-    uhupkg_private_key = d.getVar('UPDATEHUB_UHUPKG_PRIVATE_KEY', True)
-    if not uhupkg_public_key:
-        bb.warn("'UPDATEHUB_UHUPKG_PUBLIC_KEY' variable is not set. The system is not verifying the image authenticity.")
 
     ### Handle device identity selection
     device_identities = (d.getVar('UPDATEHUB_DEVICE_IDENTITY', True) or "").split()
