@@ -144,7 +144,7 @@ else
 fi
 
 # Initialize the boot process
-setenv bootargs ${UPDATEHUB_BOOTSCRIPT_BOOTARGS}
+setenv bootargs "${UPDATEHUB_BOOTSCRIPT_BOOTARGS}"
 ${UPDATEHUB_BOOTSCRIPT_BOOTCMD}
 EOF
 }
