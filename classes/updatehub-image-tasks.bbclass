@@ -183,6 +183,7 @@ python do_uhupush () {
 }
 
 addtask uhupush after do_image_complete do_unpack
+do_uhupush[depends] += "uhu-native:do_populate_sysroot"
 do_uhupush[nostamp] = "1"
 do_uhupush[recrdeptask] += "do_deploy"
 
