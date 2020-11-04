@@ -69,7 +69,16 @@ uhu_setup() {
     export UHU_PRIVATE_KEY="${UPDATEHUB_UHUPKG_PRIVATE_KEY}"
 
     uhu hardware reset
-    uhu hardware add "${MACHINE}"
+
+    if [ -n "${UPDATEHUB_COMPATIBLE_MACHINE}" ]; then
+        machine_list='${UPDATEHUB_COMPATIBLE_MACHINE}'
+        for machine in $machine_list; do
+            uhu hardware add "$machine"
+        done
+    else
+        bberror "UPDATEHUB_COMPATIBLE_MACHINE is not set. Aborting."
+    fi
+
     uhu product use "${UPDATEHUB_PRODUCT_UID}"
     uhu package version "${UPDATEHUB_PACKAGE_VERSION}"
 

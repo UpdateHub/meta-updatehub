@@ -40,6 +40,8 @@ UPDATEHUB_DEVICE_ATTRIBUTE[validitems] += "kernel cpu-model mem-total ipinfo-io"
 
 UPDATEHUB_RUNTIME_PACKAGES = ""
 
+UPDATEHUB_COMPATIBLE_MACHINE ?= "${MACHINE}"
+
 python () {
     if bb.data.inherits_class('image', d):
         ### Ensures product uid is set
