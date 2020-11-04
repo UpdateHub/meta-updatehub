@@ -103,6 +103,15 @@
 #  staging server for tests but may be interesting for other users when doing custom server
 #  deployments.
 #
+#  UPDATEHUB_COMPATIBLE_MACHINE
+#
+#  A space separeted list with supported hardware that will be used by 'uhu hardware add $hardware'
+#  command.
+#
+#  The default value is the machine name. If you want to support more than one machine for the same
+#  uhupkg.config file append the additional machines to UPDATEHUB_COMPATIBLE_MACHINE variable.
+#  To replace the default value override the UPDATEHUB_COMPATIBLE_MACHINE variable.
+#
 # Copyright 2017-2020 (C) O.S. Systems Software LTDA.
 
 inherit updatehub-image-tasks
