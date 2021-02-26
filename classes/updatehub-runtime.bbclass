@@ -42,6 +42,19 @@ UPDATEHUB_RUNTIME_PACKAGES = ""
 
 UPDATEHUB_COMPATIBLE_MACHINE ?= "${MACHINE}"
 
+# Change tar format argument to use gnu instead of posix. OE-Core
+# 07a1771c9b2066c2003f285493d9720008b7412b changed tar format from gnu to posix.
+# When we have an rootfs running that was built using the gnu format and then
+# update to a rootfs that was built using posix format libarchive fails to
+# unpack and raise the error:
+#
+# level=warning msg="transient error: Pathname can't be converted from UTF-8 to current locale.
+#
+# This happens because the LC_ALL variable is not set to use UTF-8, e.g. en_US.UTF-8 and libarchive
+# can't extract files uses UTF-8 format, e.g. ca-certificate NetLock_Arany_=Class_Gold=_Főtanúsítvány.pem
+# file.
+IMAGE_CMD_tar = "${IMAGE_CMD_TAR} --sort=name --format=gnu --numeric-owner -cf ${IMGDEPLOYDIR}/${IMAGE_NAME}${IMAGE_NAME_SUFFIX}.tar -C ${IMAGE_ROOTFS} . || [ $? -eq 1 ]"
+
 python () {
     if bb.data.inherits_class('image', d):
         ### Ensures product uid is set
