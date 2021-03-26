@@ -33,7 +33,7 @@ SYSTEMD_PACKAGE = "${PN}"
 SYSTEMD_SERVICE_${PN} = "${PN}.service"
 
 INITSCRIPT_NAME = "${PN}"
-INITSCRIPT_PARAMS = "defaults 99"
+INITSCRIPT_PARAMS = "start 99 2 3 4 5 ."
 
 SYSTEMD_PACKAGE_updatehub-local-update = "updatehub-local-update"
 SYSTEMD_SERVICE_updatehub-local-update = "updatehub-local-update@.service"
