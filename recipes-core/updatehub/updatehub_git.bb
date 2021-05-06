@@ -27,6 +27,7 @@ PACKAGECONFIG ?= "backward-compatibility"
 PACKAGECONFIG[backward-compatibility] = "v1-parsing"
 
 CARGO_FEATURES = "${PACKAGECONFIG_CONFARGS}"
+EXTRA_CARGO_FLAGS = "--bin ${BPN}"
 
 SYSTEMD_PACKAGE = "${BPN}"
 SYSTEMD_SERVICE_${BPN} = "${BPN}.service"
