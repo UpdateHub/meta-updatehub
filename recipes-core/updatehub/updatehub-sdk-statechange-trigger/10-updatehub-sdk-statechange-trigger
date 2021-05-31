@@ -2,6 +2,8 @@
 
 STATE=$1
 
-FLOW=$(echo "$STATE" | nc -q -1 -U /run/updatehub-statechange.sock)
+if [ -S /run/updatehub-statechange.sock ]; then
+    FLOW=$(echo "$STATE" | nc -q -1 -U /run/updatehub-statechange.sock)
 
-echo "$FLOW"
+    echo "$FLOW"
+fi
