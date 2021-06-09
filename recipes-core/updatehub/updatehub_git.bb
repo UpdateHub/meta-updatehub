@@ -15,11 +15,11 @@ SRC_URI = " \
     file://updatehub.service \
 "
 
-SRCREV = "cb28a8f33b3d08c7c9bd52b90ee19c867bd6d49d"
+SRCREV = "eaa440023d2bd6ba9300bb1d2834b39be1c11ff4"
 
 S = "${WORKDIR}/git/${BPN}"
 
-PV = "2.0.2"
+PV = "2.0.3"
 
 inherit cargo systemd update-rc.d pkgconfig
 
