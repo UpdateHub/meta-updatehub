@@ -40,7 +40,7 @@ SYSTEMD_SERVICE_updatehub-local-update = "updatehub-local-update@.service"
 SYSTEMD_AUTO_ENABLE_updatehub-local-update = "disable"
 
 UPX ?= "${STAGING_BINDIR_NATIVE}/upx"
-UPX_ARGS ?= "--ultra-brute -q"
+UPX_ARGS ?= "--best -q"
 
 UPDATEHUB_LOCAL_UPDATE_DIR ??= "/mnt/updatehub"
 
