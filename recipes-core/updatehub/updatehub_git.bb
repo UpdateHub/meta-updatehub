@@ -70,6 +70,7 @@ do_install_append() {
         ${D}${nonarch_base_libdir}/udev/rules.d/99-updatehub.rules
 }
 
+apply_upx[vardeps] += "UPX UPX_ARGS"
 apply_upx() {
    ${UPX} ${UPX_ARGS} ${PKGDEST}/${BPN}/${bindir}/updatehub
 }
