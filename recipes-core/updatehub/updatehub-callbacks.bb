@@ -28,4 +28,4 @@ do_install() {
     install -d ${D}${datadir}/updatehub/rollback-callbacks.d
 }
 
-FILES_${PN} += "${datadir}/updatehub"
+FILES:${PN} += "${datadir}/updatehub"

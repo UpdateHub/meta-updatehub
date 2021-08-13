@@ -50,6 +50,6 @@ do_install () {
     fi
 }
 
-FILES_${PN} += "${datadir}/updatehub/key.pub"
+FILES:${PN} += "${datadir}/updatehub/key.pub"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"

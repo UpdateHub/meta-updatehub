@@ -209,9 +209,9 @@ do_deploy() {
 
 addtask deploy after do_install before do_build
 
-FILES_${PN} += "/"
+FILES:${PN} += "/"
 
 PROVIDES += "u-boot-default-script"
-RPROVIDES_${PN} += "u-boot-default-script"
+RPROVIDES:${PN} += "u-boot-default-script"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"

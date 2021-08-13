@@ -24,8 +24,8 @@ python split_plugins_packages () {
 }
 
 PACKAGES_DYNAMIC = "updatehub-device-identity-*"
-PACKAGESPLITFUNCS_prepend = " split_plugins_packages "
+PACKAGESPLITFUNCS:prepend = " split_plugins_packages "
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
-ALLOW_EMPTY_${PN} = "1"
+ALLOW_EMPTY:${PN} = "1"

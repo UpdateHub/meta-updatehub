@@ -18,9 +18,9 @@ do_install() {
     install -Dm755 hardware ${D}${datadir}/updatehub/hardware
 }
 
-FILES_${PN} += "${datadir}/updatehub"
+FILES:${PN} += "${datadir}/updatehub"
 
-RDEPENDS_${PN} += " \
+RDEPENDS:${PN} += " \
     os-release \
     updatehub-machine-info \
 "

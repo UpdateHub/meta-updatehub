@@ -25,7 +25,7 @@ do_compile() {
     oe_runmake -C src all
 }
 
-do_install_append() {
+do_install:append() {
     install -d ${D}${bindir}
     install -m 755 ${B}/src/upx.out ${D}${bindir}/upx
 }

@@ -9,7 +9,7 @@ SRC_URI[sha256sum] = "d3657acef24f7dbe7e97fef976ce367997880f5a4cbca898abb9c9c42a
 
 CLEANBROKEN = "1"
 
-RDEPENDS_${PN} += " \
+RDEPENDS:${PN} += " \
     python3-rfc3987 \
     python3-jsonschema \
 "

@@ -19,5 +19,5 @@ do_install() {
             ${D}${datadir}/updatehub/state-change-callbacks.d/10-updatehub-sdk-statechange-trigger
 }
 
-FILES_${PN} += "${datadir}/updatehub"
-RDEPENDS_${PN} = "updatehub-callbacks netcat-openbsd"
+FILES:${PN} += "${datadir}/updatehub"
+RDEPENDS:${PN} = "updatehub-callbacks netcat-openbsd"
