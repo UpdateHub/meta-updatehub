@@ -70,6 +70,28 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/GPL-2.0;md5=80
 #       root=PARTUUID=\${uuid} rw rootwait \${vidargs}
 #
 #
+# - UPDATEHUB_BOOTSCRIPT_BEFORE_BOOTCMD
+#
+#   Allow inclusion of extra boot script fragment to be run before running the
+#   UPDATEHUB_BOOTSCRIPT_BOOTCMD fragment, for example using `fdt` command to
+#   enable/disable device tree handles.
+#
+#   Example:
+#       fdt addr \${fdt_addr_r}; \
+#       fdt resize; \
+#       if itest.s "x" == "x\${lvds_size}"; then \
+#           lvds_size="10"; \
+#       fi \
+#       \
+#       if itest.s "x10" == "x\${lvds_size}"; then \
+#           fdt set /panel compatible "aison,z101wx02jct736"; \
+#       elif itest.s "x8" == "x\${lvds_size}"; then \
+#           fdt set /panel compatible "aison,z080xg03jct3"; \
+#       else
+#           echo "ERROR: Unknown 'lvds_size'. Valid ones are '10' and '8'."; \
+#       fi
+#
+#
 # - UPDATEHUB_BOOTSCRIPT_BOOTCMD
 #
 #   Boot command to boot board after kernel and dtb are loaded, and initramfs if
@@ -97,6 +119,8 @@ python() {
         if not var:
             raise bb.parse.SkipRecipe("%s variable must be set." % var)
 }
+
+UPDATEHUB_BOOTSCRIPT_BEFORE_BOOTCMD ?= ""
 
 do_generate_bootscript() {
     cat > ${B}/boot.cmd <<EOF
@@ -145,6 +169,11 @@ fi
 
 # Initialize the boot process
 setenv bootargs "${UPDATEHUB_BOOTSCRIPT_BOOTARGS}"
+
+# Extra bootscript fragments
+${UPDATEHUB_BOOTSCRIPT_BEFORE_BOOTCMD}
+
+# Run bootcmd
 ${UPDATEHUB_BOOTSCRIPT_BOOTCMD}
 EOF
 }
