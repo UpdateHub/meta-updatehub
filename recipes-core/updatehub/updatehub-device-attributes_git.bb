@@ -25,9 +25,9 @@ python split_plugins_packages () {
                       'updatehub %s device attribute script', extra_depends='')
 }
 
-ALLOW_EMPTY_${PN} = "1"
+ALLOW_EMPTY:${PN} = "1"
 
 PACKAGES_DYNAMIC = "updatehub-device-attribute-*"
-PACKAGESPLITFUNCS_prepend = " split_plugins_packages "
+PACKAGESPLITFUNCS:prepend = " split_plugins_packages "
 
-RDEPENDS_updatehub-device-attribute-ipinfo-io += "jq"
+RDEPENDS:updatehub-device-attribute-ipinfo-io += "jq"

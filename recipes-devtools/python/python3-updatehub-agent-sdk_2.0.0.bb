@@ -7,7 +7,7 @@ SRC_URI[sha256sum] = "9848f4e6c6d69b3c3080dd968dd5f2537cedcf46f0ece0db6d7485aa36
 
 inherit pypi setuptools3
 
-RDEPENDS_${PN} += " \
+RDEPENDS:${PN} += " \
     python3-io \
     python3-json \
     python3-threading \

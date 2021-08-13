@@ -30,21 +30,21 @@ CARGO_FEATURES = "${PACKAGECONFIG_CONFARGS}"
 EXTRA_CARGO_FLAGS = "--bin ${BPN}"
 
 SYSTEMD_PACKAGE = "${BPN}"
-SYSTEMD_SERVICE_${BPN} = "${BPN}.service"
+SYSTEMD_SERVICE:${BPN} = "${BPN}.service"
 
 INITSCRIPT_NAME = "${BPN}"
 INITSCRIPT_PARAMS = "start 99 2 3 4 5 ."
 
-SYSTEMD_PACKAGE_updatehub-local-update = "updatehub-local-update"
-SYSTEMD_SERVICE_updatehub-local-update = "updatehub-local-update@.service"
-SYSTEMD_AUTO_ENABLE_updatehub-local-update = "disable"
+SYSTEMD_PACKAGE:updatehub-local-update = "updatehub-local-update"
+SYSTEMD_SERVICE:updatehub-local-update = "updatehub-local-update@.service"
+SYSTEMD_AUTO_ENABLE:updatehub-local-update = "disable"
 
 UPX ?= "${STAGING_BINDIR_NATIVE}/upx"
 UPX_ARGS ?= "--best -q"
 
 UPDATEHUB_LOCAL_UPDATE_DIR ??= "/mnt/updatehub"
 
-do_install_append() {
+do_install:append() {
     install -Dm 0755 ${WORKDIR}/updatehub-local-update ${D}${bindir}/updatehub-local-update
     sed -i -e 's,@LOCAL_UPDATE_DIR@,${UPDATEHUB_LOCAL_UPDATE_DIR},g' ${D}${bindir}/updatehub-local-update
 
@@ -79,15 +79,15 @@ PACKAGEFUNCS += "apply_upx"
 
 PACKAGES =+ "${BPN}-local-update"
 
-RDEPENDS_${BPN} += "openssl"
+RDEPENDS:${BPN} += "openssl"
 
 # Now, the same updatehub binary works as server and client tool, so replacing
 # the old updatehub-ctl.
-RREPLACES_${BPN} += "${BPN}-ctl"
-RPROVIDES_${BPN} += "${BPN}-ctl"
-RCONFLICTS_${BPN} += "${BPN}-ctl"
+RREPLACES:${BPN} += "${BPN}-ctl"
+RPROVIDES:${BPN} += "${BPN}-ctl"
+RCONFLICTS:${BPN} += "${BPN}-ctl"
 
-FILES_${BPN}-local-update += " \
+FILES:${BPN}-local-update += " \
     ${nonarch_base_libdir}/udev/rules.d/99-updatehub.rules \
     ${systemd_system_unitdir}/updatehub-local-update@.service \
 "

@@ -9,7 +9,7 @@ inherit pypi setuptools3
 
 CLEANBROKEN = "1"
 
-do_install_append_class-native() {
+do_install:append:class-native() {
      sed -i -e '1s|^#!.*|#!/usr/bin/env python3|' ${D}${bindir}/uhu
      create_wrapper ${D}${bindir}/uhu LIBARCHIVE=${STAGING_LIBDIR_NATIVE}/libarchive.so.13
 }
@@ -20,12 +20,12 @@ do_populate_sysroot[rdeptask] = "do_populate_sysroot"
 
 # FIXME: Runtime dependency of python3-prompt-toolkit which is not handled
 # for native case.  The issue is also related to YOCTO: #10113
-RDEPENDS_${PN} += " \
+RDEPENDS:${PN} += " \
     python3-wcwidth \
     python3-six \
 "
 
-RDEPENDS_${PN} += " \
+RDEPENDS:${PN} += " \
     updatehub-package-schema \
     python3-certifi \
     python3-chardet \

@@ -13,6 +13,6 @@ do_install () {
     install -Dm 0644 updatehub-grubenv.default ${D}${sysconfdir}/default/updatehub-grubenv
 }
 
-RDEPENDS_${PN} += "grub-editenv updatehub-active-inactive-backend-grub-tools"
+RDEPENDS:${PN} += "grub-editenv updatehub-active-inactive-backend-grub-tools"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
