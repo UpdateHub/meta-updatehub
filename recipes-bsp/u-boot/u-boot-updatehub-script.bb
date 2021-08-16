@@ -178,12 +178,6 @@ ${UPDATEHUB_BOOTSCRIPT_BOOTCMD}
 EOF
 }
 do_generate_bootscript[dirs] = "${B}"
-do_generate_bootscript[vardeps] += " \
-    UPDATEHUB_BOOTSCRIPT_LOAD_A UPDATEHUB_BOOTSCRIPT_LOAD_B \
-    UPDATEHUB_BOOTSCRIPT_FIND_ROOT_A UPDATEHUB_BOOTSCRIPT_FIND_ROOT_B \
-    UPDATEHUB_BOOTSCRIPT_BOOTARGS UPDATEHUB_BOOTSCRIPT_BOOTCMD \
-    UPDATEHUB_BOOTSCRIPT_BEFORE_BOOTCMD \
-"
 
 addtask generate_bootscript after do_configure before do_mkimage
 
@@ -192,7 +186,12 @@ do_mkimage() {
                   -n "boot script" -d ${B}/boot.cmd ${B}/boot.scr
 }
 do_mkimage[dirs] = "${B}"
-do_mkimage[file-checksums] = "${B}/boot.cmd"
+do_mkimage[vardeps] += " \
+    UPDATEHUB_BOOTSCRIPT_LOAD_A UPDATEHUB_BOOTSCRIPT_LOAD_B \
+    UPDATEHUB_BOOTSCRIPT_FIND_ROOT_A UPDATEHUB_BOOTSCRIPT_FIND_ROOT_B \
+    UPDATEHUB_BOOTSCRIPT_BOOTARGS UPDATEHUB_BOOTSCRIPT_BOOTCMD \
+    UPDATEHUB_BOOTSCRIPT_BEFORE_BOOTCMD \
+"
 
 addtask mkimage after do_generate_bootscript before do_install
 
