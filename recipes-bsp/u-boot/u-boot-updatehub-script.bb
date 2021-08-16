@@ -192,6 +192,7 @@ do_mkimage() {
                   -n "boot script" -d ${B}/boot.cmd ${B}/boot.scr
 }
 do_mkimage[dirs] = "${B}"
+do_mkimage[file-checksums] = "${B}/boot.cmd"
 
 addtask mkimage after do_generate_bootscript before do_install
 
