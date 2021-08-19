@@ -40,6 +40,7 @@ RDEPENDS:${PN} += " \
     python3-rfc3987 \
     python3-urllib3 \
     python3-libarchive-c \
+    python3-charset-normalizer-native \
 "
 
 BBCLASSEXTEND = "native nativesdk"
