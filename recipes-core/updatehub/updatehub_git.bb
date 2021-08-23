@@ -15,7 +15,7 @@ SRC_URI = " \
     file://updatehub.service \
 "
 
-SRCREV = "7cd747e253d8dc1274a8e32735da5c2564c6aa38"
+SRCREV = "01961ffae78e61d9b6445041a85c28c0ebf8823f"
 
 S = "${WORKDIR}/git/${BPN}"
 
