@@ -1,5 +1,6 @@
 [Unit]
 Description=Run UpdateHub Local Update
+After=updatehub.service
 
 [Service]
 Type=oneshot
