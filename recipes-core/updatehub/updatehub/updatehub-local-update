@@ -5,4 +5,8 @@ mount /dev/$1 @LOCAL_UPDATE_DIR@
 
 uhupkg=$(ls -t @LOCAL_UPDATE_DIR@/*.uhupkg | head -n1)
 
-updatehub client install-package $uhupkg
+for i in $(seq 1 30); do
+    updatehub client install-package $uhupkg && exit 0
+    sleep 1s
+done
+exit 1
