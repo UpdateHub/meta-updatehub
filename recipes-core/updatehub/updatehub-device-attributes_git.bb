@@ -2,7 +2,7 @@ SUMMARY = "updatehub's device attributes scripts"
 DEPENDS = "bind jq"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://COPYING;md5=838c366f69b72c5df05c96dff79b35f2"
-SRC_URI = "git://github.com/updatehub/device-attributes;protocol=https"
+SRC_URI = "git://github.com/updatehub/device-attributes;protocol=https;branch=master"
 SRCREV = "c7ee915b0d304cec33a08cea7d3f184150c88dd1"
 
 S = "${WORKDIR}/git"

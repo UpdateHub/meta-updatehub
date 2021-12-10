@@ -2,7 +2,7 @@ HOMEPAGE = "http://upx.sourceforge.net"
 SUMMARY = "Ultimate executable compressor."
 
 SRCREV = "4e1ae22a1a07be5135c68b25ff05058ae8ae48e1"
-SRC_URI = "gitsm://github.com/upx/upx;branch=devel"
+SRC_URI = "gitsm://github.com/upx/upx;protocol=https;branch=devel"
 
 LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=353753597aa110e0ded3508408c6374a"

@@ -6,7 +6,7 @@ LIC_FILES_CHKSUM = "file://../LICENSE-APACHE;md5=fa818a259cbed7ce8bc2a22d35a464f
 DEPENDS = "libarchive openssl upx-native"
 
 SRC_URI = " \
-    git://github.com/UpdateHub/updatehub;branch=v2.0.x \
+    git://github.com/UpdateHub/updatehub;protocol=https;branch=v2.0.x \
     file://updatehub-local-update \
     file://updatehub-local-update-systemd.rules \
     file://updatehub-local-update-sysvinit.rules \
