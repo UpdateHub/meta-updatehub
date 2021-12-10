@@ -93,3 +93,6 @@ FILES:${BPN}-local-update += " \
 "
 
 BBCLASSEXTEND = "native nativesdk"
+
+CARGO_DISABLE_BITBAKE_VENDORING = "1"
+
