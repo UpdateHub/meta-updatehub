@@ -6,13 +6,14 @@ LIC_FILES_CHKSUM = "file://../LICENSE-APACHE;md5=fa818a259cbed7ce8bc2a22d35a464f
 DEPENDS = "libarchive openssl upx-native"
 
 SRC_URI = " \
-    git://github.com/UpdateHub/updatehub;branch=v2.0.x \
+    git://github.com/UpdateHub/updatehub;protocol=https;branch=v2.0.x \
     file://updatehub-local-update \
     file://updatehub-local-update-systemd.rules \
     file://updatehub-local-update-sysvinit.rules \
     file://updatehub-local-update.service \
     file://updatehub.initd \
     file://updatehub.service \
+    file://0001-Cargo.toml-Remove-panic-directive.patch;patchdir=.. \
 "
 
 SRCREV = "10d4483b98986c8e38e6044c7d8b1fcd695cb8fe"
@@ -93,3 +94,6 @@ FILES:${BPN}-local-update += " \
 "
 
 BBCLASSEXTEND = "native nativesdk"
+
+CARGO_DISABLE_BITBAKE_VENDORING = "1"
+
