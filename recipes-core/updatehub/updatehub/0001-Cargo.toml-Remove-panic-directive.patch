@@ -1,0 +1,22 @@
+From f13fa99c23beda3c992b0865b19632af118fe9f1 Mon Sep 17 00:00:00 2001
+From: Vinicius Aquino <vinicius.aquino@ossystems.com.br>
+Date: Mon, 13 Dec 2021 09:56:10 -0300
+Subject: [PATCH] Cargo.toml: Remove panic directive
+
+Signed-off-by: Vinicius Aquino <vinicius.aquino@ossystems.com.br>
+---
+ Cargo.toml | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/Cargo.toml b/Cargo.toml
+index 8fb0990..992e23d 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -11,4 +11,3 @@ members = [
+ opt-level = 'z'  # Optimize for size.
+ lto = true
+ codegen-units = 1
+-panic = 'abort'
+-- 
+2.20.1
+

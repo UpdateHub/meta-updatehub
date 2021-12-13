@@ -13,6 +13,7 @@ SRC_URI = " \
     file://updatehub-local-update.service \
     file://updatehub.initd \
     file://updatehub.service \
+    file://0001-Cargo.toml-Remove-panic-directive.patch;patchdir=.. \
 "
 
 SRCREV = "10d4483b98986c8e38e6044c7d8b1fcd695cb8fe"
