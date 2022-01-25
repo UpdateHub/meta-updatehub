@@ -6,7 +6,7 @@ LIC_FILES_CHKSUM = "file://../LICENSE-APACHE;md5=fa818a259cbed7ce8bc2a22d35a464f
 DEPENDS = "libarchive openssl upx-native"
 
 SRC_URI = " \
-    git://github.com/UpdateHub/updatehub;protocol=https;branch=v2.0.x \
+    git://github.com/UpdateHub/updatehub;protocol=https;branch=master \
     file://updatehub-local-update \
     file://updatehub-local-update-systemd.rules \
     file://updatehub-local-update-sysvinit.rules \
@@ -15,11 +15,11 @@ SRC_URI = " \
     file://updatehub.service \
 "
 
-SRCREV = "10d4483b98986c8e38e6044c7d8b1fcd695cb8fe"
+SRCREV = "cf63df6bd138e607a8dbffc2624bfbbe389614a1"
 
 S = "${WORKDIR}/git/${BPN}"
 
-PV = "2.0.6"
+PV = "2.1.0"
 
 inherit cargo systemd update-rc.d pkgconfig
 
