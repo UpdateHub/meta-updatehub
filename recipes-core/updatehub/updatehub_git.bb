@@ -45,6 +45,8 @@ UPX_ARGS ?= "--best -q"
 
 UPDATEHUB_LOCAL_UPDATE_DIR ??= "/mnt/updatehub"
 
+do_compile[network] = "1"
+
 do_install:append() {
     install -Dm 0755 ${WORKDIR}/updatehub-local-update ${D}${bindir}/updatehub-local-update
     sed -i -e 's,@LOCAL_UPDATE_DIR@,${UPDATEHUB_LOCAL_UPDATE_DIR},g' ${D}${bindir}/updatehub-local-update
