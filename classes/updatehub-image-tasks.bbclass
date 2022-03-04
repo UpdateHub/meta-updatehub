@@ -195,6 +195,7 @@ addtask uhupush after do_image_complete do_unpack
 do_uhupush[depends] += "uhu-native:do_populate_sysroot"
 do_uhupush[nostamp] = "1"
 do_uhupush[recrdeptask] += "do_deploy"
+do_uhupush[network] = "1"
 
 addtask validate_updatehub_settings before do_uhupush
 addtask validate_updatehub_settings before do_uhuarchive
