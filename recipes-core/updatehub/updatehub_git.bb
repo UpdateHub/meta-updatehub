@@ -6,7 +6,7 @@ LIC_FILES_CHKSUM = "file://../LICENSE-APACHE;md5=fa818a259cbed7ce8bc2a22d35a464f
 DEPENDS = "libarchive openssl upx-native"
 
 SRC_URI = " \
-    git://github.com/UpdateHub/updatehub;protocol=https;branch=v2.0.x \
+    git://github.com/UpdateHub/updatehub;protocol=https;branch=master \
     file://updatehub-local-update \
     file://updatehub-local-update-systemd.rules \
     file://updatehub-local-update-sysvinit.rules \
@@ -16,11 +16,11 @@ SRC_URI = " \
     file://0001-Cargo.toml-Remove-panic-directive.patch;patchdir=.. \
 "
 
-SRCREV = "10d4483b98986c8e38e6044c7d8b1fcd695cb8fe"
+SRCREV = "f2e56bd1602d4a2c3c46391d9d728170c3c5e94e"
 
 S = "${WORKDIR}/git/${BPN}"
 
-PV = "2.0.6"
+PV = "2.1.1"
 
 inherit cargo systemd update-rc.d pkgconfig
 
@@ -44,6 +44,8 @@ UPX ?= "${STAGING_BINDIR_NATIVE}/upx"
 UPX_ARGS ?= "--best -q"
 
 UPDATEHUB_LOCAL_UPDATE_DIR ??= "/mnt/updatehub"
+
+do_compile[network] = "1"
 
 do_install:append() {
     install -Dm 0755 ${WORKDIR}/updatehub-local-update ${D}${bindir}/updatehub-local-update
