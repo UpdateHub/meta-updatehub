@@ -13,19 +13,19 @@ This layer depends on:
 
 ```shell
   URI: git://git.openembedded.org/bitbake
-  branch: master
+  branch: 1.52
 
   URI: git://git.openembedded.org/openembedded-core
   layers: meta
-  branch: master
+  branch: honister
 
   URI: git://github.com/openembedded/meta-openembedded.git
   subdirectory: meta-oe
-  branch: master
+  branch: honister
 
   URI: git://github.com/openembedded/meta-openembedded.git
   subdirectory: meta-python
-  branch: master
+  branch: honister
 ```
 
 ## Contributing
