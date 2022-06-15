@@ -1,28 +1,19 @@
-SUMMARY = "A Firmware Over-The-Air agent for Embedded and Industrial Linux-based devices"
-HOMEPAGE = "https://updatehub.io"
-LICENSE = "Apache-2.0"
-LIC_FILES_CHKSUM = "file://../LICENSE-APACHE;md5=fa818a259cbed7ce8bc2a22d35a464fc"
+LIC_FILES_CHKSUM = " \
+    file://LICENSE-APACHE;md5=fa818a259cbed7ce8bc2a22d35a464fc \
+"
 
 DEPENDS = "libarchive openssl upx-native"
 
-SRC_URI = " \
-    git://github.com/UpdateHub/updatehub;protocol=https;branch=master \
+SRC_URI += " \
     file://updatehub-local-update \
     file://updatehub-local-update-systemd.rules \
     file://updatehub-local-update-sysvinit.rules \
     file://updatehub-local-update.service \
     file://updatehub.initd \
     file://updatehub.service \
-    file://0001-Cargo.toml-Remove-panic-directive.patch;patchdir=.. \
 "
 
-SRCREV = "f2e56bd1602d4a2c3c46391d9d728170c3c5e94e"
-
-S = "${WORKDIR}/git/${BPN}"
-
-PV = "2.1.1"
-
-inherit cargo systemd update-rc.d pkgconfig
+inherit systemd update-rc.d pkgconfig
 
 PACKAGECONFIG ?= "backward-compatibility"
 PACKAGECONFIG[backward-compatibility] = "v1-parsing"
@@ -44,8 +35,6 @@ UPX ?= "${STAGING_BINDIR_NATIVE}/upx"
 UPX_ARGS ?= "--best -q"
 
 UPDATEHUB_LOCAL_UPDATE_DIR ??= "/mnt/updatehub"
-
-do_compile[network] = "1"
 
 do_install:append() {
     install -Dm 0755 ${WORKDIR}/updatehub-local-update ${D}${bindir}/updatehub-local-update
@@ -82,8 +71,6 @@ PACKAGEFUNCS += "apply_upx"
 
 PACKAGES =+ "${BPN}-local-update"
 
-RDEPENDS:${BPN} += "openssl"
-
 # Now, the same updatehub binary works as server and client tool, so replacing
 # the old updatehub-ctl.
 RREPLACES:${BPN} += "${BPN}-ctl"
@@ -96,6 +83,3 @@ FILES:${BPN}-local-update += " \
 "
 
 BBCLASSEXTEND = "native nativesdk"
-
-CARGO_DISABLE_BITBAKE_VENDORING = "1"
-
