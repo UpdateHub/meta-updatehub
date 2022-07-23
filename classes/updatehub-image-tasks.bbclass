@@ -169,8 +169,7 @@ do_uhuarchive[recrdeptask] += "do_deploy"
 uhupush_run() {
     uhu_setup
 
-    if [ -n "${UPDATEHUB_ACCESS_ID}" ] && [ -z "${UPDATEHUB_ACCESS_SECRET}" ] || \
-           [ -z "${UPDATEHUB_ACCESS_ID}" ] && [ -n "${UPDATEHUB_ACCESS_SECRET}" ]; then
+    if [ -z "${UPDATEHUB_ACCESS_ID}" ] || [ -z "${UPDATEHUB_ACCESS_SECRET}" ]; then
         bberror "Both UPDATEHUB_ACCESS_ID and UPDATEHUB_ACCESS_SECRET must be set. Aborting."
     fi
 
