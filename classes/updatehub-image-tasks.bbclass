@@ -147,26 +147,22 @@ do_uhushell[depends] += "uhu-native:do_populate_sysroot"
 do_uhushell[dirs] ?= "${DEPLOY_DIR_IMAGE}"
 do_uhushell[nostamp] = "1"
 
-uhuarchive_run() {
+do_uhuarchive() {
     uhu_setup
 
     uhu package archive --output ${IMAGE_NAME}.uhupkg
     uhu cleanup
     ln -sf ${IMAGE_NAME}.uhupkg ${IMAGE_LINK_NAME}.uhupkg
 }
-uhuarchive_run[dirs] ?= "${DEPLOY_DIR_IMAGE}"
-uhuarchive_run[nostamp] = "1"
-
-python do_uhuarchive () {
-    bb.build.exec_func('uhuarchive_run', d)
-}
 
 addtask uhuarchive after do_image_complete do_unpack
+do_uhuarchive[dirs] ?= "${DEPLOY_DIR_IMAGE}"
 do_uhuarchive[depends] += "uhu-native:do_populate_sysroot"
+do_uhuarchive[progress] = "percent"
 do_uhuarchive[nostamp] = "1"
 do_uhuarchive[recrdeptask] += "do_deploy"
 
-uhupush_run() {
+do_uhupush() {
     uhu_setup
 
     if [ -z "${UPDATEHUB_ACCESS_ID}" ] || [ -z "${UPDATEHUB_ACCESS_SECRET}" ]; then
@@ -182,16 +178,11 @@ uhupush_run() {
 
     uhu cleanup
 }
-uhupush_run[dirs] ?= "${DEPLOY_DIR_IMAGE}"
-uhupush_run[nostamp] = "1"
-uhupush_run[progress] = "percent"
-
-python do_uhupush () {
-    bb.build.exec_func('uhupush_run', d)
-}
 
 addtask uhupush after do_image_complete do_unpack
+do_uhupush[dirs] ?= "${DEPLOY_DIR_IMAGE}"
 do_uhupush[depends] += "uhu-native:do_populate_sysroot"
+do_uhupush[progress] = "percent"
 do_uhupush[nostamp] = "1"
 do_uhupush[recrdeptask] += "do_deploy"
 do_uhupush[network] = "1"
