@@ -1,8 +1,15 @@
 HOMEPAGE = "http://upx.sourceforge.net"
 SUMMARY = "Ultimate executable compressor."
 
-SRCREV = "4e1ae22a1a07be5135c68b25ff05058ae8ae48e1"
-SRC_URI = "gitsm://github.com/upx/upx;protocol=https;branch=devel"
+
+SRCREV_FORMAT = "upx_lzma-sdk"
+SRCREV_lzma-sdk = "c6c2fc49e2ac6f3fc82762c6d3703969274d48de"
+SRCREV_upx = "f88bfb36cd15ba5541e2fba256fce0b9f3d33835"
+
+SRC_URI = " \
+    git://github.com/upx/upx;protocol=https;branch=devel;name=upx \
+    git://github.com/upx/upx-lzma-sdk;protocol=https;branch=master;destsuffix=git/src/lzma-sdk;name=lzma-sdk \
+"
 
 LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=353753597aa110e0ded3508408c6374a"
