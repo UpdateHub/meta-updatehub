@@ -2,9 +2,9 @@ DESCRIPTION = "updatehub - SDK for Qt/QML"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=838c366f69b72c5df05c96dff79b35f2"
 
-PV = "1.0.3"
+PV = "2.0.0"
 
-SRCREV = "0c01ccc7f2f061cad2b1d55f42404db45c0321a2"
+SRCREV = "3ed408f772aec11472cf43b94b5c76f856accb37"
 SRC_URI = "git://github.com/updatehub/agent-sdk-qt.git;protocol=https;branch=master"
 
 S = "${WORKDIR}/git"
