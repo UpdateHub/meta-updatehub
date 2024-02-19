@@ -137,6 +137,7 @@ if itest.s "\${updatehub_active}" != 0 && itest.s "\${updatehub_active}" != 1; t
 fi
 
 setenv bootargs ''
+setenv altbootcmd "run bootcmd"
 
 setenv updatehub_load_os_a "${UPDATEHUB_BOOTSCRIPT_LOAD_A}"
 setenv updatehub_find_root_a "${UPDATEHUB_BOOTSCRIPT_FIND_ROOT_A}"
