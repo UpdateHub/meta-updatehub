@@ -2,7 +2,7 @@ LIC_FILES_CHKSUM = " \
     file://LICENSE-APACHE;md5=fa818a259cbed7ce8bc2a22d35a464fc \
 "
 
-DEPENDS = "libarchive openssl upx-native"
+DEPENDS = "libarchive openssl protobuf-native upx-native"
 
 SRC_URI += " \
     file://updatehub-local-update \
