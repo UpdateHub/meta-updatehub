@@ -21,7 +21,7 @@ S = "${WORKDIR}/git/${BPN}"
 
 PV = "2.1.3"
 
-inherit cargo systemd update-rc.d pkgconfig
+inherit cargo_bin systemd update-rc.d pkgconfig
 
 PACKAGECONFIG ?= "backward-compatibility"
 PACKAGECONFIG[backward-compatibility] = "v1-parsing"
