@@ -127,6 +127,7 @@ do_generate_bootscript() {
 if itest.s "x" == "x\${updatehub_active}" ; then
     echo Ensuring environment is accessible in Linux...
     setenv updatehub_active 0
+    setenv altbootcmd "run bootcmd"
     saveenv
 fi
 
@@ -137,7 +138,6 @@ if itest.s "\${updatehub_active}" != 0 && itest.s "\${updatehub_active}" != 1; t
 fi
 
 setenv bootargs ''
-setenv altbootcmd "run bootcmd"
 
 setenv updatehub_load_os_a "${UPDATEHUB_BOOTSCRIPT_LOAD_A}"
 setenv updatehub_find_root_a "${UPDATEHUB_BOOTSCRIPT_FIND_ROOT_A}"
