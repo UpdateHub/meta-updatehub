@@ -20,7 +20,7 @@ UPDATEHUB_IMAGE_TYPE[validitems] += "initramfs active/inactive"
 
 UPDATEHUB_INSTALL_MODE ?= ""
 UPDATEHUB_INSTALL_MODE[type] = "list"
-UPDATEHUB_INSTALL_MODE[validitems] += "copy flash raw tarball ubifs imxkobs"
+UPDATEHUB_INSTALL_MODE[validitems] += "copy flash raw tarball ubifs imxkobs ubootenv"
 
 UPDATEHUB_FILESYSTEM_SUPPORT ?= ""
 UPDATEHUB_FILESYSTEM_SUPPORT[type] = "list"
@@ -116,6 +116,7 @@ python () {
         'raw'     : '',
         'tarball' : '',
         'ubifs'   : 'mtd-utils-ubifs',
+        'ubootenv': '',
     }
     if any(map(lambda x: x not in mode_rdepends_map.keys(), valid_modes)):
         raise bb.parse.SkipRecipe("Not all valid modes has the runtime dependencies mapped. Please check.")
