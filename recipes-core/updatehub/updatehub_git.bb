@@ -3,7 +3,7 @@ HOMEPAGE = "https://updatehub.io"
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://../LICENSE-APACHE;md5=fa818a259cbed7ce8bc2a22d35a464fc"
 
-DEPENDS = "libarchive openssl upx-native"
+DEPENDS = "libarchive openssl upx-native protobuf-native"
 
 SRC_URI = " \
     git://github.com/UpdateHub/updatehub;protocol=https;branch=master \
@@ -15,11 +15,11 @@ SRC_URI = " \
     file://updatehub.service \
 "
 
-SRCREV = "dfe7ce9274cda1c54e0948eb0449cd90e6a27f33"
+SRCREV = "9b40985b1622f3d21dd538d5c4829e1d95341e6e"
 
 S = "${WORKDIR}/git/${BPN}"
 
-PV = "2.1.3"
+PV = "2.1.5"
 
 inherit cargo_bin systemd update-rc.d pkgconfig
 
