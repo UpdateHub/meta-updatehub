@@ -45,13 +45,13 @@ UPX_ARGS ?= "--best -q"
 UPDATEHUB_LOCAL_UPDATE_DIR ??= "/mnt/updatehub"
 
 do_install:append() {
-    install -Dm 0755 ${WORKDIR}/updatehub-local-update ${D}${bindir}/updatehub-local-update
+    install -Dm 0755 ${UNPACKDIR}/updatehub-local-update ${D}${bindir}/updatehub-local-update
     sed -i -e 's,@LOCAL_UPDATE_DIR@,${UPDATEHUB_LOCAL_UPDATE_DIR},g' ${D}${bindir}/updatehub-local-update
 
     # Handle init system integration and updatehub local update udev rule for USB mounting
     if ${@bb.utils.contains('DISTRO_FEATURES','sysvinit','true','false',d)}; then
-        install -Dm 0755 ${WORKDIR}/updatehub.initd ${D}${sysconfdir}/init.d/updatehub
-        install -Dm 0644 ${WORKDIR}/updatehub-local-update-sysvinit.rules ${D}${nonarch_base_libdir}/udev/rules.d/99-updatehub.rules
+        install -Dm 0755 ${UNPACKDIR}/updatehub.initd ${D}${sysconfdir}/init.d/updatehub
+        install -Dm 0644 ${UNPACKDIR}/updatehub-local-update-sysvinit.rules ${D}${nonarch_base_libdir}/udev/rules.d/99-updatehub.rules
         sed -i -e 's,@BINDIR@,${bindir},g' \
             -e 's,@LIBDIR@,${libdir},g' \
             -e 's,@LOCALSTATEDIR@,${localstatedir},g' \
@@ -59,9 +59,9 @@ do_install:append() {
             ${D}/${sysconfdir}/init.d/updatehub
     fi
     if ${@bb.utils.contains('DISTRO_FEATURES','systemd','true','false',d)}; then
-        install -Dm 0644 ${WORKDIR}/updatehub.service ${D}${systemd_system_unitdir}/updatehub.service
-        install -Dm 0644 ${WORKDIR}/updatehub-local-update.service ${D}${systemd_system_unitdir}/updatehub-local-update@.service
-        install -Dm 0644 ${WORKDIR}/updatehub-local-update-systemd.rules ${D}${nonarch_base_libdir}/udev/rules.d/99-updatehub.rules
+        install -Dm 0644 ${UNPACKDIR}/updatehub.service ${D}${systemd_system_unitdir}/updatehub.service
+        install -Dm 0644 ${UNPACKDIR}/updatehub-local-update.service ${D}${systemd_system_unitdir}/updatehub-local-update@.service
+        install -Dm 0644 ${UNPACKDIR}/updatehub-local-update-systemd.rules ${D}${nonarch_base_libdir}/udev/rules.d/99-updatehub.rules
         sed -i -e 's,@BINDIR@,${bindir},g' \
             ${D}${systemd_system_unitdir}/updatehub.service \
             ${D}${systemd_system_unitdir}/updatehub-local-update@.service
