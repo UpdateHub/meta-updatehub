@@ -10,7 +10,8 @@ SRC_URI = " \
     file://rollback-callback \
 "
 
-S = "${WORKDIR}"
+S = "${WORKDIR}/sources"
+UNPACKDIR = "${S}"
 
 inherit allarch
 
