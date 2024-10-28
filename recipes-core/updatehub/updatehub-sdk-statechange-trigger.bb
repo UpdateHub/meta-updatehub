@@ -16,7 +16,7 @@ do_configure[noexec] = "1"
 do_compile[noexec] = "1"
 
 do_install() {
-    install -Dm 0755 ${WORKDIR}/10-updatehub-sdk-statechange-trigger \
+    install -Dm 0755 ${UNPACKDIR}/10-updatehub-sdk-statechange-trigger \
             ${D}${datadir}/updatehub/state-change-callbacks.d/10-updatehub-sdk-statechange-trigger
 }
 

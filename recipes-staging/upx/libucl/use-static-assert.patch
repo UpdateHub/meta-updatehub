@@ -4,6 +4,8 @@ Subject: Switch to _Static_assert
 
 Use _Static_assert for compile-time assertion to fix
 build failures with gcc-6 (closes: #811707)
+Upstream-Status: Pending
+
 ---
  acc/acc_defs.h | 6 ++++++
  1 file changed, 6 insertions(+)

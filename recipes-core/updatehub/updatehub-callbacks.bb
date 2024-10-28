@@ -19,10 +19,10 @@ do_configure[noexec] = "1"
 do_compile[noexec] = "1"
 
 do_install() {
-    install -Dm 0755 ${WORKDIR}/state-change-callback ${D}${datadir}/updatehub/state-change-callback
-    install -Dm 0755 ${WORKDIR}/error-callback ${D}${datadir}/updatehub/error-callback
-    install -Dm 0755 ${WORKDIR}/validate-callback ${D}${datadir}/updatehub/validate-callback
-    install -Dm 0755 ${WORKDIR}/rollback-callback ${D}${datadir}/updatehub/rollback-callback
+    install -Dm 0755 ${UNPACKDIR}/state-change-callback ${D}${datadir}/updatehub/state-change-callback
+    install -Dm 0755 ${UNPACKDIR}/error-callback ${D}${datadir}/updatehub/error-callback
+    install -Dm 0755 ${UNPACKDIR}/validate-callback ${D}${datadir}/updatehub/validate-callback
+    install -Dm 0755 ${UNPACKDIR}/rollback-callback ${D}${datadir}/updatehub/rollback-callback
     install -d ${D}${datadir}/updatehub/state-change-callbacks.d
     install -d ${D}${datadir}/updatehub/error-callbacks.d
     install -d ${D}${datadir}/updatehub/validate-callbacks.d
