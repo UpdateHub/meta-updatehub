@@ -20,7 +20,7 @@ do_configure[noexec] = "1"
 do_compile[noexec] = "1"
 do_install[noexec] = "1"
 
-RPROVIDES:${PN} += "virtual/grub-bootconf"
+RPROVIDES:${PN} += "virtual-grub-bootconf"
 
 ALLOW_EMPTY:${PN} = "1"
 
