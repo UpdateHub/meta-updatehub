@@ -5,8 +5,11 @@ SRC_URI = "file://grub.cfg"
 
 inherit deploy
 
+S = "${WORKDIR}/sources"
+UNPACKDIR = "${S}"
+
 do_deploy () {
-    install -Dm644 ${WORKDIR}/grub.cfg ${DEPLOYDIR}/grub.cfg-${MACHINE}-${PV}-${PR}
+    install -Dm644 ${UNPACKDIR}/grub.cfg ${DEPLOYDIR}/grub.cfg-${MACHINE}-${PV}-${PR}
 
     cd ${DEPLOYDIR}
     rm -f grub.cfg-${MACHINE} grub.cfg
@@ -20,7 +23,7 @@ do_configure[noexec] = "1"
 do_compile[noexec] = "1"
 do_install[noexec] = "1"
 
-RPROVIDES:${PN} += "${VIRTUAL-RUNTIME_grub-bootconf}"
+RPROVIDES:${PN} += "virtual-grub-bootconf"
 
 ALLOW_EMPTY:${PN} = "1"
 
