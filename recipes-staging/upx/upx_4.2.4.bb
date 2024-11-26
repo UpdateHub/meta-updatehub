@@ -10,7 +10,7 @@ SRC_URI = " \
     https://github.com/upx/upx/releases/download/v${PV}/upx-${PV}-src.tar.xz \
 "
 
-SRC_URI[sha256sum] = "77003c8e2e29aa9804e2fbaeb30f055903420b3e01d95eafe01aed957fb7e190"
+SRC_URI[sha256sum] = "5ed6561607d27fb4ef346fc19f08a93696fa8fa127081e7a7114068306b8e1c4"
 
 DEPENDS = "zlib libucl xz"
 
