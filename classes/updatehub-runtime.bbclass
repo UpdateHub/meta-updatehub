@@ -53,7 +53,7 @@ UPDATEHUB_COMPATIBLE_MACHINE ?= "${MACHINE}"
 # This happens because the LC_ALL variable is not set to use UTF-8, e.g. en_US.UTF-8 and libarchive
 # can't extract files uses UTF-8 format, e.g. ca-certificate NetLock_Arany_=Class_Gold=_Főtanúsítvány.pem
 # file.
-IMAGE_CMD:tar:forcevariable = "${IMAGE_CMD_TAR} --sort=name --format=gnu --numeric-owner -cf ${IMGDEPLOYDIR}/${IMAGE_NAME}${IMAGE_NAME_SUFFIX}.tar -C ${IMAGE_ROOTFS} . || [ $? -eq 1 ]"
+IMAGE_CMD:tar:forcevariable = "${IMAGE_CMD_TAR} --sort=name --format=gnu --numeric-owner -cf ${IMGDEPLOYDIR}/${IMAGE_NAME}.tar -C ${IMAGE_ROOTFS} . || [ $? -eq 1 ]"
 
 python () {
     if bb.data.inherits_class('image', d):
