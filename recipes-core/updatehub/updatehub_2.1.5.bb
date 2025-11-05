@@ -22,9 +22,6 @@ inherit systemd update-rc.d pkgconfig cargo cargo-update-recipe-crates
 
 require updatehub-crates.inc
 
-PACKAGECONFIG ?= "backward-compatibility"
-PACKAGECONFIG[backward-compatibility] = "v1-parsing"
-
 CARGO_FEATURES = "${PACKAGECONFIG_CONFARGS}"
 EXTRA_CARGO_FLAGS = "--bin ${BPN}"
 
