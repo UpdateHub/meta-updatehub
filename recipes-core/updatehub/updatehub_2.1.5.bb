@@ -16,7 +16,6 @@ SRC_URI += " \
 "
 
 SRCREV = "9b40985b1622f3d21dd538d5c4829e1d95341e6e"
-S = "${WORKDIR}/git"
 CARGO_SRC_DIR = "updatehub"
 
 inherit systemd update-rc.d pkgconfig cargo cargo-update-recipe-crates
