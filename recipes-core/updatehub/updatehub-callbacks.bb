@@ -10,9 +10,6 @@ SRC_URI = " \
     file://rollback-callback \
 "
 
-S = "${WORKDIR}/sources"
-UNPACKDIR = "${S}"
-
 inherit allarch
 
 do_configure[noexec] = "1"
