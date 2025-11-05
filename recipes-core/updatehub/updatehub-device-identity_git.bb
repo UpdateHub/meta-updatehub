@@ -5,8 +5,6 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=838c366f69b72c5df05c96dff79b35f2"
 SRC_URI = "git://github.com/updatehub/device-identity;protocol=https;branch=master"
 SRCREV = "265acd6464902ed531b0dea72556e4b6478ac80b"
 
-S = "${WORKDIR}/git"
-
 inherit allarch
 
 do_configure[noexec] = "1"
