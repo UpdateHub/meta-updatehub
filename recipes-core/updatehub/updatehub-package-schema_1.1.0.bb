@@ -5,6 +5,8 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/MIT;md5=0835ad
 
 inherit pypi setuptools3
 
+SRC_URI += "file://0001-setup-remove-pkg_resources-import.patch"
+
 SRC_URI[sha256sum] = "d3657acef24f7dbe7e97fef976ce367997880f5a4cbca898abb9c9c42a2d9438"
 
 CLEANBROKEN = "1"
