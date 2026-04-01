@@ -7,8 +7,7 @@ SRC_URI = " \
     file://10-updatehub-sdk-statechange-trigger \
 "
 
-S = "${WORKDIR}/sources"
-UNPACKDIR = "${S}"
+S = "${UNPACKDIR}/sources"
 
 inherit allarch
 
