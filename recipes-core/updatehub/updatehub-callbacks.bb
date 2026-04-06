@@ -12,6 +12,8 @@ SRC_URI = " \
 
 inherit allarch
 
+S = "${UNPACKDIR}"
+
 do_configure[noexec] = "1"
 do_compile[noexec] = "1"
 
