@@ -71,6 +71,14 @@
 #  The active and inactive image schema requires a backend to identify and choose the image to be
 #  used for next boot. It supports: 'u-boot', 'grub' or 'grub-efi'.
 #
+#  UPDATEHUB_VALIDATION_TIMEOUT
+#
+#  How long a freshly installed image has to validate itself before updatehub-rollback-guard
+#  reboots it so the bootloader can roll back. Defaults to '5min', accepts any systemd time span.
+#  Enabled automatically with the 'u-boot' active/inactive backend when 'systemd' is in
+#  DISTRO_FEATURES; there is no sysvinit equivalent. Keep it comfortably above the time the agent
+#  needs to reach the validation callback on the slowest supported hardware.
+#
 #  UPDATEHUB_INSTALL_MODE
 #
 #  There are multiple installation modes supported. This is usually machine dependent as it depends
