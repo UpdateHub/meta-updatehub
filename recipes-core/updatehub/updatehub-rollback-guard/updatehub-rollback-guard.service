@@ -1,0 +1,9 @@
+[Unit]
+Description=Roll back an update that failed to validate itself
+# No deps: must run even when the data partition/agent/targets pulling them in have failed.
+DefaultDependencies=no
+IgnoreOnIsolate=yes
+
+[Service]
+Type=oneshot
+ExecStart=@BINDIR@/updatehub-rollback-guard
