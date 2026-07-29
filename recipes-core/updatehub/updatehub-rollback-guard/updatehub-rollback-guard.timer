@@ -1,0 +1,16 @@
+[Unit]
+Description=Grace period before rolling back an unvalidated update
+# Default deps order this after sysinit.target, which a broken-enough boot never reaches.
+DefaultDependencies=no
+IgnoreOnIsolate=yes
+Conflicts=shutdown.target
+Before=shutdown.target
+
+[Timer]
+# From boot, not from timer start, so a slow/partial boot can't extend the grace period.
+OnBootSec=@VALIDATION_TIMEOUT@
+Unit=updatehub-rollback-guard.service
+
+[Install]
+# emergency/rescue.target isolate and don't pull in timers.target, so list them explicitly.
+WantedBy=timers.target emergency.target rescue.target
