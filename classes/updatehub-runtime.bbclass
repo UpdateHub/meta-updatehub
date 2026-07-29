@@ -167,6 +167,12 @@ python () {
         raise bb.parse.SkipRecipe("'%s' in UPDATEHUB_ACTIVE_INACTIVE_BACKEND is not a valid active/inactive backend. Valid active/inactive backends are: %s" % (active_inactive_backend, ' '.join(valid_active_inactive_backends)))
     elif active_inactive_backend:
         d.appendVar('UPDATEHUB_RUNTIME_PACKAGES', ' updatehub-active-inactive-backend-%s' % active_inactive_backend)
+
+        # Guards against updates that never validate (see UPDATEHUB_VALIDATION_TIMEOUT).
+        # Requires the u-boot backend (reads its boot counter) and systemd (it's a timer).
+        if active_inactive_backend == 'u-boot' and \
+           bb.utils.contains('DISTRO_FEATURES', 'systemd', True, False, d):
+            d.appendVar('UPDATEHUB_RUNTIME_PACKAGES', ' updatehub-rollback-guard')
 }
 
 def sanitise_version(ver):
