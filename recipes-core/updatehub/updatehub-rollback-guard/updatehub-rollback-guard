@@ -1,0 +1,49 @@
+#!/bin/sh
+# -*- shell-script -*-
+#
+# Copyright 2026 (C) O.S. Systems Software LTDA.
+#
+# Force a reboot when a freshly installed image fails to validate itself.
+#
+# U-Boot only counts boot attempts (bootcount) while upgrade_available=1; a
+# healthy boot clears that flag via updatehub-active-validated. A boot that
+# fails services but leaves systemd running is not a hang -- systemd keeps
+# petting the watchdog -- so bootcount never advances and a broken image can
+# sit in the active slot forever. This script reboots once the timeout below
+# elapses so U-Boot counts the attempt and can roll back to the other slot.
+#
+# No 'set -e': runs in an already-broken boot, so a failing diagnostic must
+# never stop the script short of the reboot.
+
+TIMEOUT="@VALIDATION_TIMEOUT@"
+
+# BOOTCOUNT_ENV=0 means the counter isn't in the U-Boot environment: nothing to police.
+BOOTCOUNT_ENV=1
+if [ -f /etc/default/updatehub-active ]; then
+    . /etc/default/updatehub-active
+fi
+[ "$BOOTCOUNT_ENV" = "1" ] || exit 0
+
+# Log to kmsg too: a boot broken enough to need this often has no working journal.
+log() {
+    logger -t updatehub "updatehub-rollback-guard: $*" 2>/dev/null
+    echo "updatehub-rollback-guard: $*" > /dev/kmsg 2>/dev/null
+}
+
+# Single call: a second fw_printenv re-reads storage, which may be what's broken.
+{ read -r upgrade_available; read -r bootcount; } <<EOF
+$(fw_printenv -n upgrade_available bootcount 2>/dev/null)
+EOF
+
+# Not a probationary boot.
+if [ "$upgrade_available" != "1" ]; then
+    exit 0
+fi
+
+log "image did not validate itself within $TIMEOUT (bootcount=${bootcount:-?}); rebooting so U-Boot counts the attempt and can roll back"
+
+# Not touching bootcount/updatehub_active: that's U-Boot's and the boot script's job.
+# sysrq is the real fallback, for when PID 1 can't be reached.
+systemctl --no-block reboot || echo b > /proc/sysrq-trigger
+
+exit 0
