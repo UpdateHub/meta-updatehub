@@ -5,8 +5,6 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=838c366f69b72c5df05c96dff79b35f2"
 SRC_URI = "git://github.com/updatehub/active-inactive-backend-grub.git;protocol=https;branch=master"
 SRCREV = "e9ef6369857ab48ae245a224874de3bad7bd29ed"
 
-S = "${WORKDIR}/git"
-
 PV = "0.0+${SRCPV}"
 
 inherit allarch
