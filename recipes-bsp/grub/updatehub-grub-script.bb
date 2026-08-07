@@ -5,8 +5,7 @@ SRC_URI = "file://grub.cfg"
 
 inherit deploy
 
-S = "${WORKDIR}/sources"
-UNPACKDIR = "${S}"
+S = "${UNPACKDIR}"
 
 do_deploy () {
     install -Dm644 ${UNPACKDIR}/grub.cfg ${DEPLOYDIR}/grub.cfg-${MACHINE}-${PV}-${PR}
