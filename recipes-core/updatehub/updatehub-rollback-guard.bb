@@ -13,8 +13,7 @@ SRC_URI = " \
     file://${BPN}.timer \
 "
 
-S = "${WORKDIR}/sources"
-UNPACKDIR = "${S}"
+S = "${UNPACKDIR}"
 
 UPDATEHUB_VALIDATION_TIMEOUT ?= "5min"
 
