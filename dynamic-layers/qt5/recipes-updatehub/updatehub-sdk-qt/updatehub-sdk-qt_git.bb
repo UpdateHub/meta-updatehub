@@ -7,8 +7,6 @@ PV = "2.0.0"
 SRCREV = "04ef75ddbc3e35e41f56ca09a8622e237bc66d44"
 SRC_URI = "git://github.com/updatehub/agent-sdk-qt.git;protocol=https;branch=master"
 
-S = "${WORKDIR}/git"
-
 inherit qmake5
 
 PACKAGECONFIG ??= "qmlplugin"
