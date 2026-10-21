@@ -26,7 +26,14 @@ This layer depends on:
   URI: git://github.com/openembedded/meta-openembedded.git
   subdirectory: meta-python
   branch: kirkstone
+
+  URI: git://git.yoctoproject.org/meta-lts-mixins
+  branch: kirkstone/rust
 ```
+
+The UpdateHub agent requires Rust 1.88 or newer, which is newer than the
+Rust shipped by OpenEmbedded-Core kirkstone, so the Rust mixin layer from
+meta-lts-mixins is required.
 
 ## Contributing
 
