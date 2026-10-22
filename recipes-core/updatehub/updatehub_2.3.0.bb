@@ -15,7 +15,7 @@ SRC_URI += " \
     file://updatehub.service \
 "
 
-SRCREV = "b56a988b168e52e4822829a4a2cb4880a6f80f2b"
+SRCREV = "24866bbfd27228ea83396adc8a563d93d53ea47c"
 S = "${WORKDIR}/git"
 CARGO_SRC_DIR = "updatehub"
 
@@ -24,7 +24,7 @@ inherit systemd update-rc.d pkgconfig cargo
 require updatehub-crates.inc
 
 PACKAGECONFIG ?= "backward-compatibility"
-PACKAGECONFIG[backward-compatibility] = "v1-parsing"
+PACKAGECONFIG[backward-compatibility] = "--features v1-parsing"
 
 CARGO_FEATURES = "${PACKAGECONFIG_CONFARGS}"
 EXTRA_CARGO_FLAGS = "--bin ${BPN}"
