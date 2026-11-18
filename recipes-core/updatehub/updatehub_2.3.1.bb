@@ -15,7 +15,7 @@ SRC_URI += " \
     file://updatehub.service \
 "
 
-SRCREV = "24866bbfd27228ea83396adc8a563d93d53ea47c"
+SRCREV = "b60f4628aa098cd66a45601ade239ab1bedacb2e"
 S = "${WORKDIR}/git"
 CARGO_SRC_DIR = "updatehub"
 
