@@ -79,6 +79,29 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/GPL-2.0-or-lat
 #   boot count limit is reached.
 #
 #
+# - UPDATEHUB_BOOTSCRIPT_FIRMWARE_FALLBACK_REG (optional)
+#
+#   Address of a 32-bit register, kept across resets, where the first-stage
+#   loader counts boot attempts and reports a fallback to the firmware of the
+#   other eMMC boot partition. The TF-A BL2 eMMC boot fallback for STM32MP1
+#   uses this layout:
+#
+#     bits 31..16  0xeb57  magic: the loader wrote the register
+#     bit  8               fallback: the firmware of the other boot
+#                          partition was loaded
+#     bits 3..0            boot attempts since the register was cleared
+#
+#   When set, the script clears the register on every boot, as the boot
+#   reached it, and reverts to the other installation set when the loader
+#   fell back while an update is being validated ('upgrade_available' is
+#   1). On the next start, the agent switches the eMMC boot partition back
+#   to the active installation set and confirms the rollback.
+#
+#   Example (TAMP backup register 29 of the STM32MP13):
+#
+#     UPDATEHUB_BOOTSCRIPT_FIRMWARE_FALLBACK_REG = "0x5c00a174"
+#
+#
 # - UPDATEHUB_BOOTSCRIPT_BEFORE_BOOTCMD
 #
 #   Allow inclusion of extra boot script fragment to be run before running the
@@ -130,7 +153,34 @@ python() {
 }
 
 UPDATEHUB_BOOTSCRIPT_BEFORE_SELECT ?= ""
+UPDATEHUB_BOOTSCRIPT_FIRMWARE_FALLBACK_REG ?= ""
 UPDATEHUB_BOOTSCRIPT_BEFORE_BOOTCMD ?= ""
+
+def updatehub_bootscript_firmware_fallback(d):
+    reg = d.getVar('UPDATEHUB_BOOTSCRIPT_FIRMWARE_FALLBACK_REG')
+    if not reg:
+        return ''
+    try:
+        reg = '0x%x' % int(reg, 16)
+    except ValueError:
+        bb.fatal("UPDATEHUB_BOOTSCRIPT_FIRMWARE_FALLBACK_REG must be a hexadecimal address, not '%s'" % reg)
+
+    # The script is written through an unquoted here-document, so U-Boot
+    # variables need their '$' escaped
+    fragment = [
+        "# The first-stage loader counts boot attempts in @REG@ and falls back",
+        "# to the firmware of the other eMMC boot partition after too many. The",
+        "# boot reached this script, so the count is cleared.",
+        "setexpr.l updatehub_fw_try *@REG@",
+        "setexpr updatehub_fw_try \\${updatehub_fw_try} '&' 0xffff0100",
+        "if itest \\${updatehub_fw_try} == 0xeb570100 && itest.s \"x\\${upgrade_available}\" == \"x1\"; then",
+        "    echo Firmware of the update does not boot, the loader fell back to the other one",
+        "    setenv bootcount 2",
+        "fi",
+        "setenv updatehub_fw_try",
+        "mw.l @REG@ 0",
+    ]
+    return "\n".join(fragment).replace('@REG@', reg) + "\n"
 
 do_generate_bootscript() {
     cat > ${B}/boot.cmd <<EOF
@@ -155,6 +205,7 @@ setenv updatehub_find_root_a "${UPDATEHUB_BOOTSCRIPT_FIND_ROOT_A}"
 setenv updatehub_load_os_b "${UPDATEHUB_BOOTSCRIPT_LOAD_B}"
 setenv updatehub_find_root_b "${UPDATEHUB_BOOTSCRIPT_FIND_ROOT_B}"
 
+${@updatehub_bootscript_firmware_fallback(d)}
 # Extra bootscript fragments run before selecting the installation set
 ${UPDATEHUB_BOOTSCRIPT_BEFORE_SELECT}
 
@@ -192,6 +243,7 @@ ${UPDATEHUB_BOOTSCRIPT_BOOTCMD}
 EOF
 }
 do_generate_bootscript[dirs] = "${B}"
+do_generate_bootscript[vardeps] += "UPDATEHUB_BOOTSCRIPT_FIRMWARE_FALLBACK_REG"
 
 addtask generate_bootscript after do_configure before do_mkimage
 
@@ -204,7 +256,7 @@ do_mkimage[vardeps] += " \
     UPDATEHUB_BOOTSCRIPT_LOAD_A UPDATEHUB_BOOTSCRIPT_LOAD_B \
     UPDATEHUB_BOOTSCRIPT_FIND_ROOT_A UPDATEHUB_BOOTSCRIPT_FIND_ROOT_B \
     UPDATEHUB_BOOTSCRIPT_BOOTARGS UPDATEHUB_BOOTSCRIPT_BOOTCMD \
-    UPDATEHUB_BOOTSCRIPT_BEFORE_SELECT \
+    UPDATEHUB_BOOTSCRIPT_BEFORE_SELECT UPDATEHUB_BOOTSCRIPT_FIRMWARE_FALLBACK_REG \
     UPDATEHUB_BOOTSCRIPT_BEFORE_BOOTCMD \
 "
 
