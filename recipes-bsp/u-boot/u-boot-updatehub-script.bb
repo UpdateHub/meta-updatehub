@@ -70,6 +70,15 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/GPL-2.0-or-lat
 #       root=PARTUUID=\${uuid} rw rootwait \${vidargs}
 #
 #
+# - UPDATEHUB_BOOTSCRIPT_BEFORE_SELECT (optional)
+#
+#   Allow inclusion of extra boot script fragment to be run before the script
+#   checks the boot count and selects the installation set to boot. A fragment
+#   that finds the firmware of the update does not boot can set 'bootcount'
+#   to 2 to make the script revert to the other installation set, as when the
+#   boot count limit is reached.
+#
+#
 # - UPDATEHUB_BOOTSCRIPT_BEFORE_BOOTCMD
 #
 #   Allow inclusion of extra boot script fragment to be run before running the
@@ -120,6 +129,7 @@ python() {
             raise bb.parse.SkipRecipe("%s variable must be set." % var)
 }
 
+UPDATEHUB_BOOTSCRIPT_BEFORE_SELECT ?= ""
 UPDATEHUB_BOOTSCRIPT_BEFORE_BOOTCMD ?= ""
 
 do_generate_bootscript() {
@@ -144,6 +154,9 @@ setenv updatehub_find_root_a "${UPDATEHUB_BOOTSCRIPT_FIND_ROOT_A}"
 
 setenv updatehub_load_os_b "${UPDATEHUB_BOOTSCRIPT_LOAD_B}"
 setenv updatehub_find_root_b "${UPDATEHUB_BOOTSCRIPT_FIND_ROOT_B}"
+
+# Extra bootscript fragments run before selecting the installation set
+${UPDATEHUB_BOOTSCRIPT_BEFORE_SELECT}
 
 # We control the bootcount limit here to allow this logic to be
 # changed inside the script, without storing more contents on
@@ -191,6 +204,7 @@ do_mkimage[vardeps] += " \
     UPDATEHUB_BOOTSCRIPT_LOAD_A UPDATEHUB_BOOTSCRIPT_LOAD_B \
     UPDATEHUB_BOOTSCRIPT_FIND_ROOT_A UPDATEHUB_BOOTSCRIPT_FIND_ROOT_B \
     UPDATEHUB_BOOTSCRIPT_BOOTARGS UPDATEHUB_BOOTSCRIPT_BOOTCMD \
+    UPDATEHUB_BOOTSCRIPT_BEFORE_SELECT \
     UPDATEHUB_BOOTSCRIPT_BEFORE_BOOTCMD \
 "
 
