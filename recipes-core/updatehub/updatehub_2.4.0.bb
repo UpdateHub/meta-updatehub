@@ -15,7 +15,7 @@ SRC_URI += " \
     file://updatehub.service \
 "
 
-SRCREV = "b60f4628aa098cd66a45601ade239ab1bedacb2e"
+SRCREV = "2e3b322f086c234966ecf44ab4198610eac9909f"
 CARGO_SRC_DIR = "updatehub"
 
 inherit systemd update-rc.d pkgconfig cargo cargo-update-recipe-crates
